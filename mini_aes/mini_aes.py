@@ -107,7 +107,9 @@ def decrypt_block(ks, ns):
     ns = key_addition(ws[0], ns)
     return ns
 
-encrypt_block([12, 3, 15, 0], [9, 12, 6, 3])
+key = [0x0C, 0x03, 0x0F, 0x00]
+
+encrypt_block(key, [0x09, 0x0C, 0x06, 0x03])
 print("---")
-decrypt_block([12, 3, 15, 0], [7, 2, 12, 6])
+decrypt_block(key, [0x07, 0x02, 0x0C, 0x06])
 
