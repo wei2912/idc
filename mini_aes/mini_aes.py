@@ -1,6 +1,6 @@
 # constants
 
-ROUNDS = 2
+ROUNDS = 5
 
 SBOX = [
     0x0E, 0x04, 0x0D, 0x01, 0x02, 0x0F, 0x0B, 0x08,
@@ -22,51 +22,46 @@ MULTI_3 = [
     0x0B, 0x08, 0x0D, 0x0E, 0x07, 0x04, 0x01, 0x02
 ]
 
-RCONS = [0x01, 0x02]
+RCONS = [0x01, 0x02, 0x04, 0x08, 0x03]
 
 # procedures
 
 def nibble_sub(ns):
-    result = [SBOX[i] for i in ns]
-    print("NibbleSub: {}".format(result))
-    return result
+    return [SBOX[n] for n in ns]
 
 def inv_nibble_sub(ns):
-    result = [INV_SBOX[i] for i in ns]
-    print("InvNibbleSub: {}".format(result))
-    return result
+    return [INV_SBOX[n] for n in ns]
 
 def shift_row(ns):
+    assert len(ns) == 4
     tmp = ns[1]
     ns[1] = ns[3]
     ns[3] = tmp
-    print("ShiftRow: {}".format(ns))
-    return ns
+    return ns 
 
 def mix_column(ns):
+    assert len(ns) == 4
     n0 = ns[0]
     n1 = ns[1]
     n2 = ns[2]
     n3 = ns[3]
-    result = [
+    return [
         MULTI_3[n0] ^ MULTI_2[n1],
         MULTI_2[n0] ^ MULTI_3[n1],
         MULTI_3[n2] ^ MULTI_2[n3],
         MULTI_2[n2] ^ MULTI_3[n3]
     ]
-    print("MixColumn: {}".format(result))
-    return result
 
 def key_addition(ws, ns):
-    result = [w ^ n for (w, n) in zip(ws, ns)]
-    print("Key Addition: {}".format(result))
-    return result
+    assert len(ws) == len(ns) == 4
+    return [w ^ n for (w, n) in zip(ws, ns)]
 
 # key schedule
 
-def key_schedule(ks):
+def key_schedule(k):
+    assert len(k) == 4
     ws = [[]] * (ROUNDS + 1)
-    ws[0] = ks
+    ws[0] = k
     for i in range(0, ROUNDS):
         w = [0] * 4
         w[0] = ws[i][0] ^ SBOX[ws[i][3]] ^ RCONS[i]
@@ -74,45 +69,45 @@ def key_schedule(ks):
         w[2] = ws[i][2] ^ w[1]
         w[3] = ws[i][3] ^ w[2]
         ws[i + 1] = w
-    print("Key Schedule: {}".format(ws))
     return ws
 
 # encryption & decryption
 
-def encrypt_block(ks, ns):
-    print("Key: {}".format(ks))
-    print("Plaintext Block: {}".format(ns))
-    ws = key_schedule(ks)
-    print("# Round 0")
-    ns = key_addition(ws[0], ns)
+def round(ws, ns, i):
+    if i == 0:
+        ns = key_addition(ws[0], ns)
+    ns = shift_row(nibble_sub(ns))
+    if i != ROUNDS - 1:
+        ns = mix_column(ns)
+    ns = key_addition(ws[i + 1], ns)
+    return ns
+
+def inv_round(ws, ns, i):
+    ns = key_addition(ws[i + 1], ns)
+    if i != ROUNDS - 1:
+        ns = mix_column(ns)
+    ns = inv_nibble_sub(shift_row(ns))
+    if i == 0:
+        ns = key_addition(ws[0], ns)
+    return ns
+
+def encrypt_block(k, p):
+    assert len(k) == len(p) == 4
+    ws = key_schedule(k)
+    assert len(ws) == ROUNDS + 1
+
+    ns = p
     for i in range(0, ROUNDS):
-        print("# Round {}".format(i + 1))
-        ns = shift_row(nibble_sub(ns))
-        if i != ROUNDS - 1:
-            ns = mix_column(ns)
-        ns = key_addition(ws[i + 1], ns)
+        ns = round(ws, ns, i)
     return ns
 
-def decrypt_block(ks, ns):
-    print("Key: {}".format(ks))
-    print("Ciphertext Block: {}".format(ns))
-    ws = key_schedule(ks)
+def decrypt_block(k, c):
+    assert len(k) == len(c) == 4
+    ws = key_schedule(k)
+    assert len(ws) == ROUNDS + 1
+
+    ns = c
     for i in range(ROUNDS - 1, -1, -1):
-        print("# Round {}".format(i + 1))
-        ns = key_addition(ws[i + 1], ns)
-        if i != ROUNDS - 1:
-            ns = mix_column(ns)
-        ns = inv_nibble_sub(shift_row(ns))
-    print("# Round 0")
-    ns = key_addition(ws[0], ns)
+        ns = inv_round(ws, ns, i)
     return ns
-
-def main():
-    key = [0x0C, 0x03, 0x0F, 0x00]
-    
-    encrypt_block(key, [0x09, 0x0C, 0x06, 0x03])
-    print("---")
-    decrypt_block(key, [0x07, 0x02, 0x0C, 0x06])
-
-main()
 
