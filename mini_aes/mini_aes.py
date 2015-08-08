@@ -224,6 +224,7 @@ def decrypt_block(k, c):
     """
     k -> Key
     c -> Ciphertext
+
     Decrypts the ciphertext encrypted with Mini-AES, given the key.
     """
     assert len(k) == len(c) == 4
