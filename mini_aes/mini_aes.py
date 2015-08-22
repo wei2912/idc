@@ -1,3 +1,7 @@
+"""
+Implementation of Mini AES.
+"""
+
 import pytest
 from pytest import list_of
 
