@@ -4,6 +4,8 @@ aes-idc
 This project studies impossible differential cryptanalysis on
 substitution-permutation networks, specifically on AES.
 
+The code is written in Python 3.
+
 ### Outline of plan
 
 1. Small scale attack - IDC on 5 round Mini-AES. *Bonus: 6 round Mini-AES*
