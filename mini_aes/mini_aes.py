@@ -102,10 +102,8 @@ def shift_row(ns):
     or, in the form of a list, `[0, 3, 2, 1]`.
     """
     assert len(ns) == 4
-    tmp = ns[1]
-    ns[1] = ns[3]
-    ns[3] = tmp
-    return ns
+    n0, n1, n2, n3 = ns
+    return [n0, n3, n2, n1]
 
 @pytest.mark.randomize(
     n0=int,
@@ -149,10 +147,7 @@ def mix_column(ns):
     Note that multiplication is done in the finite field GF(2^4).
     """
     assert len(ns) == 4
-    n0 = ns[0]
-    n1 = ns[1]
-    n2 = ns[2]
-    n3 = ns[3]
+    n0, n1, n2, n3 = ns
     return [
         MULTI_3[n0] ^ MULTI_2[n1],
         MULTI_2[n0] ^ MULTI_3[n1],
