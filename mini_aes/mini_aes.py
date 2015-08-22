@@ -1,3 +1,6 @@
+import pytest
+from pytest import list_of
+
 ROUNDS = 5
 
 SBOX = [
@@ -58,6 +61,18 @@ def inv_nibble_sub(ns):
     """
     return [INV_SBOX[n] for n in ns]
 
+@pytest.mark.randomize(
+    ns=list_of(int),
+    min_num=0,
+    max_num=15
+)
+def test_nibble_sub(ns):
+    """
+    Ensure that any list of nibbles, when passed through `nibble_sub` and
+    `inv_nibble_sub`, returns the original list.
+    """
+    assert ns == inv_nibble_sub(nibble_sub(ns))
+
 def shift_row(ns):
     """
     ns -> List of nibbles
@@ -87,6 +102,20 @@ def shift_row(ns):
     ns[1] = ns[3]
     ns[3] = tmp
     return ns
+
+@pytest.mark.randomize(
+    n0=int,
+    n1=int,
+    n2=int,
+    n3=int,
+    min_num=0,
+    max_num=15
+)
+def test_shift_row(n0, n1, n2, n3):
+    """
+    Ensure that `shift_row` interchanges the second and fourth nibble.
+    """
+    assert shift_row([n0, n1, n2, n3]) == [n0, n3, n2, n1]
 
 def mix_column(ns):
     """
@@ -126,6 +155,14 @@ def mix_column(ns):
         MULTI_3[n2] ^ MULTI_2[n3],
         MULTI_2[n2] ^ MULTI_3[n3]
     ]
+
+@pytest.mark.randomize(
+    ns=[int, int, int, int],
+    min_num=0,
+    max_num=15
+)
+def test_mix_column(ns):
+    assert ns == mix_column(mix_column(ns))
 
 def key_addition(ws, ns):
     """
@@ -235,6 +272,15 @@ def decrypt_block(k, c):
     for i in range(ROUNDS - 1, -1, -1):
         ns = inv_roundf(wss[i], ns, i)
     return ns
+
+@pytest.mark.randomize(
+    k=[int, int, int, int],
+    p=[int, int, int, int],
+    min_num=0,
+    max_num=15
+)
+def test_encrypt_decrypt(k, p):
+    assert p == decrypt_block(k, encrypt_block(k, p))
 
 # main function
 
