@@ -1,4 +1,4 @@
-aes-idc [Build Status](https://travis-ci.org/wei2912/aes-idc.svg?branch=master)](https://travis-ci.org/wei2912/aes-idc)
+aes-idc [![Build Status](https://travis-ci.org/wei2912/aes-idc.svg?branch=master)](https://travis-ci.org/wei2912/aes-idc)
 ===
 
 This project studies impossible differential cryptanalysis on
