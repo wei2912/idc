@@ -2,9 +2,6 @@
 Implementation of SomeCipher. The spec is listed in the report.
 """
 
-import pytest
-from pytest import list_of
-
 ROUNDS = 8
 
 SBOX = [
@@ -64,18 +61,6 @@ def inv_nibble_sub(ns):
     `nibble_sub()` for more details.
     """
     return [INV_SBOX[n] for n in ns]
-
-@pytest.mark.randomize(
-    ns=list_of(int),
-    min_num=0,
-    max_num=15
-)
-def test_nibble_sub(ns):
-    """
-    Ensure that any list of nibbles, when passed through `nibble_sub` and
-    `inv_nibble_sub`, returns the original list.
-    """
-    assert ns == inv_nibble_sub(nibble_sub(ns))
 
 def shift_row(ns):
     """
