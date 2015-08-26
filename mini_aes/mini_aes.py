@@ -32,24 +32,7 @@ def nibble_sub(ns):
     """
     ns -> List of nibbles
 
-    Passes each nibble through a S-Box. The mapping is as follows (in binary):
-
-    0000 -> 1110
-    0001 -> 0100
-    0010 -> 1101
-    0011 -> 0001
-    0100 -> 0010
-    0101 -> 1111
-    0110 -> 1011
-    0111 -> 1000
-    1000 -> 0011
-    1001 -> 1010
-    1010 -> 0110
-    1011 -> 1100
-    1100 -> 0101
-    1101 -> 1001
-    1110 -> 0000
-    1111 -> 0111
+    Passes each nibble through a S-Box. The mapping is specified in `SBOX`.
     """
     return [SBOX[n] for n in ns]
 
@@ -57,8 +40,8 @@ def inv_nibble_sub(ns):
     """
     ns -> List of nibbles
 
-    Retrieves the preimage of the mapping of each nibble. Refer to
-    `nibble_sub()` for more details.
+    Retrieves the preimage of the mapping of each nibble. The mapping is
+    specified in `INV_SBOX`.
     """
     return [INV_SBOX[n] for n in ns]
 
