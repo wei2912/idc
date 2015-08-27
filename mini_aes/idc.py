@@ -11,7 +11,7 @@ def gen_plaintexts():
     n2 = random.randint(0, 15)
     return [
         [n0, n1, n2, n3]
-        for n0 in range(0, 8)
+        for n0 in range(0, 16)
         for n3 in range(0, 8)
     ]
 
@@ -51,6 +51,7 @@ def filter_plaintexts(f, ps):
     Filter out pairs of plaintexts which corresponding ciphertexts:
     1. are different in the first and fourth nibble
     2. are equal in the second and third nibble
+    or the opposite.
     """
     ls = []
     for p0, p1 in ps:
@@ -69,7 +70,7 @@ def guess_key(f, ps):
 
     Create a list of guesses for the first and fourth nibble of the key.
     """
-    def is_guess_correct(w0, w3):
+    def is_guess_wrong(w0, w3):
         for p0, p1 in ps:
             ws = [w0, 0, 0, w3]
             x0 = f(ws, p0)
@@ -79,14 +80,14 @@ def guess_key(f, ps):
                 ds == [False, True, True, True] or
                 ds == [True, False, True, True]
             ):
-                return False
-        return True
+                return True
+        return False
 
     return [
         (w0, w3)
         for w0 in range(16)
         for w3 in range(16)
-        if is_guess_correct(w0, w3)
+        if not is_guess_wrong(w0, w3)
     ]
 
 # main function
@@ -95,15 +96,20 @@ def main():
     k = [random.randint(0, 15) for _ in range(4)]
     print("Key: {}".format(k))
 
-    ps = filter_plaintexts(
-        lambda p: mini_aes.encrypt_block(k, p),
-        gen_pairs(gen_plaintexts())
-    )
+    ps = gen_pairs(gen_plaintexts())
     print("Number of plaintext pairs: {}".format(len(ps)))
+
+    ps = filter_plaintexts(lambda p: mini_aes.encrypt_block(k, p), ps)
+    print("Number of plaintext pairs after filtering by ciphertexts: {}".format(len(ps)))
 
     ws = guess_key(lambda ws, p: mini_aes.roundf(ws, p, 0), ps)
     print("Guesses for 1st and 4th nibble: {}".format(ws))
     print("Number of guesses remaining: {}".format(len(ws)))
+
+    if (k[0], k[3]) in ws:
+        print("Actual key is in the list of guesses.")
+    else:
+        print("ERROR: Actual key is not in the list of guesses.")
 
 main()
 
