@@ -1,3 +1,7 @@
+"""
+Implementation of Impossible Differential Cryptanalysis on Mini AES.
+"""
+
 import random
 
 import mini_aes
