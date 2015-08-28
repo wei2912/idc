@@ -30,7 +30,7 @@ def test_shift_row(n0, n1, n2, n3):
     assert mini_aes.shift_row([n0, n1, n2, n3]) == [n0, n3, n2, n1]
 
 @pytest.mark.randomize(
-    ns=[int, int, int, int],
+    ns=list_of(int, items=4),
     min_num=0,
     max_num=15
 )
@@ -39,8 +39,8 @@ def test_mix_column(ns):
     assert ns == mini_aes.mix_column(mini_aes.mix_column(ns))
 
 @pytest.mark.randomize(
-    k=[int, int, int, int],
-    p=[int, int, int, int],
+    k=list_of(int, items=4),
+    p=list_of(int, items=4),
     min_num=0,
     max_num=15
 )

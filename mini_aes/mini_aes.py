@@ -26,6 +26,12 @@ MULTI_3 = [
 
 RCONS = [0x1, 0x2, 0x4, 0x8, 0x3]
 
+# utility functions
+
+def chunks(xs, n):
+    for i in range(0, len(xs), n):
+        yield xs[i:i+n]
+
 # procedures
 
 def nibble_sub(ns):
@@ -68,13 +74,19 @@ def mix_column(ns):
 
         2  3
     """
+    def multiply_matrix(ms):
+        assert len(ms) == 2
+        m0, m1 = ms
+        return [
+            MULTI_3[m0] ^ MULTI_2[m1],
+            MULTI_2[m0] ^ MULTI_3[m1]
+        ]
+
     assert len(ns) == 4
-    n0, n1, n2, n3 = ns
     return [
-        MULTI_3[n0] ^ MULTI_2[n1],
-        MULTI_2[n0] ^ MULTI_3[n1],
-        MULTI_3[n2] ^ MULTI_2[n3],
-        MULTI_2[n2] ^ MULTI_3[n3]
+        n
+        for ms in chunks(ns, 2)
+        for n in multiply_matrix(ms)
     ]
 
 def key_addition(ws, ns):
@@ -199,6 +211,11 @@ def main():
     print("Ciphertext: {}".format(c))
     d = decrypt_block(k, c)
     print("Decrypted ciphertext: {}".format(d))
+
+    if p == d:
+        print("Decrypted ciphertext is the plaintext.")
+    else:
+        print("ERROR: Decrypted ciphertext does not match the plaintext.")
 
 if __name__ == "__main__":
     main()
