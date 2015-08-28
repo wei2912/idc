@@ -1,9 +1,6 @@
 """
-Implementation of SomeCipher. The spec is listed in the report.
+Implementation of SomeCipher.
 """
-
-import pytest
-from pytest import list_of
 
 ROUNDS = 8
 
@@ -35,24 +32,8 @@ def nibble_sub(ns):
     """
     ns -> List of nibbles
 
-    Passes each nibble through a S-Box. The mapping is as follows (in binary):
-
-    0000 -> 1110
-    0001 -> 0100
-    0010 -> 1101
-    0011 -> 0001
-    0100 -> 0010
-    0101 -> 1111
-    0110 -> 1011
-    0111 -> 1000
-    1000 -> 0011
-    1001 -> 1010
-    1010 -> 0110
-    1011 -> 1100
-    1100 -> 0101
-    1101 -> 1001
-    1110 -> 0000
-    1111 -> 0111
+    Passes each nibble through a S-Box. Refer to `SBOX` for the mapping of the
+    nibbles.
     """
     return [SBOX[n] for n in ns]
 
@@ -60,22 +41,10 @@ def inv_nibble_sub(ns):
     """
     ns -> List of nibbles
 
-    Retrieves the preimage of the mapping of each nibble. Refer to
-    `nibble_sub()` for more details.
+    Retrieves the preimage of the mapping of each nibble. Refer to `INV_SBOX`
+    for the inverse mapping of the nibbles
     """
     return [INV_SBOX[n] for n in ns]
-
-@pytest.mark.randomize(
-    ns=list_of(int),
-    min_num=0,
-    max_num=15
-)
-def test_nibble_sub(ns):
-    """
-    Ensure that any list of nibbles, when passed through `nibble_sub` and
-    `inv_nibble_sub`, returns the original list.
-    """
-    assert ns == inv_nibble_sub(nibble_sub(ns))
 
 def shift_row(ns):
     """
@@ -83,34 +52,17 @@ def shift_row(ns):
 
     Shift each row of the matrix of nibbles to the left by different amounts.
 
-    For example, given the list of nibbles, `[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    11, 12]`, they will be arranged in a matrix layout,
-
-        0  4  8
-
-        1  5  9
-
-        2  6  10
-
-        3  7  11
-
-    from top to down, left to right.
-
-    The first and second row is unchanged while the third and fourth row are
-    rotated by 1 and 2 elements to the right respectively. This gives the
-    resulting matrix:
-
-        0  4  8
-
-        1  5  9
-
-        10 2  6
-
-        7  11 3
-
-    or, in the form of a list, `[0, 1, 10, 7, 4, 5, 2, 11, 8, 9, 6, 3]`.
+    The first and second row is unchanged, while the third and fourth row are
+    rotated by 1 and 2 elements to the right respectively.
     """
     assert len(ns) == 12
     n0, n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11 = ns
     return [n0, n1, n10, n7, n4, n5, n2, n11, n8, n9, n6, n3]
+
+def mix_column(ns):
+    """
+    ns -> List of nibbles
+
+    Multiplies the matrix of nibbles by a constant matrix.
+    """
 
