@@ -40,7 +40,7 @@ def inv_nibble_sub(ns):
     """
     ns -> List of nibbles
 
-    Retrieves the preimage of the mapping of each nibble. The mapping is
+    Retrieves the preimage of the mapping of each nibble. The inverse mapping is
     specified in `INV_SBOX`.
     """
     return [INV_SBOX[n] for n in ns]
@@ -51,23 +51,8 @@ def shift_row(ns):
 
     Shift each row of the matrix of nibbles to the left by different amounts.
 
-    For example, given the list of nibbles, `[0, 1, 2, 3]`, they will be
-    arranged in a matrix layout,
-
-        0  2
-
-        1  3
-
-    from top to down, left to right.
-
-    The first row is unchanged while the second row is rotated left by one
-    nibble. This gives the resulting matrix:
-
-        0  2
-
-        3  1
-
-    or, in the form of a list, `[0, 3, 2, 1]`.
+    The first row is unchanged while the second row is shifted by 1 element to
+    the right.
     """
     assert len(ns) == 4
     n0, n1, n2, n3 = ns
@@ -77,28 +62,11 @@ def mix_column(ns):
     """
     ns -> List of nibbles
 
-    Multiplies the matrix of nibbles by a constant matrix.
-
-    For example, given the list of nibbles, `[0, 1, 2, 3]`, and arranging them
-    in a matrix format:
-
-        0  2
-
-        1  3
-
-    the matrix of nibbles will be multiplied by this constant matrix:
+    Multiplies the matrix of nibbles by a constant matrix,
 
         3  2
 
         2  3
-
-    to form:
-
-        2  0
-
-        3  1
-
-    Note that multiplication is done in the finite field GF(2^4).
     """
     assert len(ns) == 4
     n0, n1, n2, n3 = ns
@@ -190,7 +158,7 @@ def encrypt_block(k, p):
     k -> Key
     p -> Plaintext
 
-    Encrypts the plaintext with Mini-AES, given the key.
+    Encrypts the plaintext block with Mini-AES, given the key.
     """
     assert len(k) == len(p) == 4
     wss = key_schedule(k)
@@ -207,7 +175,7 @@ def decrypt_block(k, c):
     k -> Key
     c -> Ciphertext
 
-    Decrypts the ciphertext encrypted with Mini-AES, given the key.
+    Decrypts the ciphertext block encrypted with Mini-AES, given the key.
     """
     assert len(k) == len(c) == 4
     wss = key_schedule(k)
