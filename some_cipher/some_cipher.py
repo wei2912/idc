@@ -282,5 +282,6 @@ def main():
     else:
         print("ERROR: Decrypted ciphertext does not match the plaintext.")
 
-main()
+if __name__ == "__main__":
+    main()
 
