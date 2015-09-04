@@ -169,7 +169,7 @@ def main():
             y = convert_states(ns)
             g.add_edge(x, y, weight=p)
 
-    nx.write_gpickle(g, "ids.graph")
+    nx.write_gpickle(g, "ids.gpickle")
 
 if __name__ == "__main__":
     main()
