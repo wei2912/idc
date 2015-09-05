@@ -1,11 +1,11 @@
 """
-Test suite for the `generate_ids` module.
+Test suite for the `transverse_states` module.
 """
 
 import pytest
 from pytest import list_of
 
-import generate_ids
+import traverse_states
 
 @pytest.mark.randomize(
     x=int,
@@ -14,8 +14,8 @@ import generate_ids
 )
 def test_convert(x):
     # Ensure that list of states has 12 elements.
-    ns = generate_ids.convert_int(x)
+    ns = traverse_states.convert_int(x)
     assert len(ns) == 12
     # Ensure that `convert_int` is inverse of `convert_states`.
-    assert x == generate_ids.convert_states(ns)
+    assert x == traverse_states.convert_states(ns)
 
