@@ -173,13 +173,15 @@ def find_ids(g):
 
     Find all paths that are impossible differentials.
     """
+    cycles = set(nx.find_cycle(g))
+
     ps = [[x] for x in range(4096)]
     while len(ps) > 0:
         n_ps = []
         for p in ps:
             v0 = p[-1]
             for v1 in g[v0]:
-                if v0 == v1: # skip cycles
+                if (v0, v1) in cycles:
                     continue
 
                 if g[v0][v1]['weight'] == 0:
