@@ -167,29 +167,31 @@ def generate_graph():
             g.add_edge(x, y, weight=p)
     return g
 
-def find_ids(g):
+def find_ids(g, cutoff=0):
     """
     g -> Graph of states of nibbles
+    cutoff -> Cutoff point of weight accumulated.
 
     Find all paths that are impossible differentials.
     """
     cycles = set(nx.find_cycle(g))
 
-    ps = [[x] for x in range(4096)]
+    ps = [([x], 0) for x in range(4096)]
     while len(ps) > 0:
         n_ps = []
-        for p in ps:
+        for p, weight in ps:
             v0 = p[-1]
+            if v0 == 4095:
+                yield (p, weight)
+                continue
+
             for v1 in g[v0]:
                 if (v0, v1) in cycles:
                     continue
 
-                if g[v0][v1]['weight'] == 0:
-                    p.append(v1)
-                    if v1 == 4095:
-                        yield p
-                    else:
-                        n_ps.append(p)
+                v1_weight = g[v0][v1]['weight']
+                if weight + v1_weight <= cutoff:
+                    n_ps.append((p + [v1], weight + v1_weight))
         ps = n_ps
 
 def main():
@@ -199,9 +201,13 @@ def main():
         g = generate_graph()
         nx.write_gpickle(g, "ids.gpickle")
 
-    for p in find_ids(g):
+    cutoff_prob = float(input())
+    cutoff_weight = -math.log(cutoff_prob)
+    for p, weight in find_ids(g, cutoff=cutoff_weight):
         for x in p:
             print(convert_int(x))
+        print("Weight: {}".format(weight))
+        print("Probability: {}".format(math.exp(-weight)))
         print("---")
 
 if __name__ == "__main__":
