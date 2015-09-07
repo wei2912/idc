@@ -1,5 +1,13 @@
 """
 Generate a directed graph of changes in states of nibbles in SomeCipher.
+
+To prevent float underflow, the probabilities are expressed in a logarithmic
+form, using this formula:
+
+    -log(p)
+
+This ensures that the weights are positive and additive. Hence,the higher the
+weight, the lower the probability.
 """
 
 import math
@@ -57,6 +65,17 @@ def shift_row(ns):
     n0, n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11 = ns
     return [n0, n1, n10, n7, n4, n5, n2, n11, n8, n9, n6, n3]
 
+def inv_shift_row(ns):
+    """
+    ns -> States of nibbles
+
+    Predict the states of nibbles after passing through InvShiftRow in
+    SomeCipher.
+    """
+    assert len(ns) == 12
+    n0, n1, n10, n7, n4, n5, n2, n11, n8, n9, n6, n3 = ns
+    return [n0, n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11]
+
 def mix_column(ns):
     """
     ns -> States of nibbles
@@ -64,13 +83,7 @@ def mix_column(ns):
     Predict the states of nibbles after passing through MixColumn in SomeCipher.
 
     Note that since multiple states may occur with different probabilities, a
-    list of possible states along with their approximate probabilities is
-    returned.
-
-    To prevent float underflow, the probabilities are expressed in a
-    logarithmic form.
-    The weights are recorded as positive instead of negative. This means that
-    the higher the weight, the lower the probability.
+    list of possible states along with their weights is returned.
     """
     def multiply_matrix(ms):
         assert len(ms) == 4
@@ -152,11 +165,19 @@ def roundf(ns):
 
     Predict the states of nibbles after passing through a round of SomeCipher.
 
-    Each state will have a weight attached to it. The higher the weight, the
-    lower the probability.
+    Note that since multiple states may occur with different probabilities, a
+    list of possible states along with their weights is returned.
     """
-    ns = shift_row(ns)
-    return mix_column(ns)
+    return mix_column(shift_row(ns))
+
+def inv_roundf(ns):
+    """
+    ns -> States of nibbles
+
+    Predict the states of nibbles after passing through an inverse round of
+    SomeCipher. Refer to `roundf()` for more details.
+    """
+    return mix_column(inv_shift_row(ns))
 
 def generate_graph():
     g = nx.DiGraph()
@@ -167,48 +188,9 @@ def generate_graph():
             g.add_edge(x, y, weight=p)
     return g
 
-def find_ids(g, cutoff=0):
-    """
-    g -> Graph of states of nibbles
-    cutoff -> Cutoff point of weight accumulated.
-
-    Find all paths that are impossible differentials.
-    """
-    cycles = set(nx.find_cycle(g))
-
-    ps = [([x], 0) for x in range(4096)]
-    while len(ps) > 0:
-        n_ps = []
-        for p, weight in ps:
-            v0 = p[-1]
-            if v0 == 4095:
-                yield (p, weight)
-                continue
-
-            for v1 in g[v0]:
-                if (v0, v1) in cycles:
-                    continue
-
-                v1_weight = g[v0][v1]['weight']
-                if weight + v1_weight <= cutoff:
-                    n_ps.append((p + [v1], weight + v1_weight))
-        ps = n_ps
-
 def main():
-    try:
-        g = nx.read_gpickle("ids.gpickle")
-    except FileNotFoundError:
-        g = generate_graph()
-        nx.write_gpickle(g, "ids.gpickle")
-
-    cutoff_prob = float(input())
-    cutoff_weight = -math.log(cutoff_prob)
-    for p, weight in find_ids(g, cutoff=cutoff_weight):
-        for x in p:
-            print(convert_int(x))
-        print("Weight: {}".format(weight))
-        print("Probability: {}".format(math.exp(-weight)))
-        print("---")
+    g = generate_graph()
+    nx.write_gpickle(g, "forward.gpickle")
 
 if __name__ == "__main__":
     main()

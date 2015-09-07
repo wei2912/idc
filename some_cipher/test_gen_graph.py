@@ -1,11 +1,11 @@
 """
-Test suite for the `transverse_states` module.
+Test suite for the `gen_graph` module.
 """
 
 import pytest
 from pytest import list_of
 
-import traverse_states
+import gen_graph
 
 @pytest.mark.randomize(
     x=int,
@@ -14,8 +14,8 @@ import traverse_states
 )
 def test_convert(x):
     # Ensure that list of states has 12 elements.
-    ns = traverse_states.convert_int(x)
+    ns = gen_graph.convert_int(x)
     assert len(ns) == 12
     # Ensure that `convert_int` is inverse of `convert_states`.
-    assert x == traverse_states.convert_states(ns)
+    assert x == gen_graph.convert_states(ns)
 
