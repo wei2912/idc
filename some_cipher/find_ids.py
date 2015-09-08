@@ -13,75 +13,61 @@ def find_diff(g, start):
     """
     g -> Graph of states of nibbles
     start -> Starting configuration
+    truncate -> Boolean indicating whether to truncate the final round or not.
 
-    Return a dictionary of all possible end states with a list of probabilities.
-    Multiple end states (with the same number of active nibbles in each column)
-    are combined together and their probabilities added together.
+    Find all possible differentials given a start configuration. The function
+    returns a tuple containing:
+    1. the number of rounds
+    2. a list of all possible end states (truncating the final round)
+    3. a list of all possible end states (including the final round)
     """
-    def count_active(v):
-        """
-        Count the number of active nibbles in each column and return a tuple.
-        """
-        ns = gen_graph.convert_int(v)
-        nss = list(gen_graph.chunks(ns, 4))
-        return (sum(nss[0]), sum(nss[1]), sum(nss[2]))
-
     cycles = set(nx.find_cycle(g))
 
-    ps = [([start], 0)]
+    ps = [[start]]
     rounds = 0
     isEnd = False
     while len(ps) > 0 and not isEnd:
         n_ps = []
-        for p, weight in ps:
+        for p in ps:
             v0 = p[-1]
             for v1 in g[v0]:
                 if (v0, v1) in cycles or v1 == 4095:
                     isEnd = True
-
-                v1_weight = g[v0][v1]["weight"]
-                n_ps.append((p + [v1], weight + v1_weight))
-        rounds += 1
+                n_ps.append(p + [v1])
         ps = n_ps
+        rounds += 1
 
-    end_states = {}
-    for p, w0 in ps:
-        end_state = count_active(p[-1])
-        if end_state in end_states:
-            w1 = end_states[end_state]
-            end_states[end_state] = -math.log(math.exp(-w0) + math.exp(-w1))
-        else:
-            end_states[end_state] = w0
-    return (rounds, end_states)
+    second_last_states = set()
+    last_states = set()
+    for p in ps:
+        second_last_states.add(p[-2])
+        last_states.add(p[-1])
+    return (rounds, second_last_states, last_states)
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '-d',
-        '--direction',
-        choices=['forward', 'backward'],
-        required=True,
-        help='direction of differentials'
-    )
-    args = parser.parse_args()
+    forward_g = nx.read_gpickle("forward.gpickle")
+    backward_g = nx.read_gpickle("backward.gpickle")
 
-    if args.direction == "forward":
-        g = nx.read_gpickle("forward.gpickle")
-    else:
-        g = nx.read_gpickle("backward.gpickle")
-
+    forward_diffs = []
+    backward_diffs = []
     for start in range(4096):
-        print("Start: {}".format(gen_graph.convert_int(start)))
-        rounds, end_states = find_diff(g, start)
-        print("No. of rounds: {}".format(rounds))
-        ls = list(end_states.items())
-        ls.sort(key=lambda t: t[1])
-        for end_state, weight in ls:
-            print("{} ({})".format(
-                end_state,
-                math.exp(-weight)
-            ))
-        print("---")
+        forward_diffs.append(find_diff(forward_g, start))
+        backward_diffs.append(find_diff(backward_g, start))
+
+    # the forward differential progresses all the way
+    # while the backward differential has a truncated final round
+    for i in range(4096):
+        forward_rounds, _, xs = forward_diffs[i]
+        for j in range(4096):
+            backward_rounds, ys, _ = backward_diffs[j]
+            if not (forward_rounds == backward_rounds == 2):
+                continue
+
+            if xs.intersection(ys) == set():
+                print("No. of rounds: 3")
+                print("Start: {}".format(gen_graph.convert_int(i)))
+                print("End: {}".format(gen_graph.convert_int(j)))
+                print("---")
 
 if __name__ == "__main__":
     main()
