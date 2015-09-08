@@ -2,13 +2,14 @@
 Derive a list of impossible differentials.
 """
 
+import argparse
 import math
 
 import networkx as nx
 
 import gen_graph
 
-def find_forward_diff(g, start):
+def find_diff(g, start):
     """
     g -> Graph of states of nibbles
     start -> Starting configuration
@@ -25,26 +26,23 @@ def find_forward_diff(g, start):
         nss = list(gen_graph.chunks(ns, 4))
         return (sum(nss[0]), sum(nss[1]), sum(nss[2]))
 
-    def get_paths():
-        cycles = set(nx.find_cycle(g))
+    cycles = set(nx.find_cycle(g))
 
-        ps = [([start], 0)]
-        rounds = 0
-        isEnd = False
-        while len(ps) > 0 and not isEnd:
-            n_ps = []
-            for p, weight in ps:
-                v0 = p[-1]
-                for v1 in g[v0]:
-                    if (v0, v1) in cycles or v1 == 4095:
-                        isEnd = True
+    ps = [([start], 0)]
+    rounds = 0
+    isEnd = False
+    while len(ps) > 0 and not isEnd:
+        n_ps = []
+        for p, weight in ps:
+            v0 = p[-1]
+            for v1 in g[v0]:
+                if (v0, v1) in cycles or v1 == 4095:
+                    isEnd = True
 
-                    v1_weight = g[v0][v1]["weight"]
-                    n_ps.append((p + [v1], weight + v1_weight))
-            rounds += 1
-            ps = n_ps
-
-        return (rounds, ps)
+                v1_weight = g[v0][v1]["weight"]
+                n_ps.append((p + [v1], weight + v1_weight))
+        rounds += 1
+        ps = n_ps
 
     end_states = {}
     for p, w0 in ps:
@@ -57,11 +55,24 @@ def find_forward_diff(g, start):
     return (rounds, end_states)
 
 def main():
-    g = nx.read_gpickle("forward.gpickle")
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '-d',
+        '--direction',
+        choices=['forward', 'backward'],
+        required=True,
+        help='direction of differentials'
+    )
+    args = parser.parse_args()
+
+    if args.direction == "forward":
+        g = nx.read_gpickle("forward.gpickle")
+    else:
+        g = nx.read_gpickle("backward.gpickle")
 
     for start in range(4096):
         print("Start: {}".format(gen_graph.convert_int(start)))
-        rounds, end_states = find_forward_diff(g, start)
+        rounds, end_states = find_diff(g, start)
         print("No. of rounds: {}".format(rounds))
         ls = list(end_states.items())
         ls.sort(key=lambda t: t[1])
