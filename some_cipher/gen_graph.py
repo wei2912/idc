@@ -179,18 +179,23 @@ def inv_roundf(ns):
     """
     return mix_column(inv_shift_row(ns))
 
-def generate_graph():
-    g = nx.DiGraph()
-    g.add_nodes_from(range(4096))
+def main():
+    forward_g = nx.DiGraph()
+    forward_g.add_nodes_from(range(4096))
+    backward_g = nx.DiGraph()
+    backward_g.add_nodes_from(range(4096))
+
     for x in range(4096):
         for ns, p in roundf(list(convert_int(x))):
             y = convert_states(ns)
-            g.add_edge(x, y, weight=p)
-    return g
+            forward_g.add_edge(x, y, weight=p)
 
-def main():
-    g = generate_graph()
-    nx.write_gpickle(g, "forward.gpickle")
+        for ns, p in inv_roundf(list(convert_int(x))):
+            y = convert_states(ns)
+            backward_g.add_edge(x, y, weight=p)
+
+    nx.write_gpickle(forward_g, "forward.gpickle")
+    nx.write_gpickle(backward_g, "backward.gpickle")
 
 if __name__ == "__main__":
     main()
