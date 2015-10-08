@@ -1,0 +1,202 @@
+"""
+Generate a directed graph of changes in states of nibbles in SomeCipher.
+
+To prevent float underflow, the probabilities are expressed in a logarithmic
+form, using this formula:
+
+    -log(p)
+
+This ensures that the weights are positive and additive. Hence,the higher the
+weight, the lower the probability.
+"""
+
+import math
+
+import networkx as nx
+
+# utility functions
+
+def chunks(xs, n):
+    """
+    xs -> List of elements.
+    n -> Length of chunk.
+
+    Divide a list of elements into chunks of length `n`.
+    """
+    for i in range(0, len(xs), n):
+        yield xs[i:i+n]
+
+def convert_states(ns):
+    """
+    ns -> States of nibbles
+
+    Convert the states of nibbles to an integer.
+    """
+    x = 0
+    for n in ns:
+        x = (x << 1) | n
+    return x
+
+def convert_int(x):
+    """
+    x -> Integer representing state.
+
+    Convert the integer into states of nibbles.
+    """
+    assert 0 <= x <= 4096
+    ns = []
+    while x != 0:
+        if x % 2 == 0:
+            ns.append(0)
+        else:
+            ns.append(1)
+        x //= 2
+    return [0] * (12 - len(ns)) + list(reversed(ns))
+
+# procedures
+
+def shift_row(ns):
+    """
+    ns -> States of nibbles
+
+    Predict the states of nibbles after passing through ShiftRow in SomeCipher.
+    """
+    assert len(ns) == 12
+    n0, n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11 = ns
+    return [n0, n1, n10, n7, n4, n5, n2, n11, n8, n9, n6, n3]
+
+def inv_shift_row(ns):
+    """
+    ns -> States of nibbles
+
+    Predict the states of nibbles after passing through InvShiftRow in
+    SomeCipher.
+    """
+    assert len(ns) == 12
+    n0, n1, n10, n7, n4, n5, n2, n11, n8, n9, n6, n3 = ns
+    return [n0, n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11]
+
+def mix_column(ns):
+    """
+    ns -> States of nibbles
+
+    Predict the states of nibbles after passing through MixColumn in SomeCipher.
+
+    Note that since multiple states may occur with different probabilities, a
+    list of possible states along with their weights is returned.
+    """
+    def multiply_matrix(ms):
+        assert len(ms) == 4
+
+        count = 0
+        for m in ms:
+            if m == 1:
+                count += 1
+
+        if count == 0:
+            return [([0, 0, 0, 0], 0)]
+        elif count == 1:
+            return [([1, 1, 1, 1], 0)]
+        elif count == 2:
+            return [
+                ([0, 1, 1, 1], 4 * math.log(2)),
+                ([1, 0, 1, 1], 4 * math.log(2)),
+                ([1, 1, 0, 1], 4 * math.log(2)),
+                ([1, 1, 1, 0], 4 * math.log(2)),
+
+                ([1, 1, 1, 1], math.log(4) - math.log(3))
+            ]
+        elif count == 3:
+            return [
+                ([0, 0, 1, 1], 8 * math.log(2)),
+                ([0, 1, 0, 1], 8 * math.log(2)),
+                ([0, 1, 1, 0], 8 * math.log(2)),
+                ([1, 0, 0, 1], 8 * math.log(2)),
+                ([1, 0, 1, 0], 8 * math.log(2)),
+                ([1, 1, 0, 0], 8 * math.log(2)),
+
+                ([0, 1, 1, 1], 4 * math.log(2)),
+                ([1, 0, 1, 1], 4 * math.log(2)),
+                ([1, 1, 0, 1], 4 * math.log(2)),
+                ([1, 1, 1, 0], 4 * math.log(2)),
+
+                ([1, 1, 1, 1], math.log(128) - math.log(93))
+            ]
+        elif count == 4:
+            return [
+                ([0, 0, 0, 1], 12 * math.log(2)),
+                ([0, 0, 1, 0], 12 * math.log(2)),
+                ([0, 1, 0, 0], 12 * math.log(2)),
+                ([1, 0, 0, 0], 12 * math.log(2)),
+
+                ([0, 0, 1, 1], 8 * math.log(2)),
+                ([0, 1, 0, 1], 8 * math.log(2)),
+                ([0, 1, 1, 0], 8 * math.log(2)),
+                ([1, 0, 0, 1], 8 * math.log(2)),
+                ([1, 0, 1, 0], 8 * math.log(2)),
+                ([1, 1, 0, 0], 8 * math.log(2)),
+
+                ([0, 1, 1, 1], 4 * math.log(2)),
+                ([1, 0, 1, 1], 4 * math.log(2)),
+                ([1, 1, 0, 1], 4 * math.log(2)),
+                ([1, 1, 1, 0], 4 * math.log(2)),
+
+                ([1, 1, 1, 1], math.log(1024) - math.log(743))
+            ]
+
+    def join(states):
+        s0, s1, s2 = states
+        return [
+            (x + y + z, px + py + pz)
+            for x, px in s0
+            for y, py in s1
+            for z, pz in s2
+        ]
+
+    assert len(ns) == 12
+    return join([
+        multiply_matrix(ms)
+        for ms in chunks(ns, 4)
+    ])
+
+def roundf(ns):
+    """
+    ns -> States of nibbles
+
+    Predict the states of nibbles after passing through a round of SomeCipher.
+
+    Note that since multiple states may occur with different probabilities, a
+    list of possible states along with their weights is returned.
+    """
+    return mix_column(shift_row(ns))
+
+def inv_roundf(ns):
+    """
+    ns -> States of nibbles
+
+    Predict the states of nibbles after passing through an inverse round of
+    SomeCipher. Refer to `roundf()` for more details.
+    """
+    return [(inv_shift_row(ms), weight) for ms, weight in mix_column(ns)]
+
+def main():
+    forward_g = nx.DiGraph()
+    forward_g.add_nodes_from(range(4096))
+    backward_g = nx.DiGraph()
+    backward_g.add_nodes_from(range(4096))
+
+    for x in range(4096):
+        for ns, p in roundf(list(convert_int(x))):
+            y = convert_states(ns)
+            forward_g.add_edge(x, y, weight=p)
+
+        for ns, p in inv_roundf(list(convert_int(x))):
+            y = convert_states(ns)
+            backward_g.add_edge(x, y, weight=p)
+
+    nx.write_gpickle(forward_g, "forward.gpickle")
+    nx.write_gpickle(backward_g, "backward.gpickle")
+
+if __name__ == "__main__":
+    main()
+
