@@ -4,6 +4,7 @@ Derive a list of impossible differentials.
 
 import argparse
 import math
+import pickle
 
 import networkx as nx
 
@@ -13,13 +14,12 @@ def find_diff(g, start):
     """
     g -> Graph of states of nibbles
     start -> Starting configuration
-    truncate -> Boolean indicating whether to truncate the final round or not.
 
     Find all possible differentials given a start configuration. The function
     returns a tuple containing:
     1. the number of rounds
-    2. a list of all possible end states (truncating the final round)
-    3. a list of all possible end states (including the final round)
+    2. a list of all possible end states (second-last round)
+    3. a list of all possible end states (last round)
     """
     cycles = set(nx.find_cycle(g))
 
@@ -54,20 +54,27 @@ def main():
         forward_diffs.append(find_diff(forward_g, start))
         backward_diffs.append(find_diff(backward_g, start))
 
-    # the forward differential progresses all the way
-    # while the backward differential has a truncated final round
+    ids = []
     for i in range(4096):
-        forward_rounds, _, xs = forward_diffs[i]
         for j in range(4096):
-            backward_rounds, ys, _ = backward_diffs[j]
-            if not (forward_rounds == backward_rounds == 2):
+            forward_rounds, xs0, xs1 = forward_diffs[i]
+            backward_rounds, ys0, ys1 = backward_diffs[j]
+
+            # truncating last round of forward differential
+            if xs0.intersection(ys1) == set():
+                forward_rounds -= 1
+            # truncating first round of backward differential
+            elif xs1.intersection(ys0) == set():
+                backward_rounds -= 1
+            else: # not an impossible differential
                 continue
 
-            if xs.intersection(ys) == set():
-                print("No. of rounds: 3")
-                print("Start: {}".format(gen_graph.convert_int(i)))
-                print("End: {}".format(gen_graph.convert_int(j)))
-                print("---")
+            if forward_rounds + backward_rounds < 3:
+                continue
+            ids.append((i, forward_rounds, backward_rounds, j, 1))
+    print("Found {} impossible differentials.".format(len(ids)))
+    with open("ids.pickle", "wb") as f:
+        pickle.dump(ids, f)
 
 if __name__ == "__main__":
     main()
