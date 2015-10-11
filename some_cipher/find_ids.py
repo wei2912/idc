@@ -2,8 +2,6 @@
 Derive a list of impossible differentials.
 """
 
-import argparse
-import math
 import pickle
 
 import networkx as nx
