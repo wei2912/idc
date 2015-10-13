@@ -6,8 +6,6 @@ import pickle
 
 import networkx as nx
 
-import gen_graph
-
 def find_diff(g, start):
     """
     g -> Graph of states of nibbles
@@ -69,7 +67,7 @@ def main():
 
             if forward_rounds + backward_rounds < 3:
                 continue
-            ids.append((i, forward_rounds, backward_rounds, j, 1))
+            ids.append((i, forward_rounds, backward_rounds, j))
     print("Found {} impossible differentials.".format(len(ids)))
     with open("ids.pickle", "wb") as f:
         pickle.dump(ids, f)
