@@ -56,20 +56,23 @@ def main():
 
         # backward extension
         s = count(start)
+        backward_extension_rounds = 1
+        rounds = forward_rounds + backward_rounds + backward_extension_rounds
         for p, w in filter(
             lambda t: f(*t, B=32),
             propagate(
                 rev_backward_g,
                 end,
-                1,
+                backward_extension_rounds,
                 cutoff=(8*s - 1) * math.log(2) # based on formula
             )
         ):
-            print("{} X {} <- {} with probability {}".format(
+            print("{} ... X ... {} <- {} with probability {}, {} rounds".format(
                 start,
                 end,
                 " <- ".join(str(v) for v in p[1:]),
-                math.exp(-w)
+                math.exp(-w),
+                rounds
             ))
 
 if __name__ == "__main__":
