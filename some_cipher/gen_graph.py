@@ -181,21 +181,29 @@ def inv_roundf(ns):
 
 def main():
     forward_g = nx.DiGraph()
-    forward_g.add_nodes_from(range(4096))
+    rev_forward_g = nx.DiGraph()
     backward_g = nx.DiGraph()
+    rev_backward_g = nx.DiGraph()
+    forward_g.add_nodes_from(range(4096))
+    rev_forward_g.add_nodes_from(range(4096))
     backward_g.add_nodes_from(range(4096))
+    rev_backward_g.add_nodes_from(range(4096))
 
     for x in range(4096):
-        for ns, p in roundf(list(convert_int(x))):
+        for ns, w in roundf(list(convert_int(x))):
             y = convert_states(ns)
-            forward_g.add_edge(x, y, weight=p)
+            forward_g.add_edge(x, y, weight=w)
+            rev_forward_g.add_edge(y, x, weight=w)
 
-        for ns, p in inv_roundf(list(convert_int(x))):
+        for ns, w in inv_roundf(list(convert_int(x))):
             y = convert_states(ns)
-            backward_g.add_edge(x, y, weight=p)
+            backward_g.add_edge(x, y, weight=w)
+            rev_backward_g.add_edge(y, x, weight=w)
 
     nx.write_gpickle(forward_g, "forward.gpickle")
+    nx.write_gpickle(rev_forward_g, "rev_forward.gpickle")
     nx.write_gpickle(backward_g, "backward.gpickle")
+    nx.write_gpickle(rev_backward_g, "rev_backward.gpickle")
 
 if __name__ == "__main__":
     main()
