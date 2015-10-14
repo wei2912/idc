@@ -16,7 +16,7 @@ def count(x):
     """
     return sum(gen_graph.convert_int(x))
 
-def propagate(g, start, rounds):
+def propagate(g, start, rounds, cutoff=None):
     """
     g -> Graph of states of nibbles
     start -> Starting configuration
@@ -27,16 +27,17 @@ def propagate(g, start, rounds):
     2. end
     3. negated logarithmic probability of taking that route
     """
-    ps = [([start], 0)]
-    for _ in range(rounds):
-        n_ps = []
-        for p, w0 in ps:
-            v0 = p[-1]
-            for v1 in g[v0]:
-                w1 = g[v0][v1]['weight']
-                n_ps.append((p + [v1], w0 + w1))
-        ps = n_ps
-    return ps
+    if rounds == 0:
+        yield ([start], 0)
+        return
+
+    v0 = start
+    for v1 in g[v0]:
+        w0 = g[v0][v1]['weight']
+        for p, w1 in propagate(g, v1, rounds - 1, cutoff=cutoff):
+            if cutoff is not None and w0 + w1 >= cutoff:
+                continue
+            yield ([v0] + p, w0 + w1)
 
 def main():
     rev_forward_g = nx.read_gpickle("rev_forward.gpickle")
@@ -48,16 +49,22 @@ def main():
         def f(p, w, B=32):
             s = count(start)
             t = count(p[-1])
-            if 8*s + 4*t - 49 >= w / math.log(2):
-                if 4*t <= B:
-                    return True
-                else:
-                    return (8*s - 49) * math.log(2) - w >= math.log(4*t - B) + math.log(math.log(2))
+            if 4*t <= B:
+                return w <= (8*s + 4*t - 49) * math.log(2)
+            else:
+                return w <= (8*s - 49) * math.log(2) + min(4*t*math.log(2), -math.log(4*t - B) - math.log(math.log(2)))
 
         # backward extension
-        ps = propagate(rev_forward_g, end, 1)
-
-        for p, w in filter(lambda t: f(*t, B=32), ps):
+        s = count(start)
+        for p, w in filter(
+            lambda t: f(*t, B=32),
+            propagate(
+                rev_backward_g,
+                end,
+                1,
+                cutoff=(8*s - 1) * math.log(2) # based on formula
+            )
+        ):
             print("{} X {} <- {} with probability {}".format(
                 start,
                 end,
