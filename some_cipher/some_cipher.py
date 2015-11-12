@@ -177,15 +177,10 @@ def key_schedule(k):
     """
     k -> Key
 
-    Generates round keys from a 48-bit key by passing into Python's random
-    number generator.
+    Use the same key as a round key for each round.
     """
-    random.seed(tuple(k)) # function requires a hashable object which must be
-                          # immutable, hence conversion to tuple
-    return [
-        [random.getrandbits(4) for i in range(12)]
-        for i in range(ROUNDS + 1)
-    ]
+    print(k)
+    return [k for i in range(ROUNDS + 1)]
 
 def roundf(ws, ns, i):
     """
