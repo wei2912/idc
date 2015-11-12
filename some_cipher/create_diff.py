@@ -46,20 +46,31 @@ def main():
         ids = pickle.load(f)
 
     for start, forward_rounds, backward_rounds, end in ids:
-        def f(p, w, B=32):
+        # filter by number of start nibbles
+        s = count(start)
+        if s > 4:
+            continue
+
+        def f(p, w):
             s = count(start)
             t = count(p[-1])
+
+            # filter by number of end nibbles
+            if t < 7:
+                return False
+
+            # filter by number of wrong key guesses
+            B = 28
             if 4*t <= B:
                 return w <= (8*s + 4*t - 49) * math.log(2)
             else:
                 return w <= (8*s - 49) * math.log(2) + min(4*t*math.log(2), -math.log(4*t - B) - math.log(math.log(2)))
 
         # backward extension
-        s = count(start)
         backward_extension_rounds = 1
         rounds = forward_rounds + backward_rounds + backward_extension_rounds
         for p, w in filter(
-            lambda t: f(*t, B=32),
+            lambda t: f(*t),
             propagate(
                 rev_backward_g,
                 end,
