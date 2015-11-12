@@ -80,7 +80,7 @@ def shift_row(ns):
     """
     ns -> List of nibbles
 
-    Shift each row of the matrix of nibbles to the left by different amounts.
+    Shift each row of the matrix of nibbles to the right by different amounts.
 
     The first and second row is unchanged, while the third and fourth row are
     rotated by 1 and 2 elements to the right respectively.
