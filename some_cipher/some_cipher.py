@@ -214,7 +214,7 @@ def inv_roundf(ws, ns, i):
     ns -> List of nibbles
     i -> Round number
 
-    Inverse round function of Mini-AES. Refer to `roundf()` for more details.
+    Inverse round function of SomeCipher. Refer to `roundf()` for more details.
     """
     assert len(ns) == 12
     if i != ROUNDS - 1:
@@ -231,7 +231,7 @@ def encrypt_block(k, p):
     k -> Key
     p -> Plaintext
 
-    Encrypts the plaintext block with Mini-AES, given the key.
+    Encrypts the plaintext block with SomeCipher, given the key.
     """
     assert len(k) == len(p) == 12
     wss = key_schedule(k)
@@ -248,7 +248,7 @@ def decrypt_block(k, c):
     k -> Key
     c -> Ciphertext
 
-    Decrypts the ciphertext block encrypted with Mini-AES, given the key.
+    Decrypts the ciphertext block encrypted with SomeCipher, given the key.
     """
     assert len(k) == len(c) == 12
     wss = key_schedule(k)
