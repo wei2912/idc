@@ -1,5 +1,6 @@
-forward.gpickle
-rev_forward.gpickle
+__pycache__
 backward.gpickle
+forward.gpickle
 rev_backward.gpickle
+rev_forward.gpickle
 ids.pickle

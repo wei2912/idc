@@ -62,7 +62,7 @@ def main():
                 if forward_rounds + backward_rounds < 3:
                     continue
                 ids.append((i, forward_rounds, backward_rounds, j))
-    print("Found {} impossible differentials.".format(len(ids)))
+
     with open("ids.pickle", "wb") as f:
         pickle.dump(ids, f)
 
