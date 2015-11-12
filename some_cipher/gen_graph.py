@@ -177,7 +177,7 @@ def inv_roundf(ns):
     Predict the states of nibbles after passing through an inverse round of
     SomeCipher. Refer to `roundf()` for more details.
     """
-    return [(inv_shift_row(ms), weight) for ms, weight in mix_column(ns)]
+    return mix_column(inv_shift_row(ns))
 
 def main():
     forward_g = nx.DiGraph()
