@@ -47,24 +47,18 @@ const std::array<unsigned char, 16> M12 = {
 };
 
 nibs nibble_sub(const nibs ns) {
-    assert(ns.size() == 12);
-
     auto os = ns;
-    for (unsigned int i = 0; i < ns.size(); ++i) os[i] = SBOX[ns[i]];
+    for (int i = 0; i < 12; ++i) os[i] = SBOX[ns[i]];
     return os;
 }
 
 nibs inv_nibble_sub(const nibs ns) {
-    assert(ns.size() == 12);
-
     auto os = ns;
-    for (unsigned int i = 0; i < ns.size(); ++i) os[i] = INV_SBOX[ns[i]];
+    for (int i = 0; i < 12; ++i) os[i] = INV_SBOX[ns[i]];
     return os;
 }
 
 nibs shift_row(const nibs ns) {
-    assert(ns.size() == 12);
-
     auto os = ns;
     std::swap(os[2], os[6]);
     std::swap(os[2], os[10]);
@@ -74,8 +68,6 @@ nibs shift_row(const nibs ns) {
 }
 
 nibs inv_shift_row(const nibs ns) {
-    assert(ns.size() == 12);
-
     auto os = ns;
     std::swap(os[2], os[6]);
     std::swap(os[6], os[10]);
@@ -85,8 +77,6 @@ nibs inv_shift_row(const nibs ns) {
 }
 
 nibs mix_column(const nibs ns) {
-    assert(ns.size() == 12);
-
     nibs os;
     os[0] = M1[ns[0]] ^ M1[ns[1]] ^ M4[ns[2]] ^ M9[ns[3]];
     os[1] = M1[ns[0]] ^ M4[ns[1]] ^ M9[ns[2]] ^ M1[ns[3]];
@@ -106,8 +96,6 @@ nibs mix_column(const nibs ns) {
 }
 
 nibs inv_mix_column(const nibs ns) {
-    assert(ns.size() == 12);
-
     nibs os;
     os[0] = M8[ns[0]] ^ M12[ns[1]] ^ M7[ns[2]] ^ M7[ns[3]];
     os[1] = M12[ns[0]] ^ M7[ns[1]] ^ M7[ns[2]] ^ M8[ns[3]];
@@ -127,47 +115,32 @@ nibs inv_mix_column(const nibs ns) {
 }
 
 nibs key_addition(const nibs ks, const nibs ns) {
-    assert(ks.size() == 12);
-    assert(ns.size() == 12);
-
     nibs os;
-    for (unsigned int i = 0; i < ks.size(); ++i) {
+    for (int i = 0; i < 12; ++i) {
         os[i] = ks[i] ^ ns[i];
     }
     return os;
 }
 
 nibs roundf(const nibs ks, const nibs ns, const int i) {
-    assert(ks.size() == 12);
-    assert(ns.size() == 12);
-
     nibs os = shift_row(nibble_sub(ns));
     if (i != ROUNDS - 1) os = mix_column(os);
     return key_addition(ks, os);
 }
 
 nibs inv_roundf(const nibs ks, const nibs ns, const int i) {
-    assert(ks.size() == 12);
-    assert(ns.size() == 12);
-
     nibs os = key_addition(ks, ns);
     if (i != ROUNDS - 1) os = inv_mix_column(os);
     return inv_nibble_sub(inv_shift_row(os));
 }
 
 nibs encrypt_block(const nibs ks, const nibs ps) {
-    assert(ks.size() == 12);
-    assert(ps.size() == 12);
-
     nibs ns = key_addition(ks, ps);
     for (int i = 0; i < ROUNDS; ++i) ns = roundf(ks, ns, i);
     return ns;
 }
 
 nibs decrypt_block(const nibs ks, const nibs cs) {
-    assert(ks.size() == 12);
-    assert(cs.size() == 12);
-
     nibs ns = cs;
     for (int i = ROUNDS - 1; i >= 0; --i) ns = inv_roundf(ks, ns, i);
     return key_addition(ks, ns);
