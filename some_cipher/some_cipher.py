@@ -4,7 +4,7 @@ Implementation of SomeCipher.
 
 import random
 
-ROUNDS = 8
+ROUNDS = 5
 
 SBOX = [
     0xE, 0x4, 0xD, 0x1, 0x2, 0xF, 0xB, 0x8,
@@ -163,28 +163,19 @@ def inv_mix_column(ns):
         for n in multiply_matrix(ms)
     ]
 
-def key_addition(ws, ns):
+def key_addition(ks, ns):
     """
-    ws -> List of round key nibbles
+    ks -> List of round key nibbles
     ns -> List of nibbles
 
     XORS each nibble with its corresponding round key nibble.
     """
-    assert len(ws) == len(ns)
-    return [w ^ n for (w, n) in zip(ws, ns)]
+    assert len(ks) == len(ns)
+    return [w ^ n for (w, n) in zip(ks, ns)]
 
-def key_schedule(k):
+def roundf(ks, ns, i):
     """
-    k -> Key
-
-    Use the same key as a round key for each round.
-    """
-    print(k)
-    return [k for i in range(ROUNDS + 1)]
-
-def roundf(ws, ns, i):
-    """
-    ws -> List of key nibbles
+    ks -> List of key nibbles
     ns -> List of nibbles
     i -> Round number
 
@@ -199,32 +190,24 @@ def roundf(ws, ns, i):
     Note that this function does not handle the addition of the final round key.
     """
     assert len(ns) == 12
-    ns = shift_row(
-        nibble_sub(
-            key_addition(ws, ns)
-        )
-    )
+    ns = shift_row(nibble_sub(ns))
     if i != ROUNDS - 1:
         ns = mix_column(ns)
-    return ns
+    return key_addition(ks, ns)
 
-def inv_roundf(ws, ns, i):
+def inv_roundf(ks, ns, i):
     """
-    ws -> List of key nibbles
+    ks -> List of key nibbles
     ns -> List of nibbles
     i -> Round number
 
     Inverse round function of SomeCipher. Refer to `roundf()` for more details.
     """
     assert len(ns) == 12
+    ns = key_addition(ks, ns)
     if i != ROUNDS - 1:
         ns = inv_mix_column(ns)
-    ns = key_addition(ws,
-        inv_nibble_sub(
-            inv_shift_row(ns)
-        )
-    )
-    return ns
+    return inv_nibble_sub(inv_shift_row(ns))
 
 def encrypt_block(k, p):
     """
@@ -234,13 +217,9 @@ def encrypt_block(k, p):
     Encrypts the plaintext block with SomeCipher, given the key.
     """
     assert len(k) == len(p) == 12
-    wss = key_schedule(k)
-    assert len(wss) == ROUNDS + 1
-
-    ns = p
+    ns = key_addition(k, p)
     for i in range(0, ROUNDS):
-        ns = roundf(wss[i], ns, i)
-    ns = key_addition(wss[ROUNDS], ns)
+        ns = roundf(k, ns, i)
     return ns
 
 def decrypt_block(k, c):
@@ -251,13 +230,10 @@ def decrypt_block(k, c):
     Decrypts the ciphertext block encrypted with SomeCipher, given the key.
     """
     assert len(k) == len(c) == 12
-    wss = key_schedule(k)
-    assert len(wss) == ROUNDS + 1
-
-    ns = key_addition(wss[ROUNDS], c)
+    ns = c
     for i in range(ROUNDS - 1, -1, -1):
-        ns = inv_roundf(wss[i], ns, i)
-    return ns
+        ns = inv_roundf(k, ns, i)
+    return key_addition(k, ns)
 
 # main function
 
