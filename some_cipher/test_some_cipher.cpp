@@ -13,21 +13,21 @@ int main() {
     for (int i = 0; i < 12; ++i) ps[i] = d(g);
 
     std::cout << "Key: ";
-    for (int i = 0; i < 12; ++i) std::cout << +ks[i] << " ";
+    for (auto &k : ks) std::cout << +k << " ";
     std::cout << std::endl;
 
     std::cout << "Plaintext: ";
-    for (int i = 0; i < 12; ++i) std::cout << +ps[i] << " ";
+    for (auto &p : ps) std::cout << +p << " ";
     std::cout << std::endl;
 
     nibs cs = encrypt_block(ks, ps);
     std::cout << "Ciphertext: ";
-    for (int i = 0; i < 12; ++i) std::cout << +cs[i] << " ";
+    for (auto &c : cs) std::cout << +c << " ";
     std::cout << std::endl;
 
     nibs ds = decrypt_block(ks, cs);
     std::cout << "Decrypted ciphertext: ";
-    for (int i = 0; i < 12; ++i) std::cout << +ds[i] << " ";
+    for (auto &d : ds) std::cout << +d << " ";
     std::cout << std::endl;
 
     if (ps == ds) std::cout << "Decrypted ciphertext is the plaintext." << std::endl;
