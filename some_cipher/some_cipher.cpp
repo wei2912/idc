@@ -45,6 +45,12 @@ const std::array<unsigned char, 16> M12 = {
     0xA, 0x6, 0x1, 0xD, 0xF, 0x3, 0x4, 0x8
 };
 
+diffs differences(const nibs ns0, const nibs ns1) {
+    diffs ds;
+    for (int i = 0; i < 12; ++i) ds[i] = ns0[i] != ns1[i];
+    return ds;
+}
+
 nibs nibble_sub(const nibs ns) {
     auto os = ns;
     for (int i = 0; i < 12; ++i) os[i] = SBOX[ns[i]];
