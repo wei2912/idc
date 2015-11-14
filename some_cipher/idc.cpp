@@ -55,6 +55,19 @@ int main() {
             auto ds0 = f(ks, cs0);
             auto ds1 = f(ks, cs1);
             if (is_impossible(ds0, ds1)) {
+                if (
+                    ks[5] == correct_ks[5] &&
+                    ks[6] == correct_ks[6] &&
+                    ks[7] == correct_ks[7] &&
+                    ks[8] == correct_ks[8] &&
+                    ks[9] == correct_ks[9] &&
+                    ks[10] == correct_ks[10] &&
+                    ks[11] == correct_ks[11]
+                ) {
+                    std::cout << "ERROR: Correct key was eliminated." << std::endl;
+                    return 1;
+                }
+
                 std::swap(kss[i], kss[kss.size() - 1]);
                 kss.pop_back();
             }
