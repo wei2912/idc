@@ -49,10 +49,10 @@ int main() {
 
     std::vector<nibs> pss = gen_plaintexts();
     for (auto &ps0 : pss) {
+        auto cs0 = f(ps0);
         for (auto &ps1 : pss) {
             if (!is_pt_match(ps0, ps1)) continue;
 
-            auto cs0 = f(ps0);
             auto cs1 = f(ps1);
             if (!is_ct_match(cs0, cs1)) continue;
 
