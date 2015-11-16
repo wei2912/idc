@@ -28,8 +28,12 @@ std::vector<nibs> gen_keys() {
 
 int main() {
     // read the key
+    int x;
     nibs correct_ks;
-    for (int i = 0; i < 12; ++i) std::cin >> correct_ks[i];
+    for (int i = 0; i < 12; ++i) {
+        std::cin >> x;
+        correct_ks[i] = x;
+    }
 
     // generate a list of all the keys
     std::vector<nibs> kss = gen_keys();
@@ -47,8 +51,21 @@ int main() {
 
     while (std::cin) {
         nibs cs0, cs1;
-        for (int i = 0; i < 12; ++i) std::cin >> cs0[i];
-        for (int i = 0; i < 12; ++i) std::cin >> cs1[i];
+        for (int i = 0; i < 12; ++i) {
+            std::cin >> x;
+            cs0[i] = x;
+        }
+        for (int i = 0; i < 12; ++i) {
+            std::cin >> x;
+            cs1[i] = x;
+        }
+
+        std::cout << "CS0: ";
+        for (auto &c : cs0) std::cout << +c << " ";
+        std::cout << std::endl;
+        std::cout << "CS1: ";
+        for (auto &c : cs1) std::cout << +c << " ";
+        std::cout << std::endl;
 
         for (unsigned int i = 0; i < kss.size(); ++i) {
             auto ks = kss[i];
