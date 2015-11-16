@@ -34,7 +34,6 @@ int main() {
     /* print out pairs per line:
      * cs0 cs1
      */
-
     std::function<nibs(nibs)> f = [ks](nibs ps) {
         return encrypt_block(ks, ps);
     };
@@ -48,9 +47,11 @@ int main() {
     };
 
     std::vector<nibs> pss = gen_plaintexts();
-    for (auto &ps0 : pss) {
+    for (unsigned int i = 0; i < pss.size(); ++i) {
+        auto ps0 = pss[i];
         auto cs0 = f(ps0);
-        for (auto &ps1 : pss) {
+        for (unsigned int j = i + 1; j < pss.size(); ++j) {
+            auto ps1 = pss[j];
             if (!is_pt_match(ps0, ps1)) continue;
 
             auto cs1 = f(ps1);
