@@ -121,9 +121,7 @@ nibs inv_mix_column(const nibs ns) {
 
 nibs key_addition(const nibs ks, const nibs ns) {
     nibs os;
-    for (int i = 0; i < 12; ++i) {
-        os[i] = ks[i] ^ ns[i];
-    }
+    for (int i = 0; i < 12; ++i) os[i] = ks[i] ^ ns[i];
     return os;
 }
 

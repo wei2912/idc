@@ -4,10 +4,10 @@
 #include <array>
 
 using diff = bool;
-using diffs = std::array<bool, 12>;
+using diffs = std::array<diff, 12>;
 
 using nib = unsigned char;
-using nibs = std::array<unsigned char, 12>;
+using nibs = std::array<nib, 12>;
 
 diffs differences(nibs ns0, nibs ns1);
 

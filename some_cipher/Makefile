@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-std=c++11 -Wall -O3
+CXXFLAGS=-std=c++11 -Wall -O3 -g
 
 all: test_some_cipher gen_pairs idc
 clean:

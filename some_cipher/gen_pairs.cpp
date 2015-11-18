@@ -6,17 +6,14 @@
 
 std::vector<nibs> gen_plaintexts() {
     std::vector<nibs> pss;
-    for (int p6 = 0; p6 < 16; ++p6) {
-    for (int p8 = 0; p8 < 16; ++p8) {
-    for (int p9 = 0; p9 < 16; ++p9) {
-    for (int p11 = 0; p11 < 16; ++p11) {
+    for (long x = 0; x < 65536; ++x) {
         nibs ps{0};
-        ps[6] = p6;
-        ps[8] = p8;
-        ps[9] = p9;
-        ps[11] = p11;
+        ps[6] = x >> 12 & 0xF;
+        ps[8] = x >> 8 & 0xF;
+        ps[9] = x >> 4 & 0xF;
+        ps[11] = x & 0xF;
         pss.push_back(ps);
-    }}}}
+    }
     return pss;
 }
 
@@ -31,19 +28,10 @@ int main() {
     for (nib &k : ks) std::cout << +k << " ";
     std::cout << std::endl;
 
-    /* print out pairs per line:
-     * cs0 cs1
-     */
+    // print out PT-CT pairs on each line
+    // ps0 ps1 cs0 cs1
     std::function<nibs(nibs)> f = [ks](nibs ps) {
         return encrypt_block(ks, ps);
-    };
-
-    std::function<bool(nibs, nibs)> is_pt_match = [](nibs ps0, nibs ps1){
-        return differences(ps0, ps1) == diffs {0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1};
-    };
-
-    std::function<bool(nibs, nibs)> is_ct_match = [](nibs cs0, nibs cs1){
-        return differences(cs0, cs1) == diffs {0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0};
     };
 
     std::vector<nibs> pss = gen_plaintexts();
@@ -52,11 +40,13 @@ int main() {
         auto cs0 = f(ps0);
         for (unsigned int j = i + 1; j < pss.size(); ++j) {
             auto ps1 = pss[j];
-            if (!is_pt_match(ps0, ps1)) continue;
+            if (differences(ps0, ps1) != diffs {0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1}) continue;
 
             auto cs1 = f(ps1);
-            if (!is_ct_match(cs0, cs1)) continue;
+            if (differences(cs0, cs1) != diffs {0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0}) continue;
 
+            for (nib &p : ps0) std::cout << +p << " ";
+            for (nib &p : ps1) std::cout << +p << " ";
             for (nib &c : cs0) std::cout << +c << " ";
             for (nib &c : cs1) std::cout << +c << " ";
             std::cout << std::endl;
