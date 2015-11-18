@@ -1,6 +1,6 @@
 """
-Given a list of impossible differentials, propagate in both directions by a few
-rounds and try to find a differential that works well for launching attacks.
+Given a list of impossible differentials, create a 2-round backward extension
+and try to find a distinguisher that works well for launching attacks.
 """
 
 import math
@@ -23,9 +23,8 @@ def propagate(g, start, rounds, cutoff=None):
 
     Propagate from the start by a few rounds. Returns a list of tuples
     containing:
-    1. the number of rounds
-    2. end
-    3. negated logarithmic probability of taking that route
+    1. the path
+    2. negated logarithmic probability of taking that route
     """
     if rounds == 0:
         yield ([start], 0)
@@ -38,6 +37,15 @@ def propagate(g, start, rounds, cutoff=None):
             if cutoff is not None and w0 + w1 >= cutoff:
                 continue
             yield ([v0] + p, w0 + w1)
+
+def add_last_round(ts):
+    for p, w in ts:
+        p += [gen_graph.convert_states(
+            gen_graph.last_roundf(
+                gen_graph.convert_int(p[-1])
+            )
+        )]
+        yield (p, w)
 
 def main():
     rev_forward_g = nx.read_gpickle("rev_forward.gpickle")
@@ -67,21 +75,22 @@ def main():
                 return w <= (8*s - 49) * math.log(2) + min(4*t*math.log(2), -math.log(4*t - B) - math.log(math.log(2)))
 
         # backward extension
-        backward_extension_rounds = 1
+        backward_extension_rounds = 2
         rounds = forward_rounds + backward_rounds + backward_extension_rounds
         for p, w in filter(
             lambda t: f(*t),
-            propagate(
-                rev_backward_g,
-                end,
-                backward_extension_rounds,
-                cutoff=(8*s - 1) * math.log(2) # based on formula
+            add_last_round(
+                propagate(
+                    rev_backward_g,
+                    end,
+                    backward_extension_rounds - 1,
+                    cutoff=(8*s - 1) * math.log(2) # based on formula
+                )
             )
         ):
-            print("{} ... X ... {} <- {} with probability {}, {} rounds".format(
+            print("{} ... X ... {} with probability {}, {} rounds".format(
                 start,
-                end,
-                " <- ".join(str(v) for v in p[1:]),
+                " <- ".join(str(v) for v in p),
                 math.exp(-w),
                 rounds
             ))

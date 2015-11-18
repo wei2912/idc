@@ -43,7 +43,7 @@ def convert_int(x):
 
     Convert the integer into states of nibbles.
     """
-    assert 0 <= x <= 4096
+    assert 0 <= x <= 4095
     ns = []
     while x != 0:
         if x % 2 == 0:
@@ -179,6 +179,24 @@ def inv_roundf(ns):
     """
     return [(inv_shift_row(ms), weight) for ms, weight in mix_column(ns)]
 
+def last_roundf(ns):
+    """
+    ns -> States of nibbles
+
+    Predict the states of nibbles after passing through the last round of
+    SomeCipher.
+    """
+    return shift_row(ns)
+
+def inv_last_roundf(ns):
+    """
+    ns -> States of nibbles
+
+    Predict the states of nibbles after passing through the inverse last round
+    of SomeCipher. Refer to `last_roundf()` for more details.
+    """
+    return inv_shift_row(ns)
+
 def main():
     forward_g = nx.DiGraph()
     rev_forward_g = nx.DiGraph()
@@ -190,12 +208,12 @@ def main():
     rev_backward_g.add_nodes_from(range(4096))
 
     for x in range(4096):
-        for ns, w in roundf(list(convert_int(x))):
+        for ns, w in roundf(convert_int(x)):
             y = convert_states(ns)
             forward_g.add_edge(x, y, weight=w)
             rev_forward_g.add_edge(y, x, weight=w)
 
-        for ns, w in inv_roundf(list(convert_int(x))):
+        for ns, w in inv_roundf(convert_int(x)):
             y = convert_states(ns)
             backward_g.add_edge(x, y, weight=w)
             rev_backward_g.add_edge(y, x, weight=w)
