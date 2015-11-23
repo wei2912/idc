@@ -53,6 +53,7 @@ def main():
     with open("ids.pickle", "rb") as f:
         ids = pickle.load(f)
 
+    dists = []
     for start, forward_rounds, backward_rounds, end in ids:
         # filter by number of start nibbles
         s = count(start)
@@ -88,12 +89,16 @@ def main():
                 )
             )
         ):
-            print("{} ... X ... {} with probability {}, {} rounds".format(
-                start,
-                " <- ".join(str(v) for v in p),
-                math.exp(-w),
-                rounds
-            ))
+            dists.append((start, p, w, rounds))
+
+    dists.sort(key=lambda t: t[1][-1])
+    for start, p, w, rounds in dists:
+        print("{} ... X ... {} with probability {}, {} rounds".format(
+            start,
+            " <- ".join(str(v) for v in p),
+            math.exp(-w),
+            rounds
+        ))
 
 if __name__ == "__main__":
     main()
