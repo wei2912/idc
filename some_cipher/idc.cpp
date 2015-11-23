@@ -61,7 +61,7 @@ int main() {
         pairs.push_back(p);
     }
 
-    std::cout << "Stage 1: IDC on key nibbles 2, 3, 5, 8, 9, 10" << std::endl;
+    std::cout << "Stage 1: IDC on key nibbles 2, 3, 5, 7, 8, 9, 10" << std::endl;
     std::cout << "===" << std::endl;
 
     std::function<nibs(nibs, nibs)> f = [](nibs ks, nibs cs) {
@@ -87,10 +87,11 @@ int main() {
         for (int i = 0; i < 12; ++i) std::cout << +p.cs1[i] << " ";
         std::cout << std::endl;
 
-        for (unsigned int i = 0; i < kss.size(); ++i) {
+        for (unsigned int i = 0; i < kss.size();) {
             auto ks = kss[i];
             auto ds0 = f(ks, p.cs0);
             auto ds1 = f(ks, p.cs1);
+
             if (differences(ds0, ds1) == diffs {0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1}) {
                 if (
                     ks[2] == correct_ks[2] &&
@@ -107,6 +108,8 @@ int main() {
 
                 std::swap(kss[i], kss[kss.size() - 1]);
                 kss.pop_back();
+            } else {
+                ++i;
             }
         }
         std::cout << "Number of keys remaining: " << kss.size() << std::endl;
