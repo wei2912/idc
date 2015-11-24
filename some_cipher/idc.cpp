@@ -49,8 +49,10 @@ void filter_keys(std::vector<nibs> kss, const std::function<nibs(nibs, nibs)> f,
             auto ds1 = f(ks, p.cs1);
 
             if (differences(ds0, ds1) == diffs {0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1}) {
+                // remove the element from the vector in an efficient manner
                 std::swap(kss[i], kss[kss.size() - 1]);
                 kss.pop_back();
+                // do not increment i as the swapped element at i is not yet checked
             } else {
                 ++i;
             }
@@ -71,6 +73,7 @@ nibs brute_force(const std::function<nibs(nibs, nibs)> f, const std::vector<nibs
             ls[4] = x >> 8 & 0xF;
             ls[6] = x >> 4 & 0xF;
             ls[11] = x & 0xF;
+
             if (ps == f(ls, cs)) return ls;
         }
     }
@@ -81,7 +84,7 @@ nibs brute_force(const std::function<nibs(nibs, nibs)> f, const std::vector<nibs
 int main(const int argc, const char *argv[]) {
     if (argc != 3) {
         std::cerr << "Wrong number of arguments. Please pass in the start and end number of the key nibbles." << std::endl;
-        return 1;
+        return 2;
     }
 
     // range of key nibbles
@@ -131,6 +134,7 @@ int main(const int argc, const char *argv[]) {
     std::vector<nibs> kss = gen_keys(start, end);
     std::cout << "Generated " << +kss.size() << " keys." << std::endl;
 
+    std::cout << "===" << std::endl;
     std::cout << "Stage 1: IDC on key nibbles 2, 3, 5, 7, 8, 9, 10" << std::endl;
     std::cout << "===" << std::endl;
 
@@ -141,6 +145,7 @@ int main(const int argc, const char *argv[]) {
 
     filter_keys(kss, f, pairs); // filters the keys in place
 
+    std::cout << "===" << std::endl;
     std::cout << "Stage 2: Brute force on all possible keys left" << std::endl;
     std::cout << "===" << std::endl;
 
@@ -153,18 +158,21 @@ int main(const int argc, const char *argv[]) {
     pair p = pairs[0];
 
     try {
+        // perform brute force, throw exception if no key is found
         nibs ks = brute_force(g, kss, p.ps0, p.cs0);
 
         if (ks == correct_ks) {
             std::cout << "Found correct key!" << std::endl;
 
+            // print to file "success", used to indicate that the program has terminated successfully and all other instances can stop
             std::ofstream outfile("success");
             outfile << "Found correct key:";
-            for (int i = 0; i < 12; ++i) outfile << " " << ks[i];
+            for (int i = 0; i < 12; ++i) outfile << " " << +ks[i];
             outfile << std::endl;
 
             return 0;
         } else {
+            // throw exception if key found is wrong
             throw std::logic_error("key found through brute force is not key used to encrypt plaintext pairs");
         }
     } catch (const std::exception &e) {
