@@ -151,18 +151,24 @@ int main(const int argc, const char *argv[]) {
 
     // perform brute force using first PT-CT of first pair
     pair p = pairs[0];
-    nibs ks = brute_force(g, kss, p.ps0, p.cs0);
 
-    if (ks == correct_ks) {
-        std::cout << "Found correct key!" << std::endl;
+    try {
+        nibs ks = brute_force(g, kss, p.ps0, p.cs0);
 
-        std::ofstream outfile("log");
-        outfile << "Found correct key:";
-        for (int i = 0; i < 12; ++i) outfile << " " << ks[i];
-        outfile << std::endl;
+        if (ks == correct_ks) {
+            std::cout << "Found correct key!" << std::endl;
 
-        return 0;
-    } else {
-        throw std::logic_error("key found through brute force is not key used to encrypt plaintext pairs");
+            std::ofstream outfile("success");
+            outfile << "Found correct key:";
+            for (int i = 0; i < 12; ++i) outfile << " " << ks[i];
+            outfile << std::endl;
+
+            return 0;
+        } else {
+            throw std::logic_error("key found through brute force is not key used to encrypt plaintext pairs");
+        }
+    } catch (const std::exception &e) {
+        std::cerr << "error: " << e.what() << std::endl;
+        return 1;
     }
 }
