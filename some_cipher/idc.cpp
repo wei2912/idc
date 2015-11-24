@@ -155,6 +155,12 @@ int main(const int argc, const char *argv[]) {
 
     if (ks == correct_ks) {
         std::cout << "Found correct key!" << std::endl;
+
+        std::ofstream outfile("log");
+        outfile << "Found correct key:";
+        for (int i = 0; i < 12; ++i) outfile << " " << ks[i];
+        outfile << std::endl;
+
         return 0;
     } else {
         throw std::logic_error("key found through brute force is not key used to encrypt plaintext pairs");
