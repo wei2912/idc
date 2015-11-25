@@ -122,7 +122,6 @@ int main(const int argc, const char *argv[]) {
         long overlap_k = pair.first;
         std::vector<nibs> kss = pair.second;
 
-        std::cout << "start of brute force" << std::endl;
         for (long i = 0; i < 1048576; ++i) {
             nibs ks{0};
             ks[0] = i >> 16 & 0xF;
@@ -155,7 +154,6 @@ int main(const int argc, const char *argv[]) {
                 }
             }
         }
-        std::cout << "end of brute force" << std::endl;
     }
 
     std::cerr << "error: can't find correct key" << std::endl;
