@@ -99,49 +99,49 @@ def mix_column(ns):
             return [([1, 1, 1, 1], 0)]
         elif count == 2:
             return [
-                ([0, 1, 1, 1], 4 * math.log(2)),
-                ([1, 0, 1, 1], 4 * math.log(2)),
-                ([1, 1, 0, 1], 4 * math.log(2)),
-                ([1, 1, 1, 0], 4 * math.log(2)),
+                ([0, 1, 1, 1], 16 * math.log(2) - 3 * math.log(15)),
+                ([1, 0, 1, 1], 16 * math.log(2) - 3 * math.log(15)),
+                ([1, 1, 0, 1], 16 * math.log(2) - 3 * math.log(15)),
+                ([1, 1, 1, 0], 16 * math.log(2) - 3 * math.log(15)),
 
-                ([1, 1, 1, 1], math.log(4) - math.log(3))
+                ([1, 1, 1, 1], 14 * math.log(2) - math.log(13009))
             ]
         elif count == 3:
             return [
-                ([0, 0, 1, 1], 8 * math.log(2)),
-                ([0, 1, 0, 1], 8 * math.log(2)),
-                ([0, 1, 1, 0], 8 * math.log(2)),
-                ([1, 0, 0, 1], 8 * math.log(2)),
-                ([1, 0, 1, 0], 8 * math.log(2)),
-                ([1, 1, 0, 0], 8 * math.log(2)),
+                ([0, 0, 1, 1], 16 * math.log(2) - 2 * math.log(15)),
+                ([0, 1, 0, 1], 16 * math.log(2) - 2 * math.log(15)),
+                ([0, 1, 1, 0], 16 * math.log(2) - 2 * math.log(15)),
+                ([1, 0, 0, 1], 16 * math.log(2) - 2 * math.log(15)),
+                ([1, 0, 1, 0], 16 * math.log(2) - 2 * math.log(15)),
+                ([1, 1, 0, 0], 16 * math.log(2) - 2 * math.log(15)),
 
-                ([0, 1, 1, 1], 4 * math.log(2)),
-                ([1, 0, 1, 1], 4 * math.log(2)),
-                ([1, 1, 0, 1], 4 * math.log(2)),
-                ([1, 1, 1, 0], 4 * math.log(2)),
+                ([0, 1, 1, 1], 16 * math.log(2) - 3 * math.log(15)),
+                ([1, 0, 1, 1], 16 * math.log(2) - 3 * math.log(15)),
+                ([1, 1, 0, 1], 16 * math.log(2) - 3 * math.log(15)),
+                ([1, 1, 1, 0], 16 * math.log(2) - 3 * math.log(15)),
 
-                ([1, 1, 1, 1], math.log(128) - math.log(93))
+                ([1, 1, 1, 1], 15 * math.log(2) - math.log(25343))
             ]
         elif count == 4:
             return [
-                ([0, 0, 0, 1], 12 * math.log(2)),
-                ([0, 0, 1, 0], 12 * math.log(2)),
-                ([0, 1, 0, 0], 12 * math.log(2)),
-                ([1, 0, 0, 0], 12 * math.log(2)),
+                ([0, 0, 0, 1], 16 * math.log(2) - math.log(15)),
+                ([0, 0, 1, 0], 16 * math.log(2) - math.log(15)),
+                ([0, 1, 0, 0], 16 * math.log(2) - math.log(15)),
+                ([1, 0, 0, 0], 16 * math.log(2) - math.log(15)),
 
-                ([0, 0, 1, 1], 8 * math.log(2)),
-                ([0, 1, 0, 1], 8 * math.log(2)),
-                ([0, 1, 1, 0], 8 * math.log(2)),
-                ([1, 0, 0, 1], 8 * math.log(2)),
-                ([1, 0, 1, 0], 8 * math.log(2)),
-                ([1, 1, 0, 0], 8 * math.log(2)),
+                ([0, 0, 1, 1], 16 * math.log(2) - 2 * math.log(15)),
+                ([0, 1, 0, 1], 16 * math.log(2) - 2 * math.log(15)),
+                ([0, 1, 1, 0], 16 * math.log(2) - 2 * math.log(15)),
+                ([1, 0, 0, 1], 16 * math.log(2) - 2 * math.log(15)),
+                ([1, 0, 1, 0], 16 * math.log(2) - 2 * math.log(15)),
+                ([1, 1, 0, 0], 16 * math.log(2) - 2 * math.log(15)),
 
-                ([0, 1, 1, 1], 4 * math.log(2)),
-                ([1, 0, 1, 1], 4 * math.log(2)),
-                ([1, 1, 0, 1], 4 * math.log(2)),
-                ([1, 1, 1, 0], 4 * math.log(2)),
+                ([0, 1, 1, 1], 16 * math.log(2) - 3 * math.log(15)),
+                ([1, 0, 1, 1], 16 * math.log(2) - 3 * math.log(15)),
+                ([1, 1, 0, 1], 16 * math.log(2) - 3 * math.log(15)),
+                ([1, 1, 1, 0], 16 * math.log(2) - 3 * math.log(15)),
 
-                ([1, 1, 1, 1], math.log(1024) - math.log(743))
+                ([1, 1, 1, 1], 15 * math.log(2) - math.log(25313))
             ]
 
     def join(states):
