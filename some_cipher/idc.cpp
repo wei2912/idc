@@ -53,9 +53,7 @@ void filter_keys(std::vector<nibs> kss, const std::function<nibs(nibs, nibs)> f,
                 std::swap(kss[i], kss[kss.size() - 1]);
                 kss.pop_back();
                 // do not increment i as the swapped element at i is not yet checked
-            } else {
-                ++i;
-            }
+            } else ++i;
         }
 
         std::cout << "Number of keys remaining: " << kss.size() << std::endl;
