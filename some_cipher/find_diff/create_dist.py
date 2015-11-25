@@ -91,6 +91,9 @@ def main():
         ):
             dists.append((start, p, w, rounds))
 
+    with open("dists.pickle", "wb") as f:
+        pickle.dump(dists, f)
+
     dists.sort(key=lambda t: t[1][-1])
     for start, p, w, rounds in dists:
         print("{} ... X ... {} with probability {}, {} rounds".format(
