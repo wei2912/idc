@@ -28,13 +28,13 @@ def main():
             ds1 = gen_graph.convert_int(dist1[1][-1])
 
             # make sure the group of distinguishers covers all 12 squares
-            overlap_score = sum(1 for i in overlap(ds0, ds1) if i >= 1)
-            if not overlap_score == 12:
+            cover_score = sum(1 for i in overlap(ds0, ds1) if i >= 1)
+            if not cover_score == 12:
                 continue
 
             # calculate number of key nibbles which all of the distinguishers share
-            core_score = sum(1 for i in overlap(ds0, ds1) if i == 2)
-            dist_pairs.append((dist0, dist1, core_score))
+            overlap_score = sum(1 for i in overlap(ds0, ds1) if i == 2)
+            dist_pairs.append((dist0, dist1, overlap_score))
 
     dist_pairs.sort(key=lambda t: t[2], reverse=True)
     for dist0, dist1, score in dist_pairs:
