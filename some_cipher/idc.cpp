@@ -5,78 +5,19 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <unordered_map>
 #include <vector>
 
 #include "some_cipher.h"
 
-/* Generate the list of keys based on range by iterating through key nibbles 2,
- * 3, 5, 7, 8, 9, 10 and setting all other nibbles to 0. */
-std::vector<nibs> gen_keys(const long start, const long end) {
-    nibs ks{0};
-    std::vector<nibs> kss;
-    for (long x = start; x < end; ++x) {
-        ks[2] = x >> 24 & 0xF;
-        ks[3] = x >> 20 & 0xF;
-        ks[5] = x >> 16 & 0xF;
-        ks[7] = x >> 12 & 0xF;
-        ks[8] = x >> 8 & 0xF;
-        ks[9] = x >> 4 & 0xF;
-        ks[10] = x & 0xF;
-        kss.push_back(ks);
-    }
-    return kss;
-}
-
-/* Iterate through all PT-CT pairs. For each pair, filter out keys using IDC. */
-void filter_keys(std::vector<nibs> kss, const std::function<nibs(nibs, nibs)> f, const std::vector<pair> pairs) {
+/* Iterate through all PT-CT pairs and try to eliminate the key. */
+bool is_key_wrong(const std::function<nibs(nibs, nibs)> f, const std::vector<pair> pairs, const diffs ds, const nibs ks) {
     for (auto &p : pairs) {
-        std::cout << "PS0: ";
-        for (int i = 0; i < 12; ++i) std::cout << +p.ps0[i] << " ";
-        std::cout << std::endl;
-        std::cout << "PS1: ";
-        for (int i = 0; i < 12; ++i) std::cout << +p.ps1[i] << " ";
-        std::cout << std::endl;
-        std::cout << "CS0: ";
-        for (int i = 0; i < 12; ++i) std::cout << +p.cs0[i] << " ";
-        std::cout << std::endl;
-        std::cout << "CS1: ";
-        for (int i = 0; i < 12; ++i) std::cout << +p.cs1[i] << " ";
-        std::cout << std::endl;
-
-        for (unsigned int i = 0; i < kss.size();) {
-            auto ks = kss[i];
-            auto ds0 = f(ks, p.cs0);
-            auto ds1 = f(ks, p.cs1);
-
-            if (differences(ds0, ds1) == diffs {0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1}) {
-                // remove the element from the vector in an efficient manner
-                std::swap(kss[i], kss[kss.size() - 1]);
-                kss.pop_back();
-                // do not increment i as the swapped element at i is not yet checked
-            } else ++i;
-        }
-
-        std::cout << "Number of keys remaining: " << kss.size() << std::endl;
+        auto ds0 = f(ks, p.cs0);
+        auto ds1 = f(ks, p.cs1);
+        if (differences(ds0, ds1) == ds) return true;
     }
-}
-
-/* Given the remaining combinations of key nibbles 2, 3, 5, 7, 8, 9, 10 left
- * after performing IDC, brute force the remaining keys. */
-nibs brute_force(const std::function<nibs(nibs, nibs)> f, const std::vector<nibs> kss, const nibs ps, const nibs cs) {
-    for (auto &ks : kss) {
-        auto ls = ks;
-        for (long x = 0; x < 1048576; ++x) {
-            ls[0] = x >> 16 & 0xF;
-            ls[1] = x >> 12 & 0xF;
-            ls[4] = x >> 8 & 0xF;
-            ls[6] = x >> 4 & 0xF;
-            ls[11] = x & 0xF;
-
-            if (ps == f(ls, cs)) return ls;
-        }
-    }
-
-    throw std::runtime_error("could not find correct key");
+    return false;
 }
 
 int main(const int argc, const char *argv[]) {
@@ -92,89 +33,131 @@ int main(const int argc, const char *argv[]) {
 
     std::string line; // used to store current line being read
 
-    // read the correct key
-    nibs correct_ks;
+    // skip the correct key
     std::getline(std::cin, line);
-    std::istringstream iss(line);
-    for (int i = 0; i < 12; ++i) {
-        int x;
-        iss >> x;
-        correct_ks[i] = x;
-    }
-
-    std::cout << "Correct key is ";
-    for (auto &k : correct_ks) std::cout << +k << " ";
-    std::cout << std::endl << std::endl;
 
     // read the plaintext pairs from stdin
-    std::vector<pair> pairs;
+    std::vector<pair> pairs0;
+    std::vector<pair> pairs1;
     while (std::getline(std::cin, line)) {
         std::istringstream iss(line);
         pair p;
-        for (int i = 0; i < 48; ++i) {
-            // 1st 12 numbers: ps0
-            // 2nd 12 numbers: ps1
-            // 3rd 12 numbers: cs0
-            // 4th 12 numbers: cs1
+        int id;
+        for (int i = 0; i < 49; ++i) {
+            // 0th number: id
+            // 1-12th number: ps0
+            // 13-24th number: ps1
+            // 25-36th number: cs0
+            // 37-48th number: cs1
             int x;
             iss >> x;
-            if (i < 12) p.ps0[i] = x;
-            else if (i < 24) p.ps1[i - 12] = x;
-            else if (i < 36) p.cs0[i - 24] = x;
-            else p.cs1[i - 36] = x;
+            if (i == 0) id = x;
+            else if (i <= 12) p.ps0[i - 1] = x;
+            else if (i <= 24) p.ps1[i - 13] = x;
+            else if (i <= 36) p.cs0[i - 25] = x;
+            else p.cs1[i - 37] = x;
         }
-        pairs.push_back(p);
+
+        if (id == 0) pairs0.push_back(p);
+        else if (id == 1) pairs1.push_back(p);
     }
 
-    // generate the list of keys based on range by
-    // iterating through key nibbles 2, 3, 5, 7, 8, 9, 10 and
-    // setting all other nibbles to 0
-    std::vector<nibs> kss = gen_keys(start, end);
-    std::cout << "Generated " << +kss.size() << " keys." << std::endl;
-
-    std::cout << "===" << std::endl;
-    std::cout << "Stage 1: IDC on key nibbles 2, 3, 5, 7, 8, 9, 10" << std::endl;
-    std::cout << "===" << std::endl;
+    std::cout << "Stage 1: IDC attack with first distinguisher" << std::endl;
 
     // function for decrypting last 2 rounds
     std::function<nibs(nibs, nibs)> f = [](nibs ks, nibs cs) {
         return inv_roundf(ks, inv_roundf(ks, cs, 4), 3);
     };
 
-    filter_keys(kss, f, pairs); // filters the keys in place
+    std::unordered_map<long, std::vector<nibs>> map_ks;
 
-    std::cout << "===" << std::endl;
-    std::cout << "Stage 2: Brute force on all possible keys left" << std::endl;
-    std::cout << "===" << std::endl;
+    // filtering by first distinguisher
+    int keys_remaining = 0;
+    for (long i = start; i < end; ++i) {
+        nibs ks{0};
+
+        // iterate through key nibbles 2, 3, 5, 7, 8, 9, 10
+        ks[2] = i >> 24 & 0xF;
+        ks[3] = i >> 20 & 0xF; // overlapping
+        ks[5] = i >> 16 & 0xF;
+        ks[7] = i >> 12 & 0xF;
+        ks[8] = i >> 8 & 0xF;
+        ks[9] = i >> 4 & 0xF;
+        ks[10] = i & 0xF; // overlapping
+
+        if (is_key_wrong(f, pairs0, {0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1}, ks)) continue;
+
+        ++keys_remaining;
+
+        long overlap_k = ks[10] | ks[3] << 4;
+        auto it = map_ks.find(overlap_k);
+
+        std::vector<nibs> kss{};
+        if (it != map_ks.end()) { // could find overlapped key
+            kss = it->second;
+            map_ks.erase(it);
+        }
+        kss.push_back(ks);
+        map_ks.insert({overlap_k, kss});
+    }
+
+    std::cout << "Keys remaining: " << keys_remaining << std::endl;
+
+    std::cout << "Stage 2: IDC attack with second distinguisher and brute force" << std::endl;
 
     // function for decrypting ciphertext
     std::function<nibs(nibs, nibs)> g = [](nibs ks, nibs cs) {
         return decrypt_block(ks, cs);
     };
 
-    // perform brute force using first PT-CT of first pair
-    pair p = pairs[0];
-
-    try {
-        // perform brute force, throw exception if no key is found
-        nibs ks = brute_force(g, kss, p.ps0, p.cs0);
-
-        if (ks == correct_ks) {
-            std::cout << "Found correct key!" << std::endl;
-
-            // print to file "success", used to indicate that the program has terminated successfully and all other instances can stop
-            std::ofstream outfile("success");
-            outfile << "Found correct key:";
-            for (int i = 0; i < 12; ++i) outfile << " " << +ks[i];
-            outfile << std::endl;
-
-            return 0;
-        } else {
-            // throw exception if key found is wrong
-            throw std::logic_error("key found through brute force is not key used to encrypt plaintext pairs");
-        }
-    } catch (const std::exception &e) {
-        std::cerr << "error: " << e.what() << std::endl;
-        return 1;
+    for (auto &pair : map_ks) {
+        long overlap_k = pair.first;
+        std::vector<nibs> kss = pair.second;
+        std::cout << overlap_k << ": " << +kss.size() << std::endl;
     }
+
+    // filtering by second distinguisher
+    // and conducting brute force
+    for (auto &pair : map_ks) {
+        long overlap_k = pair.first;
+        std::vector<nibs> kss = pair.second;
+
+        std::cout << "start of brute force" << std::endl;
+        for (long i = 0; i < 1048576; ++i) {
+            nibs ks{0};
+            ks[0] = i >> 16 & 0xF;
+            ks[1] = i >> 12 & 0xF;
+            ks[3] = overlap_k >> 4 & 0xF;
+            ks[4] = i >> 8 & 0xF;
+            ks[6] = i >> 4 & 0xF;
+            ks[10] = overlap_k & 0xF;
+            ks[11] = i & 0xF;
+
+            // only perform IDC attack if it is less costly than brute force
+            if (kss.size() > 1000) if (is_key_wrong(f, pairs1, {1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0}, ks)) continue;
+
+            for (auto &ls : kss) {
+                ks[2] = ls[2];
+                ks[5] = ls[5];
+                ks[7] = ls[7];
+                ks[8] = ls[8];
+                ks[9] = ls[9];
+
+                auto ps0 = pairs1[0].ps0;
+                auto cs0 = pairs1[0].cs0;
+                if (ps0 == g(ks, cs0)) {
+                    std::ofstream outfile("success");
+                    outfile << "Found correct key:";
+                    for (auto &k : ks) outfile << " " << +k;
+                    outfile << std::endl;
+
+                    return 0;
+                }
+            }
+        }
+        std::cout << "end of brute force" << std::endl;
+    }
+
+    std::cerr << "error: can't find correct key" << std::endl;
+    return 1;
 }
