@@ -81,7 +81,7 @@ def main():
     best_w = min(w for _, _, w, _ in dists)
     dists = list(filter(lambda t: t[2] == best_w, dists))
 
-    for dist in dists:
+    for start, p, w, rounds in dists:
         print("{} ... X ... {} with probability {}, {} rounds".format(
             start,
             " <- ".join(str(v) for v in p),
