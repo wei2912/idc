@@ -16,25 +16,30 @@ def count(x):
     """
     return sum(gen_graph.convert_int(x))
 
-def propagate(g, start, rounds, cutoff=None):
+def propagate(g, v0, rounds, cutoff):
     """
     g -> Graph of states of nibbles
-    start -> Starting configuration
+    v0 -> Current state
+    rounds -> Number of rounds to propagate by
+    cutoff -> Cutoff weight.
 
-    Propagate from the start by a few rounds. Returns a list of tuples
+    Propagate from the current state by a few rounds. Returns a list of tuples
     containing:
     1. the path
     2. negated logarithmic probability of taking that route
     """
     if rounds == 0:
-        yield ([start], 0)
+        t = count(v0)
+        if t >= 7:
+            yield ([v0], 0)
         return
 
-    v0 = start
     for v1 in g[v0]:
         w0 = g[v0][v1]['weight']
+        if w0 >= cutoff:
+            continue
         for p, w1 in propagate(g, v1, rounds - 1, cutoff=cutoff):
-            if cutoff is not None and w0 + w1 >= cutoff:
+            if w0 + w1 >= cutoff:
                 continue
             yield ([v0] + p, w0 + w1)
 
@@ -57,51 +62,35 @@ def main():
     for start, forward_rounds, backward_rounds, end in ids:
         # filter by number of start nibbles
         s = count(start)
-        if s > 4:
+        if s > 5:
             continue
 
-        def f(p, w):
-            s = count(start)
-            t = count(p[-1])
-
-            # filter by number of end nibbles
-            if t < 7:
-                return False
-
-            # filter by number of wrong key guesses
-            B = 28
-            if 4*t <= B:
-                return w <= (8*s + 4*t - 49) * math.log(2)
-            else:
-                return w <= (8*s - 49) * math.log(2) + min(4*t*math.log(2), -math.log(4*t - B) - math.log(math.log(2)))
-
         # backward extension
-        backward_extension_rounds = 2
+        backward_extension_rounds = 3
         rounds = forward_rounds + backward_rounds + backward_extension_rounds
-        for p, w in filter(
-            lambda t: f(*t),
-            add_last_round(
-                propagate(
-                    rev_backward_g,
-                    end,
-                    backward_extension_rounds - 1,
-                    cutoff=(8*s - 1) * math.log(2) # based on formula
-                )
+        for p, w in add_last_round(
+            propagate(
+                rev_backward_g,
+                end,
+                backward_extension_rounds - 1,
+                (8*s - 21) * math.log(2) # based on formula, assuming t >= 7
             )
         ):
             dists.append((start, p, w, rounds))
 
-    with open("dists.pickle", "wb") as f:
-        pickle.dump(dists, f)
+    best_w = min(w for _, _, w, _ in dists)
+    dists = list(filter(lambda t: t[2] == best_w, dists))
 
-    dists.sort(key=lambda t: t[1][-1])
-    for start, p, w, rounds in dists:
+    for dist in dists:
         print("{} ... X ... {} with probability {}, {} rounds".format(
             start,
             " <- ".join(str(v) for v in p),
             math.exp(-w),
             rounds
         ))
+
+    with open("dists.pickle", "wb") as f:
+        pickle.dump(dists, f)
 
 if __name__ == "__main__":
     main()

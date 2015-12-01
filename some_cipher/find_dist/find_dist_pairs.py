@@ -36,7 +36,8 @@ def main():
             overlap_score = sum(1 for i in overlap(ds0, ds1) if i == 2)
             dist_pairs.append((dist0, dist1, overlap_score))
 
-    dist_pairs.sort(key=lambda t: t[2], reverse=True)
+    best_overlap_score = max(overlap_score for _, _, overlap_score in dist_pairs)
+    dist_pairs = filter(lambda t: t[2] == best_overlap_score, dist_pairs)
     for dist0, dist1, score in dist_pairs:
         print(
             "{} ... X ... {} with probability {}, {} rounds".format(
@@ -54,7 +55,7 @@ def main():
                 dist1[3]
             )
         )
-        print("Score: {}".format(score))
+        print("---")
 
 main()
 

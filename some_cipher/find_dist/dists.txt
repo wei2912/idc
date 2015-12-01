@@ -1,840 +1,216 @@
-45 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-108 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-172 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-197 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-201 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-225 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-269 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-293 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-297 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-332 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-356 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-360 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-396 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-420 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-424 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-449 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-556 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-581 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-585 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-609 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-645 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-649 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-673 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-708 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-712 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-736 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-780 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-804 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-808 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-833 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-897 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-960 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 237 <- 253 <- 478 with probability 0.0026520865503698583, 5 rounds
-45 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-108 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-172 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-197 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-201 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-225 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-269 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-293 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-297 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-332 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-356 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-360 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-396 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-420 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-424 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-449 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-556 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-581 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-585 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-609 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-645 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-649 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-673 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-708 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-712 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-736 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-780 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-804 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-808 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-833 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-897 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-960 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 237 <- 239 <- 734 with probability 0.0026520865503698583, 5 rounds
-45 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-108 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-172 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-197 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-201 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-225 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-269 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-293 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-297 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-332 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-356 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-360 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-396 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-420 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-424 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-449 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-556 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-581 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-585 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-609 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-645 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-649 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-673 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-708 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-712 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-736 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-780 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-804 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-808 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-833 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-897 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-960 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 237 <- 127 <- 862 with probability 0.0026520865503698583, 5 rounds
-45 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-108 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-172 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-197 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-201 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-225 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-269 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-293 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-297 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-332 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-356 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-360 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-396 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-420 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-424 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-449 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-556 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-581 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-585 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-609 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-645 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-649 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-673 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-708 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-712 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-736 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-780 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-804 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-808 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-833 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-897 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-960 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 237 <- 191 <- 926 with probability 0.0026520865503698583, 5 rounds
-45 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-108 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-172 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-197 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-201 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-225 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-269 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-293 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-297 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-332 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-356 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-360 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-396 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-420 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-424 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-449 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-556 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-581 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-585 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-609 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-645 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-649 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-673 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-708 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-712 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-736 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-780 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-804 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-808 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-833 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-897 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-960 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 237 <- 254 <- 974 with probability 0.0026520865503698583, 5 rounds
-45 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-108 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-172 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-197 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-201 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-225 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-269 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-293 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-297 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-332 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-356 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-360 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-396 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-420 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-424 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-449 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-556 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-581 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-585 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-609 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-645 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-649 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-673 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-708 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-712 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-736 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-780 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-804 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-808 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-833 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-897 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-960 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 237 <- 247 <- 982 with probability 0.0026520865503698583, 5 rounds
-45 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-108 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-172 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-197 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-201 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-225 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-269 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-293 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-297 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-332 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-356 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-360 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-396 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-420 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-424 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-449 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-556 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-581 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-585 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-609 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-645 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-649 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-673 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-708 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-712 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-736 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-780 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-804 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-808 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-833 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-897 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-960 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 237 <- 251 <- 986 with probability 0.0026520865503698583, 5 rounds
-45 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-108 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-172 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-197 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-201 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-225 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-269 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-293 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-297 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-332 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-356 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-360 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-396 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-420 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-424 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-449 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-556 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-581 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-585 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-609 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-645 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-649 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-673 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-708 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-712 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-736 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-780 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-804 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-808 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-833 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-897 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-960 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 237 <- 223 <- 988 with probability 0.0026520865503698583, 5 rounds
-195 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-209 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-579 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-593 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-643 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-657 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-706 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-720 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-1043 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-1106 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-1170 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-1217 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-1554 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-1601 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-1665 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-1728 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-2067 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-2130 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-2194 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-2241 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-2578 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-2625 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-2689 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-2752 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-3075 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-3089 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-3138 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-3152 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-3202 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-3216 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-3586 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-3600 ... X ... 3792 <- 2032 <- 1507 with probability 0.0026520865503698583, 5 rounds
-46 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-60 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-270 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-284 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-294 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-298 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-308 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-312 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-1046 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-1050 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-1068 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-1074 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-1292 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-1298 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-1316 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-1320 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-2070 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-2074 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-2092 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-2098 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-2316 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-2322 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-2340 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-2344 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-3078 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-3082 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-3092 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-3096 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-3106 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-3120 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-3330 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-3344 ... X ... 3342 <- 1807 <- 1597 with probability 0.0026520865503698583, 5 rounds
-195 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-209 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-579 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-593 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-643 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-657 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-706 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-720 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-1043 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-1106 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-1170 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-1217 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-1554 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-1601 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-1665 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-1728 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-2067 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-2130 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-2194 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-2241 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-2578 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-2625 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-2689 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-2752 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-3075 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-3089 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-3138 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-3152 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-3202 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-3216 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-3586 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-3600 ... X ... 3792 <- 3056 <- 2531 with probability 0.0026520865503698583, 5 rounds
-46 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-60 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-270 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-284 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-294 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-298 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-308 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-312 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-1046 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-1050 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-1068 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-1074 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-1292 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-1298 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-1316 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-1320 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-2070 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-2074 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-2092 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-2098 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-2316 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-2322 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-2340 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-2344 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-3078 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-3082 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-3092 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-3096 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-3106 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-3120 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-3330 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-3344 ... X ... 3342 <- 2831 <- 2621 with probability 0.0026520865503698583, 5 rounds
-46 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-60 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-270 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-284 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-294 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-298 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-308 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-312 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-1046 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-1050 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-1068 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-1074 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-1292 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-1298 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-1316 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-1320 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-2070 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-2074 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-2092 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-2098 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-2316 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-2322 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-2340 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-2344 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-3078 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-3082 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-3092 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-3096 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-3106 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-3120 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-3330 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-3344 ... X ... 3342 <- 3853 <- 3133 with probability 0.0026520865503698583, 5 rounds
-195 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-209 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-579 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-593 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-643 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-657 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-706 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-720 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-1043 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-1106 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-1170 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-1217 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-1554 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-1601 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-1665 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-1728 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-2067 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-2130 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-2194 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-2241 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-2578 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-2625 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-2689 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-2752 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-3075 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-3089 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-3138 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-3152 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-3202 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-3216 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-3586 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-3600 ... X ... 3792 <- 4064 <- 3299 with probability 0.0026520865503698583, 5 rounds
-195 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-209 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-579 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-593 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-643 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-657 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-706 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-720 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-1043 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-1106 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-1170 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-1217 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-1554 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-1601 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-1665 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-1728 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-2067 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-2130 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-2194 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-2241 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-2578 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-2625 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-2689 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-2752 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-3075 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-3089 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-3138 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-3152 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-3202 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-3216 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-3586 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-3600 ... X ... 3792 <- 3952 <- 3427 with probability 0.0026520865503698583, 5 rounds
-195 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-209 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-579 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-593 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-643 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-657 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-706 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-720 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-1043 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-1106 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-1170 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-1217 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-1554 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-1601 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-1665 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-1728 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-2067 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-2130 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-2194 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-2241 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-2578 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-2625 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-2689 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-2752 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-3075 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-3089 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-3138 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-3152 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-3202 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-3216 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-3586 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-3600 ... X ... 3792 <- 4016 <- 3491 with probability 0.0026520865503698583, 5 rounds
-195 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-209 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-579 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-593 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-643 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-657 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-706 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-720 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-1043 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-1106 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-1170 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-1217 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-1554 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-1601 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-1665 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-1728 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-2067 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-2130 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-2194 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-2241 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-2578 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-2625 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-2689 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-2752 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-3075 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-3089 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-3138 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-3152 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-3202 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-3216 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-3586 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-3600 ... X ... 3792 <- 3568 <- 3523 with probability 0.0026520865503698583, 5 rounds
-195 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-209 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-579 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-593 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-643 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-657 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-706 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-720 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-1043 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-1106 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-1170 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-1217 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-1554 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-1601 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-1665 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-1728 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-2067 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-2130 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-2194 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-2241 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-2578 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-2625 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-2689 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-2752 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-3075 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-3089 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-3138 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-3152 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-3202 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-3216 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-3586 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-3600 ... X ... 3792 <- 4048 <- 3553 with probability 0.0026520865503698583, 5 rounds
-195 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-209 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-579 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-593 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-643 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-657 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-706 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-720 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-1043 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-1106 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-1170 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-1217 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-1554 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-1601 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-1665 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-1728 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-2067 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-2130 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-2194 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-2241 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-2578 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-2625 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-2689 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-2752 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-3075 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-3089 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-3138 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-3152 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-3202 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-3216 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-3586 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-3600 ... X ... 3792 <- 3824 <- 3554 with probability 0.0026520865503698583, 5 rounds
-46 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-60 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-270 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-284 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-294 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-298 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-308 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-312 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-1046 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-1050 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-1068 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-1074 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-1292 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-1298 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-1316 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-1320 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-2070 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-2074 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-2092 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-2098 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-2316 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-2322 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-2340 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-2344 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-3078 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-3082 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-3092 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-3096 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-3106 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-3120 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-3330 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-3344 ... X ... 3342 <- 3343 <- 3613 with probability 0.0026520865503698583, 5 rounds
-46 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-60 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-270 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-284 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-294 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-298 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-308 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-312 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-1046 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-1050 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-1068 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-1074 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-1292 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-1298 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-1316 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-1320 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-2070 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-2074 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-2092 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-2098 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-2316 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-2322 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-2340 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-2344 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-3078 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-3082 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-3092 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-3096 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-3106 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-3120 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-3330 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-3344 ... X ... 3342 <- 3854 <- 3629 with probability 0.0026520865503698583, 5 rounds
-46 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-60 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-270 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-284 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-294 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-298 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-308 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-312 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-1046 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-1050 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-1068 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-1074 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-1292 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-1298 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-1316 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-1320 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-2070 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-2074 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-2092 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-2098 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-2316 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-2322 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-2340 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-2344 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-3078 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-3082 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-3092 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-3096 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-3106 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-3120 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-3330 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-3344 ... X ... 3342 <- 3847 <- 3637 with probability 0.0026520865503698583, 5 rounds
-46 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-60 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-270 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-284 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-294 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-298 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-308 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-312 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-1046 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-1050 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-1068 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-1074 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-1292 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-1298 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-1316 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-1320 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-2070 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-2074 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-2092 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-2098 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-2316 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-2322 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-2340 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-2344 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-3078 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-3082 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-3092 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-3096 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-3106 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-3120 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-3330 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-3344 ... X ... 3342 <- 3851 <- 3641 with probability 0.0026520865503698583, 5 rounds
-46 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-60 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-270 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-284 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-294 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-298 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-300 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-308 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-312 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-705 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-1046 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-1050 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-1068 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-1074 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-1292 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-1298 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-1316 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-1320 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-2070 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-2074 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-2092 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-2098 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-2316 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-2322 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-2340 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-2344 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-3078 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-3082 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-3090 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-3092 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-3096 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-3106 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-3120 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-3330 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
-3344 ... X ... 3342 <- 3599 <- 3644 with probability 0.0026520865503698583, 5 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
+3795 ... X ... 4080 <- 4095 <- 4095 <- 4095 with probability 4.197312774512493e-06, 6 rounds
