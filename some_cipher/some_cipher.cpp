@@ -3,7 +3,7 @@
 
 #include "some_cipher.h"
 
-const int ROUNDS = 5;
+const int ROUNDS = 6;
 
 const std::array<unsigned char, 16> SBOX = {
     0xE, 0x4, 0xD, 0x1, 0x2, 0xF, 0xB, 0x8,

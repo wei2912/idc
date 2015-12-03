@@ -16,21 +16,24 @@ def count(x):
     """
     return sum(gen_graph.convert_int(x))
 
-def propagate(g, v0, rounds, cutoff):
+def propagate(g, v0, rounds, s, min_t):
     """
     g -> Graph of states of nibbles
     v0 -> Current state
     rounds -> Number of rounds to propagate by
-    cutoff -> Cutoff weight.
+    s -> No. of starting active nibbles.
+    min_t -> Minimum no. of ending active nibbles.
 
     Propagate from the current state by a few rounds. Returns a list of tuples
     containing:
     1. the path
     2. negated logarithmic probability of taking that route
     """
+    cutoff = (8*s + 4*min_t - 49) * math.log(2)
+
     if rounds == 0:
         t = count(v0)
-        if t >= 7:
+        if t >= min_t:
             yield ([v0], 0)
         return
 
@@ -38,7 +41,7 @@ def propagate(g, v0, rounds, cutoff):
         w0 = g[v0][v1]['weight']
         if w0 >= cutoff:
             continue
-        for p, w1 in propagate(g, v1, rounds - 1, cutoff=cutoff):
+        for p, w1 in propagate(g, v1, rounds - 1, s, min_t):
             if w0 + w1 >= cutoff:
                 continue
             yield ([v0] + p, w0 + w1)
@@ -73,7 +76,8 @@ def main():
                 rev_backward_g,
                 end,
                 backward_extension_rounds - 1,
-                (8*s - 21) * math.log(2) # based on formula, assuming t >= 7
+                s,
+                8
             )
         ):
             dists.append((start, p, w, rounds))
