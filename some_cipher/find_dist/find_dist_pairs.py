@@ -20,8 +20,7 @@ def main():
         dists = pickle.load(f)
 
     dist_pairs = []
-    for i in range(len(dists)):
-        dist0 = dists[i]
+    for i, dist0 in enumerate(dists):
         for j in range(i + 1, len(dists)):
             dist1 = dists[j]
             ds0 = gen_graph.convert_int(dist0[1][-1])

@@ -23,13 +23,13 @@ def find_diff(g, start):
     states = [vs]
     rounds = 0
 
-    isEnd = False
-    while len(vs) > 0 and not isEnd:
+    is_end = False
+    while len(vs) > 0 and not is_end:
         n_vs = set()
         for v0 in vs:
             for v1 in g[v0]:
                 if (v0, v1) in cycles or v1 == 4095:
-                    isEnd = True
+                    is_end = True
                 n_vs.add(v1)
 
         vs = n_vs
