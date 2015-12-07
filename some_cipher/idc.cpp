@@ -11,12 +11,25 @@
 #include "some_cipher.h"
 
 /* Iterate through all PT-CT pairs and try to eliminate the key. */
-bool is_key_wrong(const std::function<nibs(nibs, nibs)> f, const std::vector<pair> pairs, const diffs ds, const nibs ks) {
+bool is_key_wrong(const std::vector<pair> pairs, const std::vector<diffs> dss, const nibs ks) {
     for (auto &p : pairs) {
-        auto ds0 = f(ks, p.cs0);
-        auto ds1 = f(ks, p.cs1);
-        if (differences(ds0, ds1) == ds) return true;
+        auto ds0 = inv_roundf(ks, p.cs0, ROUNDS - 1);
+        auto ds1 = inv_roundf(ks, p.cs1, ROUNDS - 1);
+
+        bool is_wrong = true;
+        for (unsigned int i = 0; i < dss.size(); ++i) {
+            auto ds = dss[i];
+            ds0 = inv_roundf(ks, ds0, ROUNDS - i - 2);
+            ds1 = inv_roundf(ks, ds1, ROUNDS - i - 2);
+            if (differences(ds0, ds1) != ds) {
+                is_wrong = false;
+                break;
+            }
+        }
+
+        if (is_wrong) return true;
     }
+
     return false;
 }
 
@@ -31,7 +44,7 @@ int main(const int argc, const char *argv[]) {
     long start = std::atol(argv[1]);
     long end = std::atol(argv[2]);
 
-    std::string line; // used to store current line being read
+    std::string line;
 
     // skip the correct key
     std::getline(std::cin, line);
@@ -62,33 +75,36 @@ int main(const int argc, const char *argv[]) {
         else if (id == 1) pairs1.push_back(p);
     }
 
+    // propagation of differentials from backwards
+    std::vector<diffs> dss0;
+    dss0.push_back({0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1});
+    dss0.push_back({0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1});
+
     std::cout << "Stage 1: IDC attack with first distinguisher" << std::endl;
 
-    // function for decrypting last 2 rounds
-    std::function<nibs(nibs, nibs)> f = [](nibs ks, nibs cs) {
-        return inv_roundf(ks, inv_roundf(ks, cs, 4), 3);
-    };
-
-    std::unordered_map<long, std::vector<nibs>> map_ks;
+    //std::unordered_map<long, std::vector<nibs>> map_ks;
+    std::vector<nibs> kss;
 
     // filtering by first distinguisher
     int keys_remaining = 0;
     for (long i = start; i < end; ++i) {
         nibs ks{0};
 
-        // iterate through key nibbles 2, 3, 5, 7, 8, 9, 10
-        ks[2] = i >> 24 & 0xF;
-        ks[3] = i >> 20 & 0xF; // overlapping
+        // iterate through key nibbles 2, 3, 4, 5, 7, 8, 9, 10
+        ks[2] = i >> 28 & 0xF; // overlapping
+        ks[3] = i >> 24 & 0xF;
+        ks[4] = i >> 20 & 0xF;
         ks[5] = i >> 16 & 0xF;
-        ks[7] = i >> 12 & 0xF;
-        ks[8] = i >> 8 & 0xF;
-        ks[9] = i >> 4 & 0xF;
-        ks[10] = i & 0xF; // overlapping
+        ks[7] = i >> 12 & 0xF; // overlapping
+        ks[8] = i >> 8 & 0xF; // overlapping
+        ks[9] = i >> 4 & 0xF; // overlapping
+        ks[10] = i & 0xF;
 
-        if (is_key_wrong(f, pairs0, {0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1}, ks)) continue;
+        if (is_key_wrong(pairs0, dss0, ks)) continue;
 
         ++keys_remaining;
 
+        /*
         long overlap_k = ks[10] | ks[3] << 4;
         auto it = map_ks.find(overlap_k);
 
@@ -97,12 +113,37 @@ int main(const int argc, const char *argv[]) {
             kss = it->second;
             map_ks.erase(it);
         }
+        */
+
         kss.push_back(ks);
-        map_ks.insert({overlap_k, kss});
+        //map_ks.insert({overlap_k, kss});
     }
 
     std::cout << "Keys remaining: " << keys_remaining << std::endl;
 
+    std::cout << "Stage 2: Brute force" << std::endl;
+
+    for (auto &ks : kss) {
+        for (long i = 0; i < 65536; ++i) {
+            ks[0] = i >> 12 & 0xF;
+            ks[1] = i >> 8 & 0xF;
+            ks[6] = i >> 4 & 0xF;
+            ks[11] = i & 0xF;
+
+            auto ps0 = pairs0[0].ps0;
+            auto cs0 = pairs0[0].cs0;
+            if (ps0 == decrypt_block(ks, cs0)) {
+                std::ofstream outfile("success");
+                outfile << "Found correct key:";
+                for (auto &k : ks) outfile << " " << +k;
+                outfile << std::endl;
+
+                return 0;
+            }
+        }
+    }
+
+    /*
     std::cout << "Stage 2: IDC attack with second distinguisher and brute force" << std::endl;
 
     // function for decrypting ciphertext
@@ -133,7 +174,7 @@ int main(const int argc, const char *argv[]) {
             ks[11] = i & 0xF;
 
             // only perform IDC attack if it is less costly than brute force
-            if (kss.size() > 1000) if (is_key_wrong(f, pairs1, {1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0}, ks)) continue;
+            if (kss.size() > 1024 && is_key_wrong(f, pairs1, {1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0}, ks) continue;
 
             for (auto &ls : kss) {
                 ks[2] = ls[2];
@@ -155,6 +196,7 @@ int main(const int argc, const char *argv[]) {
             }
         }
     }
+    */
 
     std::cerr << "error: can't find correct key" << std::endl;
     return 1;

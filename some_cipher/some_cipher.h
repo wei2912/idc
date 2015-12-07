@@ -3,6 +3,8 @@
 
 #include <array>
 
+#define ROUNDS 6
+
 using diff = bool;
 using diffs = std::array<diff, 12>;
 

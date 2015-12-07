@@ -17,7 +17,7 @@ void gen_pairs(const std::function<nibs(nibs)> f) {
      */
 
     pairs = 0;
-    for (long x = 0; x < 1048576 && pairs < 2048; ++x) {
+    for (long x = 0; x < 1048576 && pairs < 16384; ++x) {
         // iterate through key nibbles 3, 6, 8, 9, 11, and fix the rest
         ps0[3] = x >> 16 & 0xF;
         ps0[6] = x >> 12 & 0xF;
@@ -26,7 +26,7 @@ void gen_pairs(const std::function<nibs(nibs)> f) {
         ps0[11] = x & 0xF;
         cs0 = f(ps0);
 
-        for (long y = x + 1; y < 1048576 && pairs < 2048; ++y) {
+        for (long y = x + 1; y < 1048576 && pairs < 16384; ++y) {
             ps1[3] = y >> 16 & 0xF;
             ps1[6] = y >> 12 & 0xF;
             ps1[8] = y >> 8 & 0xF;
@@ -49,7 +49,7 @@ void gen_pairs(const std::function<nibs(nibs)> f) {
     }
 
     pairs = 0;
-    for (long x = 0; x < 1048576 && pairs < 2048; ++x) {
+    for (long x = 0; x < 1048576 && pairs < 16384; ++x) {
         // iterate through key nibbles 3, 6, 8, 9, 10, and fix the rest
         ps2[3] = x >> 16 & 0xF;
         ps2[6] = x >> 12 & 0xF;
@@ -58,7 +58,7 @@ void gen_pairs(const std::function<nibs(nibs)> f) {
         ps2[10] = x & 0xF;
         cs2 = f(ps2);
 
-        for (long y = x + 1; y < 1048576 && pairs < 2048; ++y) {
+        for (long y = x + 1; y < 1048576 && pairs < 16384; ++y) {
             ps3[3] = y >> 16 & 0xF;
             ps3[6] = y >> 12 & 0xF;
             ps3[8] = y >> 8 & 0xF;
