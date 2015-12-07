@@ -16,44 +16,52 @@ def count(x):
     """
     return sum(gen_graph.convert_int(x))
 
-def propagate(g, v0, rounds, s, min_t):
+def propagate(g, v0, rounds, cutoff):
     """
     g -> Graph of states of nibbles
     v0 -> Current state
     rounds -> Number of rounds to propagate by
-    s -> No. of starting active nibbles.
-    min_t -> Minimum no. of ending active nibbles.
+    cutoff -> Cutoff weight for a branch
 
     Propagate from the current state by a few rounds. Returns a list of tuples
     containing:
     1. the path
     2. negated logarithmic probability of taking that route
     """
-    cutoff = (8*s + 4*min_t - 49) * math.log(2)
 
-    if rounds == 0:
-        t = count(v0)
-        if t >= min_t:
-            yield ([v0], 0)
-        return
-
-    for v1 in g[v0]:
-        w0 = g[v0][v1]['weight']
-        if w0 >= cutoff:
-            continue
-        for p, w1 in propagate(g, v1, rounds - 1, s, min_t):
-            if w0 + w1 >= cutoff:
+    ps = [([v0], 0)]
+    for i in range(rounds):
+        n_ps = []
+        for p0, w0 in ps:
+            if w0 > cutoff:
                 continue
-            yield ([v0] + p, w0 + w1)
 
-def add_last_round(ts):
-    for p, w in ts:
-        p += [gen_graph.convert_states(
-            gen_graph.last_roundf(
-                gen_graph.convert_int(p[-1])
-            )
-        )]
-        yield (p, w)
+            v0 = p0[-1]
+            for v1 in g[v0]:
+                w1 = g[v0][v1]['weight']
+                if w0 + w1 > cutoff:
+                    continue
+
+                # if last round, we can update the cutoff and check for required t
+                if i == rounds - 1:
+                    t = count(v1)
+                    if not 7 <= t <= 9:
+                        continue
+
+                    if w0 + w1 < cutoff:
+                        cutoff = w0 + w1
+                        n_ps = []
+
+                n_ps.append((p0 + [v1], w0 + w1))
+        ps = n_ps
+    return (cutoff, ps)
+
+def add_last_round(p):
+    return p + [gen_graph.convert_states(
+        gen_graph.last_roundf(
+            gen_graph.convert_int(p[-1])
+        )
+    )]
 
 def main():
     rev_forward_g = nx.read_gpickle("rev_forward.gpickle")
@@ -61,29 +69,31 @@ def main():
     with open("ids.pickle", "rb") as f:
         ids = pickle.load(f)
 
+    cutoff = 12
     dists = []
     for start, forward_rounds, backward_rounds, end in ids:
-        # filter by number of start nibbles
         s = count(start)
-        if s > 5:
+        if not 4 <= s <= 6:
             continue
 
         # backward extension
         backward_extension_rounds = 3
         rounds = forward_rounds + backward_rounds + backward_extension_rounds
-        for p, w in add_last_round(
-            propagate(
-                rev_backward_g,
-                end,
-                backward_extension_rounds - 1,
-                s,
-                8
-            )
-        ):
-            dists.append((start, p, w, rounds))
 
-    best_w = min(w for _, _, w, _ in dists)
-    dists = list(filter(lambda t: t[2] == best_w, dists))
+        n_cutoff, ps = propagate(
+            rev_backward_g,
+            end,
+            backward_extension_rounds - 1,
+            cutoff
+        )
+
+        if n_cutoff < cutoff:
+            cutoff = n_cutoff
+            dists = []
+
+        for p, w in ps:
+            p = add_last_round(p)
+            dists.append((start, p, w, rounds))
 
     for start, p, w, rounds in dists:
         print("{} ... X ... {} with probability {}, {} rounds".format(
