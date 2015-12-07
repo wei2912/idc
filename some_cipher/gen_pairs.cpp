@@ -12,29 +12,27 @@ void gen_pairs(const std::function<nibs(nibs)> f) {
     nibs cs0{0}, cs1{0}, cs2{0}, cs3{0};
 
     /* two distinguishers are used:
-     * 301 ... X ... 237 <- 237 <- 255 <- 990 with probability 7.033563070652695e-06, 6 rounds
-     * 302 ... X ... 3342 <- 3342 <- 3855 <- 3645 with probability 7.033563070652695e-06, 6 rounds
+     * 45 ... X ... 237 <- 237 <- 255 <- 990 with probability 7.033563070652695e-06, 6 rounds
+     * 46 ... X ... 3342 <- 3342 <- 3855 <- 3645 with probability 7.033563070652695e-06, 6 rounds
      */
 
     pairs = 0;
-    for (long x = 0; x < 1048576 && pairs < 16384; ++x) {
-        // iterate through key nibbles 3, 6, 8, 9, 11, and fix the rest
-        ps0[3] = x >> 16 & 0xF;
+    for (long x = 0; x < 65536 && pairs < 16384; ++x) {
+        // iterate through key nibbles 6, 8, 9, 11, and fix the rest
         ps0[6] = x >> 12 & 0xF;
         ps0[8] = x >> 8 & 0xF;
         ps0[9] = x >> 4 & 0xF;
         ps0[11] = x & 0xF;
         cs0 = f(ps0);
 
-        for (long y = x + 1; y < 1048576 && pairs < 16384; ++y) {
-            ps1[3] = y >> 16 & 0xF;
+        for (long y = x + 1; y < 65536 && pairs < 16384; ++y) {
             ps1[6] = y >> 12 & 0xF;
             ps1[8] = y >> 8 & 0xF;
             ps1[9] = y >> 4 & 0xF;
             ps1[11] = y & 0xF;
             cs1 = f(ps1);
 
-            if (differences(ps0, ps1) != diffs {0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1}) continue;
+            if (differences(ps0, ps1) != diffs {0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1}) continue;
             if (differences(cs0, cs1) != diffs {0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0}) continue;
 
             ++pairs;
@@ -49,24 +47,22 @@ void gen_pairs(const std::function<nibs(nibs)> f) {
     }
 
     pairs = 0;
-    for (long x = 0; x < 1048576 && pairs < 16384; ++x) {
-        // iterate through key nibbles 3, 6, 8, 9, 10, and fix the rest
-        ps2[3] = x >> 16 & 0xF;
+    for (long x = 0; x < 65536 && pairs < 16384; ++x) {
+        // iterate through key nibbles 6, 8, 9, 10, and fix the rest
         ps2[6] = x >> 12 & 0xF;
         ps2[8] = x >> 8 & 0xF;
         ps2[9] = x >> 4 & 0xF;
         ps2[10] = x & 0xF;
         cs2 = f(ps2);
 
-        for (long y = x + 1; y < 1048576 && pairs < 16384; ++y) {
-            ps3[3] = y >> 16 & 0xF;
+        for (long y = x + 1; y < 65536 && pairs < 16384; ++y) {
             ps3[6] = y >> 12 & 0xF;
             ps3[8] = y >> 8 & 0xF;
             ps3[9] = y >> 4 & 0xF;
             ps3[10] = y & 0xF;
             cs3 = f(ps3);
 
-            if (differences(ps2, ps3) != diffs {0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0}) continue;
+            if (differences(ps2, ps3) != diffs {0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0}) continue;
             if (differences(cs2, cs3) != diffs {1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1}) continue;
 
             ++pairs;
