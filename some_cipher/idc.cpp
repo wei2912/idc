@@ -1,11 +1,9 @@
 #include <algorithm>
 #include <cstdlib>
 #include <fstream>
-#include <functional>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
-#include <unordered_map>
 #include <vector>
 
 #include "some_cipher.h"

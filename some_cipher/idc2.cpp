@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <cstdlib>
 #include <fstream>
-#include <functional>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -150,7 +149,7 @@ int main(const int argc, const char *argv[]) {
             ks[11] = i & 0xF;
 
             // only perform IDC attack if it is less costly than brute force
-            if (kss.size() > 16384 && is_key_wrong(pairs1, dss1, ks)) continue;
+            if (kss.size() > 8192 && is_key_wrong(pairs1, dss1, ks)) continue;
 
             for (auto &ls : kss) {
                 ks[3] = ls[3];
