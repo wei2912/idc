@@ -19,7 +19,8 @@ def main():
     with open("dists.pickle", "rb") as f:
         dists = pickle.load(f)
 
-    best_overlap_score = 0
+    best_prob = (0, 0)
+
     dist_pairs = []
     for i, dist0 in enumerate(dists):
         for j in range(i + 1, len(dists)):
@@ -34,14 +35,18 @@ def main():
 
             # calculate number of key nibbles which all of the distinguishers share
             overlap_score = sum(1 for i in overlap(ds0, ds1) if i == 2)
-            if overlap_score < best_overlap_score:
+            if not overlap_score == 2:
                 continue
-            elif overlap_score > best_overlap_score:
-                best_overlap_score = overlap_score
-                dist_pairs = []
-            dist_pairs.append((dist0, dist1, overlap_score))
 
-    for dist0, dist1, score in dist_pairs:
+            prob = (dist0[2], dist1[2])
+            if prob < best_prob:
+                continue
+            elif prob > best_prob:
+                dist_pairs = []
+                best_prob = prob
+            dist_pairs.append((dist0, dist1))
+
+    for dist0, dist1 in dist_pairs:
         print(
             "{} ... X ... {} with probability {}, {} rounds".format(
                 dist0[0],

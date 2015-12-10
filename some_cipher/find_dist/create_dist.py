@@ -42,19 +42,14 @@ def propagate(g, v0, rounds, cutoff):
                 if w0 + w1 > cutoff:
                     continue
 
-                # if last round, we can update the cutoff and check for required t
                 if i == rounds - 1:
                     t = count(v1)
-                    if not 7 <= t <= 9:
+                    if not 6 <= t <= 8:
                         continue
-
-                    if w0 + w1 < cutoff:
-                        cutoff = w0 + w1
-                        n_ps = []
 
                 n_ps.append((p0 + [v1], w0 + w1))
         ps = n_ps
-    return (cutoff, ps)
+    return ps
 
 def add_last_round(p):
     return p + [gen_graph.convert_states(
@@ -80,28 +75,21 @@ def main():
         backward_extension_rounds = 3
         rounds = forward_rounds + backward_rounds + backward_extension_rounds
 
-        n_cutoff, ps = propagate(
+        for p, w in propagate(
             rev_backward_g,
             end,
             backward_extension_rounds - 1,
             cutoff
-        )
-
-        if n_cutoff < cutoff:
-            cutoff = n_cutoff
-            dists = []
-
-        for p, w in ps:
+        ):
             p = add_last_round(p)
             dists.append((start, p, w, rounds))
 
-    for start, p, w, rounds in dists:
-        print("{} ... X ... {} with probability {}, {} rounds".format(
-            start,
-            " <- ".join(str(v) for v in p),
-            math.exp(-w),
-            rounds
-        ))
+            print("{} ... X ... {} with probability {}, {} rounds".format(
+                start,
+                " <- ".join(str(v) for v in p),
+                math.exp(-w),
+                rounds
+            ))
 
     with open("dists.pickle", "wb") as f:
         pickle.dump(dists, f)
