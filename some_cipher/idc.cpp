@@ -50,35 +50,30 @@ int main(const int argc, const char *argv[]) {
     std::getline(std::cin, line);
 
     // read the plaintext pairs from stdin
-    std::vector<pair> pairs0;
-    std::vector<pair> pairs1;
+    std::vector<pair> pairs;
     while (std::getline(std::cin, line)) {
         std::istringstream iss(line);
         pair p;
-        int id;
         for (int i = 0; i < 49; ++i) {
-            // 0th number: id
-            // 1-12th number: ps0
-            // 13-24th number: ps1
-            // 25-36th number: cs0
-            // 37-48th number: cs1
+            // 0-11th number: ps0
+            // 12-23th number: ps1
+            // 24-35th number: cs0
+            // 36-47th number: cs1
             int x;
             iss >> x;
-            if (i == 0) id = x;
-            else if (i <= 12) p.ps0[i - 1] = x;
-            else if (i <= 24) p.ps1[i - 13] = x;
-            else if (i <= 36) p.cs0[i - 25] = x;
-            else p.cs1[i - 37] = x;
+            if (i < 12) p.ps0[i - 1] = x;
+            else if (i < 24) p.ps1[i - 12] = x;
+            else if (i < 36) p.cs0[i - 24] = x;
+            else p.cs1[i - 36] = x;
         }
 
-        if (id == 0) pairs0.push_back(p);
-        else if (id == 1) pairs1.push_back(p);
+        pairs.push_back(p);
     }
 
     // propagation of differentials from backwards
-    std::vector<diffs> dss0;
-    dss0.push_back({0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1});
-    dss0.push_back({0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1});
+    std::vector<diffs> dss;
+    dss.push_back({0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1});
+    dss.push_back({0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1});
 
     std::cout << "Stage 1: IDC attack with first distinguisher" << std::endl;
 
@@ -101,7 +96,7 @@ int main(const int argc, const char *argv[]) {
         ks[5] = i >> 4 & 0xF;
         ks[10] = i & 0xF;
 
-        if (is_key_wrong(pairs0, dss0, ks)) continue;
+        if (is_key_wrong(pairs, dss, ks)) continue;
 
         ++keys_remaining;
 
@@ -119,8 +114,8 @@ int main(const int argc, const char *argv[]) {
             ks[6] = i >> 4 & 0xF;
             ks[11] = i & 0xF;
 
-            auto ps0 = pairs0[0].ps0;
-            auto cs0 = pairs0[0].cs0;
+            auto ps0 = pairs[0].ps0;
+            auto cs0 = pairs[0].cs0;
             if (ps0 == decrypt_block(ks, cs0)) {
                 std::ofstream outfile("success");
                 outfile << "Found correct key:";

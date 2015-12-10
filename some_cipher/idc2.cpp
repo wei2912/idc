@@ -136,15 +136,17 @@ int main(const int argc, const char *argv[]) {
         long overlap_k = pair.first;
         std::vector<nibs> kss = pair.second;
 
+        nibs ks{0};
+        // overlapping nibbles
+        ks[2] = overlap_k >> 12 & 0xF;
+        ks[7] = overlap_k >> 8 & 0xF;
+        ks[8] = overlap_k >> 4 & 0xF;
+        ks[9] = overlap_k & 0xF;
+
         for (long i = 0; i < 65536; ++i) {
-            nibs ks{0};
             ks[0] = i >> 12 & 0xF;
             ks[1] = i >> 8 & 0xF;
-            ks[2] = overlap_k >> 12 & 0xF;
             ks[6] = i >> 4 & 0xF;
-            ks[7] = overlap_k >> 8 & 0xF;
-            ks[8] = overlap_k >> 4 & 0xF;
-            ks[9] = overlap_k & 0xF;
             ks[11] = i & 0xF;
 
             // only perform IDC attack if it is less costly than brute force
