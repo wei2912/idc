@@ -90,13 +90,15 @@ int main(const int argc, const char *argv[]) {
         nibs ks{0};
 
         // iterate through key nibbles 2, 3, 4, 5, 7, 8, 9, 10
-        ks[2] = i >> 28 & 0xF; // overlapping
-        ks[3] = i >> 24 & 0xF;
-        ks[4] = i >> 20 & 0xF;
-        ks[5] = i >> 16 & 0xF;
-        ks[7] = i >> 12 & 0xF; // overlapping
-        ks[8] = i >> 8 & 0xF; // overlapping
-        ks[9] = i >> 4 & 0xF; // overlapping
+        // go through overlapping nibbles first
+        ks[2] = i >> 28 & 0xF;
+        ks[7] = i >> 24 & 0xF;
+        ks[8] = i >> 20 & 0xF;
+        ks[9] = i >> 16 & 0xF;
+        // then the non-overlapping nibbles
+        ks[3] = i >> 12 & 0xF;
+        ks[4] = i >> 8 & 0xF;
+        ks[5] = i >> 4 & 0xF;
         ks[10] = i & 0xF;
 
         if (is_key_wrong(pairs0, dss0, ks)) continue;
