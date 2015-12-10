@@ -79,10 +79,13 @@ int main(const int argc, const char *argv[]) {
     std::vector<diffs> dss0;
     dss0.push_back({0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1});
     dss0.push_back({0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1});
+    std::vector<diffs> dss1;
+    dss1.push_back({1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0});
+    dss1.push_back({1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0});
 
     std::cout << "Stage 1: IDC attack with first distinguisher" << std::endl;
 
-    std::vector<nibs> kss;
+    std::unordered_map<long, std::vector<nibs>> map_ks;
 
     // filtering by first distinguisher
     int keys_remaining = 0;
@@ -90,42 +93,79 @@ int main(const int argc, const char *argv[]) {
         nibs ks{0};
 
         // iterate through key nibbles 2, 3, 4, 5, 7, 8, 9, 10
-        ks[2] = i >> 28 & 0xF; // overlapping
-        ks[3] = i >> 24 & 0xF;
-        ks[4] = i >> 20 & 0xF;
-        ks[5] = i >> 16 & 0xF;
-        ks[7] = i >> 12 & 0xF; // overlapping
-        ks[8] = i >> 8 & 0xF; // overlapping
-        ks[9] = i >> 4 & 0xF; // overlapping
+        // go through overlapping nibbles first
+        ks[2] = i >> 28 & 0xF;
+        ks[7] = i >> 24 & 0xF;
+        ks[8] = i >> 20 & 0xF;
+        ks[9] = i >> 16 & 0xF;
+        // then the non-overlapping nibbles
+        ks[3] = i >> 12 & 0xF;
+        ks[4] = i >> 8 & 0xF;
+        ks[5] = i >> 4 & 0xF;
         ks[10] = i & 0xF;
 
         if (is_key_wrong(pairs0, dss0, ks)) continue;
 
         ++keys_remaining;
 
+        long overlap_k = ks[9] | ks[8] << 4 | ks[7] << 8 | ks[2] << 12;
+        auto it = map_ks.find(overlap_k);
+
+        std::vector<nibs> kss{};
+        if (it != map_ks.end()) { // could find overlapped key
+            kss = it->second;
+            map_ks.erase(it);
+        }
         kss.push_back(ks);
+        map_ks.insert({overlap_k, kss});
     }
 
     std::cout << "Keys remaining: " << keys_remaining << std::endl;
 
-    std::cout << "Stage 2: Brute force" << std::endl;
+    std::cout << "Stage 2: IDC attack with second distinguisher and brute force" << std::endl;
 
-    for (auto &ks : kss) {
+    for (auto &pair : map_ks) {
+        long overlap_k = pair.first;
+        std::vector<nibs> kss = pair.second;
+        std::cout << overlap_k << ": " << +kss.size() << std::endl;
+    }
+
+    // filtering by second distinguisher
+    // and conducting brute force
+    for (auto &pair : map_ks) {
+        long overlap_k = pair.first;
+        std::vector<nibs> kss = pair.second;
+
         for (long i = 0; i < 65536; ++i) {
+            nibs ks{0};
             ks[0] = i >> 12 & 0xF;
             ks[1] = i >> 8 & 0xF;
+            ks[2] = overlap_k >> 12 & 0xF;
             ks[6] = i >> 4 & 0xF;
+            ks[7] = overlap_k >> 8 & 0xF;
+            ks[8] = overlap_k >> 4 & 0xF;
+            ks[9] = overlap_k & 0xF;
             ks[11] = i & 0xF;
 
-            auto ps0 = pairs0[0].ps0;
-            auto cs0 = pairs0[0].cs0;
-            if (ps0 == decrypt_block(ks, cs0)) {
-                std::ofstream outfile("success");
-                outfile << "Found correct key:";
-                for (auto &k : ks) outfile << " " << +k;
-                outfile << std::endl;
+            // only perform IDC attack if it is less costly than brute force
+            if (kss.size() > 16384 && is_key_wrong(pairs1, dss1, ks)) continue;
 
-                return 0;
+            for (auto &ls : kss) {
+                ks[3] = ls[3];
+                ks[4] = ls[4];
+                ks[5] = ls[5];
+                ks[10] = ls[10];
+
+                auto ps0 = pairs1[0].ps0;
+                auto cs0 = pairs1[0].cs0;
+                if (ps0 == decrypt_block(ks, cs0)) {
+                    std::ofstream outfile("success");
+                    outfile << "Found correct key:";
+                    for (auto &k : ks) outfile << " " << +k;
+                    outfile << std::endl;
+
+                    return 0;
+                }
             }
         }
     }

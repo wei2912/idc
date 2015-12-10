@@ -1,11 +1,12 @@
 CXX=g++
 CXXFLAGS=-std=c++14 -Wall -O3
 
-all: test_some_cipher gen_pairs idc
+all: test_some_cipher gen_pairs idc idc2
 clean:
-	rm some_cipher.o  test_some_cipher gen_pairs idc
+	rm some_cipher.o  test_some_cipher gen_pairs idc idc2
 
 test_some_cipher: some_cipher.o
 gen_pairs: some_cipher.o
 idc: some_cipher.o
+idc2: some_cipher.o
 
