@@ -10,7 +10,7 @@
  * differences in plaintext and ciphertext correspond. */
 void print_data(const nibs ks, const int num_pairs) {
     std::stringstream ss;
-    ss << "pairs1_" << num_pairs << ".txt";
+    ss << "pairs_" << num_pairs << ".txt";
     std::ofstream outfile(ss.str());
 
     // print out key on first line
