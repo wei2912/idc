@@ -44,7 +44,7 @@ def propagate(g, v0, rounds, cutoff):
 
                 if i == rounds - 1:
                     t = count(v1)
-                    if not 6 <= t <= 8:
+                    if not t == 7:
                         continue
 
                 n_ps.append((p0 + [v1], w0 + w1))
