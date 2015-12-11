@@ -79,8 +79,8 @@ int main(const int argc, const char *argv[]) {
     dss0.push_back({0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1});
     dss0.push_back({0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1});
     std::vector<diffs> dss1;
-    dss1.push_back({1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0});
-    dss1.push_back({1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0});
+    dss1.push_back({1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0});
+    dss1.push_back({1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0});
 
     std::cout << "Stage 1: IDC attack with first distinguisher" << std::endl;
 
@@ -91,23 +91,22 @@ int main(const int argc, const char *argv[]) {
     for (long i = start; i < end; ++i) {
         nibs ks{0};
 
-        // iterate through key nibbles 2, 3, 4, 5, 7, 8, 9, 10
+        // iterate through key nibbles 2, 3, 5, 7, 8, 9, 10
         // go through overlapping nibbles first
-        ks[2] = i >> 28 & 0xF;
-        ks[7] = i >> 24 & 0xF;
-        ks[8] = i >> 20 & 0xF;
-        ks[9] = i >> 16 & 0xF;
+        ks[3] = i >> 24 & 0xF;
+        ks[10] = i >> 20 & 0xF;
         // then the non-overlapping nibbles
-        ks[3] = i >> 12 & 0xF;
-        ks[4] = i >> 8 & 0xF;
-        ks[5] = i >> 4 & 0xF;
-        ks[10] = i & 0xF;
+        ks[2] = i >> 16 & 0xF;
+        ks[5] = i >> 12 & 0xF;
+        ks[7] = i >> 8 & 0xF;
+        ks[8] = i >> 4 & 0xF;
+        ks[9] = i & 0xF;
 
         if (is_key_wrong(pairs0, dss0, ks)) continue;
 
         ++keys_remaining;
 
-        long overlap_k = ks[9] | ks[8] << 4 | ks[7] << 8 | ks[2] << 12;
+        long overlap_k = ks[10] | ks[3] << 4;
         auto it = map_ks.find(overlap_k);
 
         std::vector<nibs> kss{};
@@ -137,25 +136,25 @@ int main(const int argc, const char *argv[]) {
 
         nibs ks{0};
         // overlapping nibbles
-        ks[2] = overlap_k >> 12 & 0xF;
-        ks[7] = overlap_k >> 8 & 0xF;
-        ks[8] = overlap_k >> 4 & 0xF;
-        ks[9] = overlap_k & 0xF;
+        ks[3] = overlap_k >> 4 & 0xF;
+        ks[10] = overlap_k & 0xF;
 
-        for (long i = 0; i < 65536; ++i) {
-            ks[0] = i >> 12 & 0xF;
-            ks[1] = i >> 8 & 0xF;
+        for (long i = 0; i < 1048576; ++i) {
+            ks[0] = i >> 16 & 0xF;
+            ks[1] = i >> 12 & 0xF;
+            ks[4] = i >> 8 & 0xF;
             ks[6] = i >> 4 & 0xF;
             ks[11] = i & 0xF;
 
             // only perform IDC attack if it is less costly than brute force
-            if (kss.size() > 8192 && is_key_wrong(pairs1, dss1, ks)) continue;
+            if (kss.size() > 1024 && is_key_wrong(pairs1, dss1, ks)) continue;
 
             for (auto &ls : kss) {
-                ks[3] = ls[3];
-                ks[4] = ls[4];
+                ks[2] = ls[2];
                 ks[5] = ls[5];
-                ks[10] = ls[10];
+                ks[7] = ls[7];
+                ks[8] = ls[8];
+                ks[9] = ls[9];
 
                 auto ps0 = pairs1[0].ps0;
                 auto cs0 = pairs1[0].cs0;

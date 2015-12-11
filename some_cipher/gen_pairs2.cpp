@@ -1,83 +1,137 @@
+#include <fstream>
 #include <functional>
 #include <iostream>
 #include <random>
+#include <sstream>
 
 #include "some_cipher.h"
 
 /* Generate plaintext pairs by iterating through list of plaintexts. Check that
  * differences in plaintext and ciphertext correspond. */
-void gen_pairs(const std::function<nibs(nibs)> f) {
-    int pairs;
-    nibs ps0{0}, ps1{0}, ps2{0}, ps3{0};
-    nibs cs0{0}, cs1{0}, cs2{0}, cs3{0};
+void print_data(const nibs ks, const int num_pairs) {
+    std::stringstream ss;
+    ss << "pairs2_" << num_pairs << ".txt";
+    std::ofstream outfile(ss.str());
+
+    // print out key on first line
+    for (auto &k : ks) std::cout << +k << " ";
+    std::cout << std::endl;
+
+    int iters = 0;
+    int pairs = 0;
+    nibs ps0{0}, ps1{0};
+    nibs cs0{0}, cs1{0};
 
     /* two distinguishers are used:
-     * 45 ... X ... 237 <- 237 <- 255 <- 990 with probability 7.033563070652695e-06, 6 rounds
-     * 46 ... X ... 3342 <- 3342 <- 3855 <- 3645 with probability 7.033563070652695e-06, 6 rounds
+     * 45 ... X ... 237 <- 237 <- 127 <- 862 with probability 7.033563070652695e-06, 6 rounds
+     * 195 ... X ... 3792 <- 3792 <- 4016 <- 3491 with probability 7.033563070652695e-06, 6 rounds
      */
 
+    // passive key nibbles: 0, 1, 2, 3, 4, 5, 7, 10
+    // active key nibbles: 6, 8, 9, 11
     pairs = 0;
-    for (long x = 0; x < 65536 && pairs < 8192; ++x) {
-        // iterate through key nibbles 6, 8, 9, 11, and fix the rest
+    for (unsigned long x = 0; x < 4294967296 && pairs < num_pairs / 2; ++x) {
+        ps0[0] = x >> 28 & 0xF;
+        ps0[1] = x >> 24 & 0xF;
+        ps0[2] = x >> 20 & 0xF;
+        ps0[3] = x >> 16 & 0xF;
+        ps0[4] = x >> 12 & 0xF;
+        ps0[5] = x >> 8 & 0xF;
+        ps0[7] = x >> 4 & 0xF;
+        ps0[10] = x & 0xF;
+
+        ps1 = ps0;
+
+        for (long y = 0; y < 65536 && pairs < num_pairs / 2; ++y) {
+            ps0[6] = y >> 12 & 0xF;
+            ps0[8] = y >> 8 & 0xF;
+            ps0[9] = y >> 4 & 0xF;
+            ps0[11] = y & 0xF;
+            cs0 = encrypt_block(ks, ps0);
+
+            for (long z = y + 1; z < 65536 && pairs < num_pairs / 2; ++z) {
+                ps1[6] = z >> 12 & 0xF;
+                ps1[8] = z >> 8 & 0xF;
+                ps1[9] = z >> 4 & 0xF;
+                ps1[11] = z & 0xF;
+                cs1 = encrypt_block(ks, ps1);
+
+                ++iters;
+
+                if (differences(ps0, ps1) != diffs {0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1}) continue;
+                if (differences(cs0, cs1) != diffs {0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0}) continue;
+
+                ++pairs;
+
+                outfile << "0 ";
+                for (auto &p : ps0) outfile << +p << " ";
+                for (auto &p : ps1) outfile << +p << " ";
+                for (auto &c : cs0) outfile << +c << " ";
+                for (auto &c : cs1) outfile << +c << " ";
+                outfile << std::endl;
+            }
+        }
+    }
+
+    // passive key nibbles: 1, 2, 3, 6, 7, 8, 9
+    // active key nibbles: 4, 5, 10, 11
+    pairs = 0;
+    for (unsigned long x = 0; x < 4294967296 && pairs < num_pairs / 2; ++x) {
+        ps0[0] = x >> 28 & 0xF;
+        ps0[1] = x >> 24 & 0xF;
+        ps0[2] = x >> 20 & 0xF;
+        ps0[3] = x >> 16 & 0xF;
         ps0[6] = x >> 12 & 0xF;
-        ps0[8] = x >> 8 & 0xF;
-        ps0[9] = x >> 4 & 0xF;
-        ps0[11] = x & 0xF;
-        cs0 = f(ps0);
+        ps0[7] = x >> 8 & 0xF;
+        ps0[8] = x >> 4 & 0xF;
+        ps0[9] = x & 0xF;
 
-        for (long y = x + 1; y < 65536 && pairs < 8192; ++y) {
-            ps1[6] = y >> 12 & 0xF;
-            ps1[8] = y >> 8 & 0xF;
-            ps1[9] = y >> 4 & 0xF;
-            ps1[11] = y & 0xF;
-            cs1 = f(ps1);
+        ps1 = ps0;
+        for (long y = 0; y < 65536 && pairs < num_pairs / 2; ++y) {
+            ps0[4] = y >> 12 & 0xF;
+            ps0[5] = y >> 8 & 0xF;
+            ps0[10] = y >> 4 & 0xF;
+            ps0[11] = y & 0xF;
+            cs0 = encrypt_block(ks, ps0);
 
-            if (differences(ps0, ps1) != diffs {0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1}) continue;
-            if (differences(cs0, cs1) != diffs {0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0}) continue;
+            for (long z = y + 1; z < 65536 && pairs < num_pairs / 2; ++z) {
+                ps1[4] = z >> 12 & 0xF;
+                ps1[5] = z >> 8 & 0xF;
+                ps1[10] = z >> 4 & 0xF;
+                ps1[11] = z & 0xF;
+                cs1 = encrypt_block(ks, ps1);
 
-            ++pairs;
+                ++iters;
 
-            std::cout << "0 ";
-            for (auto &p : ps0) std::cout << +p << " ";
-            for (auto &p : ps1) std::cout << +p << " ";
-            for (auto &c : cs0) std::cout << +c << " ";
-            for (auto &c : cs1) std::cout << +c << " ";
-            std::cout << std::endl;
+                if (differences(ps0, ps1) != diffs {0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1}) continue;
+                if (differences(cs0, cs1) != diffs {1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1}) continue;
+
+                ++pairs;
+
+                outfile << "1 ";
+                for (auto &p : ps0) outfile << +p << " ";
+                for (auto &p : ps1) outfile << +p << " ";
+                for (auto &c : cs0) outfile << +c << " ";
+                for (auto &c : cs1) outfile << +c << " ";
+                outfile << std::endl;
+            }
         }
     }
 
-    pairs = 0;
-    for (long x = 0; x < 65536 && pairs < 8192; ++x) {
-        // iterate through key nibbles 6, 8, 9, 10, and fix the rest
-        ps2[6] = x >> 12 & 0xF;
-        ps2[8] = x >> 8 & 0xF;
-        ps2[9] = x >> 4 & 0xF;
-        ps2[10] = x & 0xF;
-        cs2 = f(ps2);
-
-        for (long y = x + 1; y < 65536 && pairs < 8192; ++y) {
-            ps3[6] = y >> 12 & 0xF;
-            ps3[8] = y >> 8 & 0xF;
-            ps3[9] = y >> 4 & 0xF;
-            ps3[10] = y & 0xF;
-            cs3 = f(ps3);
-
-            if (differences(ps2, ps3) != diffs {0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0}) continue;
-            if (differences(cs2, cs3) != diffs {1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1}) continue;
-
-            ++pairs;
-
-            std::cout << "1 ";
-            for (auto &p : ps2) std::cout << +p << " ";
-            for (auto &p : ps3) std::cout << +p << " ";
-            for (auto &c : cs2) std::cout << +c << " ";
-            for (auto &c : cs3) std::cout << +c << " ";
-            std::cout << std::endl;
-        }
-    }
+    // construct integer representing key during key guessing
+    long key_int = ks[3] << 24 | ks[10] << 20 | ks[2] << 16 | ks[5] << 12 | ks[7] << 8 | ks[8] << 4 | ks[9];
+    std::cout << "Integer representing key: " << key_int << std::endl;
+    std::cout << "Number of PT-CT pairs the program went through: " << iters << std::endl;
 }
 
-int main() {
+int main(const int argc, const char *argv[]) {
+    if (argc != 2) {
+        std::cerr << "Wrong number of arguments. Please pass in the number of filtered PT-CT pairs." << std::endl;
+        return 1;
+    }
+
+    long num_pairs = std::atol(argv[1]);
+
     std::random_device rd;
     std::default_random_engine g(rd());
     std::uniform_int_distribution<> d(0, 15);
@@ -86,16 +140,7 @@ int main() {
     nibs ks;
     for (int i = 0; i < 12; ++i) ks[i] = d(g);
 
-    // function for encrypting plaintext
-    std::function<nibs(nibs)> f = [ks](nibs ps) {
-        return encrypt_block(ks, ps);
-    };
-
-    // print out key on first line
-    for (auto &k : ks) std::cout << +k << " ";
-    std::cout << std::endl;
-
-    // print out PT-CT pairs on each line after the first line
-    gen_pairs(f);
+    // print out pairs
+    print_data(ks, num_pairs);
 }
 

@@ -59,7 +59,7 @@ int main(const int argc, const char *argv[]) {
             // 36-47th number: cs1
             int x;
             iss >> x;
-            if (i < 12) p.ps0[i - 1] = x;
+            if (i < 12) p.ps0[i] = x;
             else if (i < 24) p.ps1[i - 12] = x;
             else if (i < 36) p.cs0[i - 24] = x;
             else p.cs1[i - 36] = x;
@@ -84,15 +84,14 @@ int main(const int argc, const char *argv[]) {
 
         // iterate through key nibbles 2, 3, 4, 5, 7, 8, 9, 10
         // go through overlapping nibbles first
-        ks[2] = i >> 28 & 0xF;
-        ks[7] = i >> 24 & 0xF;
-        ks[8] = i >> 20 & 0xF;
-        ks[9] = i >> 16 & 0xF;
+        ks[3] = i >> 24 & 0xF;
+        ks[10] = i >> 20 & 0xF;
         // then the non-overlapping nibbles
-        ks[3] = i >> 12 & 0xF;
-        ks[4] = i >> 8 & 0xF;
-        ks[5] = i >> 4 & 0xF;
-        ks[10] = i & 0xF;
+        ks[2] = i >> 16 & 0xF;
+        ks[5] = i >> 12 & 0xF;
+        ks[7] = i >> 8 & 0xF;
+        ks[8] = i >> 4 & 0xF;
+        ks[9] = i & 0xF;
 
         if (is_key_wrong(pairs, dss, ks)) continue;
 
@@ -106,9 +105,10 @@ int main(const int argc, const char *argv[]) {
     std::cout << "Stage 2: Brute force" << std::endl;
 
     for (auto &ks : kss) {
-        for (long i = 0; i < 65536; ++i) {
-            ks[0] = i >> 12 & 0xF;
-            ks[1] = i >> 8 & 0xF;
+        for (long i = 0; i < 1048576; ++i) {
+            ks[0] = i >> 16 & 0xF;
+            ks[1] = i >> 12 & 0xF;
+            ks[4] = i >> 8 & 0xF;
             ks[6] = i >> 4 & 0xF;
             ks[11] = i & 0xF;
 
