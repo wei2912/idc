@@ -17,7 +17,7 @@ void print_data(const nibs ks, const int num_pairs) {
     for (auto &k : ks) outfile << +k << " ";
     outfile << std::endl;
 
-    int iters = 0;
+    unsigned long iters = 0;
     int pairs = 0;
     nibs ps0{0}, ps1{0};
     nibs cs0{0}, cs1{0};

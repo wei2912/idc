@@ -146,8 +146,7 @@ int main(const int argc, const char *argv[]) {
             ks[6] = i >> 4 & 0xF;
             ks[11] = i & 0xF;
 
-            // only perform IDC attack if it is less costly than brute force
-            if (kss.size() > 1024 && is_key_wrong(pairs1, dss1, ks)) continue;
+            if (is_key_wrong(pairs1, dss1, ks)) continue;
 
             for (auto &ls : kss) {
                 ks[2] = ls[2];

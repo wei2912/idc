@@ -14,8 +14,8 @@ void print_data(const nibs ks, const int num_pairs) {
     std::ofstream outfile(ss.str());
 
     // print out key on first line
-    for (auto &k : ks) std::cout << +k << " ";
-    std::cout << std::endl;
+    for (auto &k : ks) outfile << +k << " ";
+    outfile << std::endl;
 
     int iters = 0;
     int pairs = 0;
