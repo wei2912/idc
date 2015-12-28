@@ -82,16 +82,14 @@ int main(const int argc, const char *argv[]) {
     for (long i = start; i < end; ++i) {
         nibs ks{0};
 
-        // iterate through key nibbles 2, 3, 4, 5, 7, 8, 9, 10
-        // go through overlapping nibbles first
-        ks[3] = i >> 24 & 0xF;
-        ks[10] = i >> 20 & 0xF;
-        // then the non-overlapping nibbles
-        ks[2] = i >> 16 & 0xF;
-        ks[5] = i >> 12 & 0xF;
-        ks[7] = i >> 8 & 0xF;
-        ks[8] = i >> 4 & 0xF;
-        ks[9] = i & 0xF;
+        // iterate through key nibbles 2, 3, 5, 7, 8, 9, 10
+        ks[2] = i >> 24 & 0xF;
+        ks[3] = i >> 20 & 0xF;
+        ks[5] = i >> 16 & 0xF;
+        ks[7] = i >> 12 & 0xF;
+        ks[8] = i >> 8 & 0xF;
+        ks[9] = i >> 4 & 0xF;
+        ks[10] = i & 0xF;
 
         if (is_key_wrong(pairs, dss, ks)) continue;
 
