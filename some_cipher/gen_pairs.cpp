@@ -1,5 +1,4 @@
 #include <fstream>
-#include <functional>
 #include <iostream>
 #include <random>
 #include <sstream>
@@ -72,7 +71,7 @@ void print_data(const nibs ks, const int num_pairs) {
     }
 
     // construct integer representing key during key guessing
-    long key_int = ks[3] << 24 | ks[10] << 20 | ks[2] << 16 | ks[5] << 12 | ks[5] << 12 | ks[7] << 8 | ks[8] << 4 | ks[9];
+    unsigned long key_int = ks[3] << 24 | ks[10] << 20 | ks[2] << 16 | ks[5] << 12 | ks[5] << 12 | ks[7] << 8 | ks[8] << 4 | ks[9];
     std::cout << "Integer representing key: " << key_int << std::endl;
     std::cout << "Number of PT-CT pairs the program went through: " << iters << std::endl;
 }
@@ -96,4 +95,3 @@ int main(const int argc, const char *argv[]) {
     // print out pairs
     print_data(ks, num_pairs);
 }
-

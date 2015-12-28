@@ -1,5 +1,4 @@
 #include <fstream>
-#include <functional>
 #include <iostream>
 #include <random>
 #include <sstream>
@@ -143,4 +142,3 @@ int main(const int argc, const char *argv[]) {
     // print out pairs
     print_data(ks, num_pairs);
 }
-

@@ -47,4 +47,3 @@ def test_mix_column(ns):
 def test_encrypt_decrypt(k, p):
     # Make sure that decrypting an encrypted message returns the same plaintext.
     assert p == mini_aes.decrypt_block(k, mini_aes.encrypt_block(k, p))
-
