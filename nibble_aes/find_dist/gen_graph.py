@@ -10,7 +10,6 @@ This ensures that the weights are positive and additive. Hence,the higher the
 weight, the lower the probability.
 """
 
-import array
 import math
 
 import networkx as nx
