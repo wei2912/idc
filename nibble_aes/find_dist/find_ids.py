@@ -61,7 +61,7 @@ def main():
                 elif rounds > max_rounds:
                     ids = []
                     max_rounds = rounds
-                    print("Found impossible differential of {} rounds.".format(
+                    print("Found impossible differential property of {} rounds.".format(
                         max_rounds
                     )) # should hit at least 5, which was the longest previously
                        # found
