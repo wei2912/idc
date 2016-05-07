@@ -209,7 +209,7 @@ def main():
         f = roundf
     else:
         f = inv_roundf
-    n = 65536
+    n = 8192
 
     g = nx.DiGraph()
     for x in range(n):
