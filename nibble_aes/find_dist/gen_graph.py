@@ -11,6 +11,7 @@ weight, the lower the probability.
 """
 
 import math
+import sys
 
 import networkx as nx
 
@@ -199,45 +200,31 @@ def inv_last_roundf(ns):
     return inv_shift_row(ns)
 
 def main():
-    forward_g = nx.DiGraph()
-    forward_g.add_nodes_from(range(65536))
-    for x in range(65536):
-        for ns, w in roundf(convert_int(x)):
+    if len(sys.argv) != 2:
+        print("Error: Direction not stated (forward/backward).")
+        sys.exit(1)
+
+    direction = sys.argv[1]
+    if direction == "forward":
+        f = roundf
+    else:
+        f = inv_roundf
+    n = 65536
+
+    g = nx.DiGraph()
+    for x in range(n):
+        for ns, w in f(convert_int(x)):
             y = convert_states(ns)
-            forward_g.add_edge(x, y, weight=w)
-    nx.write_gpickle(forward_g, "forward.gpickle")
+            g.add_edge(x, y, weight=w)
+        print(x)
+    nx.write_gpickle(g, "{}.gpickle".format(direction))
 
-    print("Generated forward.gpickle.")
+    print("Generated {}.gpickle.".format(direction))
 
-    rev_forward_g = nx.DiGraph()
-    rev_forward_g.add_nodes_from(range(65536))
-    for x in range(65536):
-        for ns, w in roundf(convert_int(x)):
-            y = convert_states(ns)
-            rev_forward_g.add_edge(y, x, weight=w)
-    nx.write_gpickle(rev_forward_g, "rev_forward.gpickle")
+    nx.reverse(g, copy=False)
+    nx.write_gpickle(g, "rev_{}.gpickle".format(direction))
 
-    print("Generated rev_forward.gpickle.")
-
-    backward_g = nx.DiGraph()
-    backward_g.add_nodes_from(range(65536))
-    for x in range(65536):
-        for ns, w in inv_roundf(convert_int(x)):
-            y = convert_states(ns)
-            backward_g.add_edge(x, y, weight=w)
-    nx.write_gpickle(backward_g, "backward.gpickle")
-
-    print("Generated backward.gpickle.")
-
-    rev_backward_g = nx.DiGraph()
-    rev_backward_g.add_nodes_from(range(65536))
-    for x in range(65536):
-        for ns, w in inv_roundf(convert_int(x)):
-            y = convert_states(ns)
-            rev_backward_g.add_edge(y, x, weight=w)
-    nx.write_gpickle(rev_backward_g, "rev_backward.gpickle")
-
-    print("Generated rev_backward.gpickle.")
+    print("Generated rev_{}.gpickle.".format(direction))
 
 if __name__ == "__main__":
     main()
