@@ -2,6 +2,7 @@
 Derive a list of impossible differentials.
 """
 
+from multiprocessing import Process, Queue
 import pickle
 
 import networkx as nx
@@ -49,9 +50,7 @@ def main():
     for start in range(65536):
         backward_diffs[start] = find_diff(backward_g, start)
 
-    ids = []
-    max_rounds = 0
-    for i in range(65536):
+    def f(i, qu):
         forward_rounds, xss = forward_diffs[i]
         for j in range(65536):
             backward_rounds, yss = backward_diffs[j]
@@ -63,18 +62,17 @@ def main():
                 backward_rounds -= 1
                 rounds = forward_rounds + backward_rounds
 
-                if rounds < max_rounds:
-                    continue
-                elif rounds > max_rounds:
-                    ids = []
-                    max_rounds = rounds
-                    print("Found impossible differential property of {} rounds."
-                        .format(max_rounds)
-                    ) # should hit at least 5, which was the longest previously
-                      # found
+                if rounds >= 5:
+                    qu.put((i, forward_rounds, backward_rounds, j))
 
-                ids.append((i, forward_rounds, backward_rounds, j))
-                print(len(ids))
+    qu = Queue()
+    ps = [Process(target=f, args=(i, qu)) for i in range(65536)]
+
+    for p in ps:
+        p.start()
+    for p in ps:
+        p.join()
+    ids = [qu.get() for p in ps]
 
     with open("ids.pickle", "wb") as f:
         pickle.dump(ids, f)
