@@ -40,14 +40,21 @@ def find_diff(g, start):
 
 def main():
     forward_g = nx.read_gpickle("forward.gpickle")
+    forward_diffs = [0] * 65536
+    for start in range(65536):
+        forward_diffs[start] = find_diff(forward_g, start)
+
     backward_g = nx.read_gpickle("backward.gpickle")
+    backward_diffs = [0] * 65536
+    for start in range(65536):
+        backward_diffs[start] = find_diff(backward_g, start)
 
     ids = []
     max_rounds = 0
     for i in range(65536):
-        forward_rounds, xss = find_diff(forward_g, i)
+        forward_rounds, xss = forward_diffs[i]
         for j in range(65536):
-            backward_rounds, yss = find_diff(backward_g, j)
+            backward_rounds, yss = backward_diffs[i]
 
             # truncate first round of backward differential
             # by comparing last round of forward differential and second last
