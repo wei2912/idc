@@ -54,7 +54,7 @@ def main():
     for i in range(65536):
         forward_rounds, xss = forward_diffs[i]
         for j in range(65536):
-            backward_rounds, yss = backward_diffs[i]
+            backward_rounds, yss = backward_diffs[j]
 
             # truncate first round of backward differential
             # by comparing last round of forward differential and second last
