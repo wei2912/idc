@@ -148,11 +148,11 @@ def mix_column(ns):
     def join(states):
         s0, s1, s2, s3 = states
         return [
-            (a + b + c + d, pa + pb + pc + pd)
-            for a, pa in s0
-            for b, pb in s1
-            for c, pc in s2
-            for d, pd in s3
+            (a + b + c + d, wa + wb + wc + wd)
+            for a, wa in s0
+            for b, wb in s1
+            for c, wc in s2
+            for d, wd in s3
         ]
 
     assert len(ns) == 16

@@ -6,7 +6,7 @@ form, using this formula:
 
     -log(p)
 
-This ensures that the weights are positive and additive. Hence,the higher the
+This ensures that the weights are positive and additive. Hence, the higher the
 weight, the lower the probability.
 """
 
@@ -21,7 +21,7 @@ def chunks(xs, n):
     xs -> List of elements.
     n -> Length of chunk.
 
-    Divide a list of elements into chunks of length `n`.
+    Divide a list of elements into chunks of length `n`. chunks([1, 2, 3, 4, 5, 6], 2) == [[1, 2], [3, 4]]
     """
     for i in range(0, len(xs), n):
         yield xs[i:i+n]
@@ -147,10 +147,10 @@ def mix_column(ns):
     def join(states):
         s0, s1, s2 = states
         return [
-            (x + y + z, px + py + pz)
-            for x, px in s0
-            for y, py in s1
-            for z, pz in s2
+            (x + y + z, wx + wy + wz)
+            for x, wx in s0
+            for y, wy in s1
+            for z, wz in s2
         ]
 
     assert len(ns) == 12
