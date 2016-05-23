@@ -38,15 +38,10 @@ def find_diff(g, start):
 
 def main(direction):
     # we do not consider 0 and 65535
-    diffs = []
     for i in range(1, 65535):
         rounds, states = find_diff(GRAPH, i)
-        print((i, rounds))
         if rounds >= 2:
-            diffs.append((i, rounds, states))
-
-    with open("{}_diffs.pickle".format(direction), "wb") as f:
-        pickle.dump(diffs, f)
+            print((i, rounds, [list(vs) for vs in states]))
 
 if len(sys.argv) != 2:
     print("Error: Direction not stated (forward/backward).")
