@@ -2,6 +2,9 @@
 Derive a list of forward and backward differentials.
 """
 
+from multiprocessing import Process
+import sys
+
 import networkx as nx
 
 def find_diff(g, start):
@@ -35,17 +38,26 @@ def find_diff(g, start):
     return (rounds, states)
 
 def main():
-    forward_g = nx.read_gpickle("forward.gpickle")
-    for start in range(65536):
-        rounds, states = find_diff(forward_g, start)
-        if rounds >= 2:
-            print("F{} ({}) {}".format(start, rounds, states))
+    if len(sys.argv) != 2:
+        print("Error: Direction not stated (forward/backward).")
+        sys.exit(1)
 
-    backward_g = nx.read_gpickle("backward.gpickle")
-    for start in range(65536):
-        rounds, states = find_diff(backward_g, start)
+    direction = sys.argv[1]
+    if direction == "forward":
+        g = nx.read_gpickle("forward.gpickle")
+    elif direction == "backward":
+        g = nx.read_gpickle("backward.gpickle")
+
+    def f(i):
+        rounds, states = find_diff(g, i)
         if rounds >= 2:
-            print("B{} ({}) {}".format(start, rounds, states))
+            print((i, rounds, states))
+
+    ps = [Process(target=f, args=(i,)) for i in range(65536)]
+    for p in ps:
+        p.start()
+    for p in ps:
+        p.join()
 
 if __name__ == "__main__":
     main()
