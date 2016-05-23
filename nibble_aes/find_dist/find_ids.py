@@ -62,7 +62,7 @@ def main():
                 backward_rounds -= 1
                 rounds = forward_rounds + backward_rounds
 
-                if rounds >= 5:
+                if rounds >= 4:
                     qu.put((i, forward_rounds, backward_rounds, j))
 
     qu = Queue()
