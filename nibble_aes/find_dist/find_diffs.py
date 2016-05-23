@@ -36,14 +36,12 @@ def find_diff(g, start):
 
 def main():
     forward_g = nx.read_gpickle("forward.gpickle")
-    forward_diffs = [0] * 65536
     for start in range(65536):
         rounds, states = find_diff(forward_g, start)
         if rounds >= 2:
             print("F{} ({}) {}".format(start, rounds, states))
 
     backward_g = nx.read_gpickle("backward.gpickle")
-    backward_diffs = [0] * 65536
     for start in range(65536):
         rounds, states = find_diff(backward_g, start)
         if rounds >= 2:
