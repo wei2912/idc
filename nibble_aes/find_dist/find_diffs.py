@@ -2,7 +2,7 @@
 Derive a list of forward and backward differentials.
 """
 
-from multiprocessing import Process
+from multiprocessing import Pool
 import sys
 
 import networkx as nx
@@ -53,11 +53,9 @@ def main():
         if rounds >= 2:
             print((i, rounds, states))
 
-    ps = [Process(target=f, args=(i,)) for i in range(65536)]
-    for p in ps:
-        p.start()
-    for p in ps:
-        p.join()
+    pool = multiprocessing.Pool()
+    pool.map(f, range(65536))
+    pool.close()
 
 if __name__ == "__main__":
     main()
