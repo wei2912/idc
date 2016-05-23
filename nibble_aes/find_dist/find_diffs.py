@@ -37,21 +37,13 @@ def find_diff(g, start):
 
     return (rounds, states)
 
-def f(i):
-    rounds, states = find_diff(GRAPH, i)
-    if rounds >= 2:
-        return (i, rounds, states)
-    else:
-        return None
-
 def main():
     pool = Pool()
     # we do not consider 0 and 65536
-    for r in pool.map(f, range(1, 65535)):
-        if r is None:
-            continue
-        else:
-            print(r)
+    for i in range(1, 65535):
+        rounds, states = find_diff(GRAPH, i)
+        if rounds >= 2:
+            print((i, rounds, states))
 
 if len(sys.argv) != 2:
     print("Error: Direction not stated (forward/backward).")
