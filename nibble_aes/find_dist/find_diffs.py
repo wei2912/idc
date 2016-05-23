@@ -41,10 +41,9 @@ def main(direction):
     diffs = []
     for i in range(1, 65535):
         rounds, states = find_diff(GRAPH, i)
-        t = (i, rounds, states)
-        print(t)
+        print((i, rounds))
         if rounds >= 2:
-            diffs.append(t)
+            diffs.append((i, rounds, states))
 
     with open("{}_diffs.pickle".format(direction), "wb") as f:
         pickle.dump(diffs, f)

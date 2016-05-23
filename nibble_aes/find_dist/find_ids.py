@@ -8,11 +8,9 @@ def main():
     with open("backward_diffs.pickle", "rb") as f:
         backward_diffs = pickle.load(f)
 
-    for i in range(65536):
-        forward_rounds, xss = forward_diffs[i]
-        for j in range(65536):
-            backward_rounds, yss = backward_diffs[j]
-
+    ids = []
+    for i, forward_rounds, xss in forward_diffs:
+        for j, backward_rounds, yss in backward_diffs:
             # truncate first round of backward differential
             # by comparing last round of forward differential and second last
             # round of backward differential
@@ -28,7 +26,12 @@ def main():
                 continue
 
             if rounds >= 4:
-                print((i, forward_rounds, backward_rounds, j))
+                t = (i, forward_rounds, backward_rounds, j)
+                print(t)
+                ids.append(t)
+
+    with open("ids.pickle", "wb") as f:
+        pickle.dump(ids, f)
 
 if __name__ == "__main__":
     main()
