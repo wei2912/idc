@@ -3,9 +3,9 @@ Derive a list of impossible differentials.
 """
 
 def main():
-    with open("forward_diffs.pickle") as f:
+    with open("forward_diffs.pickle", "rb") as f:
         forward_diffs = pickle.load(f)
-    with open("backward_diffs.pickle") as f:
+    with open("backward_diffs.pickle", "rb") as f:
         backward_diffs = pickle.load(f)
 
     for i in range(65536):
