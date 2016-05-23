@@ -39,7 +39,7 @@ def find_diff(g, start):
 
 def main():
     pool = Pool()
-    # we do not consider 0 and 65536
+    # we do not consider 0 and 65535
     for i in range(1, 65535):
         rounds, states = find_diff(GRAPH, i)
         if rounds >= 2:
