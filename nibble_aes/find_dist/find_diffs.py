@@ -53,7 +53,7 @@ def main():
         if rounds >= 2:
             print((i, rounds, states))
 
-    pool = multiprocessing.Pool()
+    pool = Pool()
     pool.map(f, range(65536))
     pool.close()
 
