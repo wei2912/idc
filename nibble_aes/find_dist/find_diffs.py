@@ -37,25 +37,32 @@ def find_diff(g, start):
 
     return (rounds, states)
 
+def f(i):
+    rounds, states = find_diff(GRAPH, i)
+    if rounds >= 2:
+        return (i, rounds, states)
+    else:
+        return None
+
 def main():
-    if len(sys.argv) != 2:
-        print("Error: Direction not stated (forward/backward).")
-        sys.exit(1)
-
-    direction = sys.argv[1]
-    if direction == "forward":
-        g = nx.read_gpickle("forward.gpickle")
-    elif direction == "backward":
-        g = nx.read_gpickle("backward.gpickle")
-
-    def f(i):
-        rounds, states = find_diff(g, i)
-        if rounds >= 2:
-            print((i, rounds, states))
-
     pool = Pool()
-    pool.map(f, range(65536))
-    pool.close()
+    for r in pool.map(f, range(65536)):
+        if r is None:
+            continue
+        else:
+            print(r)
 
-if __name__ == "__main__":
-    main()
+if len(sys.argv) != 2:
+    print("Error: Direction not stated (forward/backward).")
+    sys.exit(1)
+
+direction = sys.argv[1]
+if direction == "forward":
+    GRAPH = nx.read_gpickle("forward.gpickle")
+elif direction == "backward":
+    GRAPH = nx.read_gpickle("backward.gpickle")
+else:
+    print("Error: Invalid direction specified (forward/backward).")
+    sys.exit(1)
+
+main()
