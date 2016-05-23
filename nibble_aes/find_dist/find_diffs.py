@@ -2,7 +2,6 @@
 Derive a list of forward and backward differentials.
 """
 
-from multiprocessing import Pool
 import sys
 
 import networkx as nx
@@ -37,13 +36,16 @@ def find_diff(g, start):
 
     return (rounds, states)
 
-def main():
-    pool = Pool()
+def main(direction):
     # we do not consider 0 and 65535
+    diffs = []
     for i in range(1, 65535):
         rounds, states = find_diff(GRAPH, i)
         if rounds >= 2:
-            print((i, rounds, states))
+            diffs.append((i, rounds, states))
+
+    with open("{}_diffs.pickle".format(direction), "rb") as f:
+        pickle.dump(diffs, f)
 
 if len(sys.argv) != 2:
     print("Error: Direction not stated (forward/backward).")
@@ -58,4 +60,4 @@ else:
     print("Error: Invalid direction specified (forward/backward).")
     sys.exit(1)
 
-main()
+main(direction)
