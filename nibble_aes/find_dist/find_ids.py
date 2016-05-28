@@ -16,12 +16,12 @@ def main():
     forward_diffs = []
     with open(sys.argv[1]) as f:
         for i, forward_rounds, xss in map(parse, f):
-            forward_diffs.append((i, forward_rounds, [set(xs) for xs in xss])
+            forward_diffs.append((i, forward_rounds, [set(xs) for xs in xss]))
 
     backward_diffs = []
     with open(sys.argv[2]) as g:
         for i, backward_rounds, yss in map(parse, g):
-            backward_diffs.append((i, backward_rounds, [set(ys) for ys in yss])
+            backward_diffs.append((i, backward_rounds, [set(ys) for ys in yss]))
 
     # truncate first round of backward differential
     # by comparing last round of forward differential and second last
