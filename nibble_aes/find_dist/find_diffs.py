@@ -44,7 +44,7 @@ def main(direction):
             print((i, rounds, [list(vs) for vs in states]))
 
 if len(sys.argv) != 2:
-    print("Error: Direction not stated (forward/backward).")
+    print("usage: ./find_diffs.py [forward/backward]", file=sys.stderr)
     sys.exit(1)
 
 direction = sys.argv[1]

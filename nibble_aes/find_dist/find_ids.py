@@ -2,14 +2,26 @@
 Derive a list of impossible differentials.
 """
 
+import ast
+import sys
+
+def parse(line):
+    i, rounds, xss = ast.literal_eval(line)
+    yss = [set(xs) for xs in xss]
+    return (i, rounds, yss)
+
 def main():
-    with open("forward_diffs.pickle", "rb") as f:
-        forward_diffs = pickle.load(f)
-    with open("backward_diffs.pickle", "rb") as f:
-        backward_diffs = pickle.load(f)
+    if len(sys.argv) != 3:
+        print("usage: ./find_ids.py [forward differentials file] [backward differentials file]", file=sys.stderr)
+        sys.exit(1)
 
     ids = []
-    for i, forward_rounds, xss in forward_diffs:
+    with open(sys.argv[1]) as f:
+        forward_diffs = [parse(l) for l in f]
+    with open(sys.argv[2]) as g:
+        backward_diffs = [parse(l) for l in g]
+
+    for i, forward_rounds, xss in forward_diffs: 
         for j, backward_rounds, yss in backward_diffs:
             # truncate first round of backward differential
             # by comparing last round of forward differential and second last
@@ -25,13 +37,8 @@ def main():
             else:
                 continue
 
-            if rounds >= 4:
-                t = (i, forward_rounds, backward_rounds, j)
-                print(t)
-                ids.append(t)
-
-    with open("ids.pickle", "wb") as f:
-        pickle.dump(ids, f)
+            if rounds >= 3:
+                print((i, forward_rounds, backward_rounds, j))
 
 if __name__ == "__main__":
     main()

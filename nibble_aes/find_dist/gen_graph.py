@@ -201,7 +201,7 @@ def inv_last_roundf(ns):
 
 def main():
     if len(sys.argv) != 2:
-        print("Error: Direction not stated (forward/backward).")
+        print("usage: ./gen_graph.py [forward/backward]", file=sys.stderr)
         sys.exit(1)
 
     direction = sys.argv[1]
