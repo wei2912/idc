@@ -17,28 +17,25 @@ def main():
 
     ids = []
     with open(sys.argv[1]) as f:
-        forward_diffs = [parse(l) for l in f]
-    with open(sys.argv[2]) as g:
-        backward_diffs = [parse(l) for l in g]
+        for i, forward_rounds, xss in map(parse, f): 
+            with open(sys.argv[2]) as g:
+                for j, backward_rounds, yss in map(parse, g):
+                    # truncate first round of backward differential
+                    # by comparing last round of forward differential and second last
+                    # round of backward differential
+                    if xss[-1].intersection(yss[-2]) == set():
+                        backward_rounds -= 1
+                        rounds = forward_rounds + backward_rounds
+                    # or vice versa
+                    elif xss[-2].intersection(yss[-1]) == set():
+                        forward_rounds -= 1
+                        rounds = forward_rounds + backward_rounds
+                    # if there is no contradiction, skip
+                    else:
+                        continue
 
-    for i, forward_rounds, xss in forward_diffs: 
-        for j, backward_rounds, yss in backward_diffs:
-            # truncate first round of backward differential
-            # by comparing last round of forward differential and second last
-            # round of backward differential
-            if xss[-1].intersection(yss[-2]) == set():
-                backward_rounds -= 1
-                rounds = forward_rounds + backward_rounds
-            # or vice versa
-            elif xss[-2].intersection(yss[-1]) == set():
-                forward_rounds -= 1
-                rounds = forward_rounds + backward_rounds
-            # if there is no contradiction, skip
-            else:
-                continue
-
-            if rounds >= 3:
-                print((i, forward_rounds, backward_rounds, j))
+                    if rounds >= 3:
+                        print((i, forward_rounds, backward_rounds, j))
 
 if __name__ == "__main__":
     main()
