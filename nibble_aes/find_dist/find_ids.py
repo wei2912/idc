@@ -6,32 +6,32 @@ import ast
 import sys
 
 def parse(line):
-    i, rounds, xss = ast.literal_eval(line)
-    yss = [set(xs) for xs in xss]
-    return (i, rounds, yss)
+    return ast.literal_eval(line)
 
 def main():
     if len(sys.argv) != 3:
         print("usage: ./find_ids.py [forward differentials file] [backward differentials file]", file=sys.stderr)
         sys.exit(1)
 
-    ids = []
+    forward_diffs = []
     with open(sys.argv[1]) as f:
-        for i, forward_rounds, xss in map(parse, f): 
-            if forward_rounds < 2:
-                continue
+        for i, forward_rounds, xss in map(parse, f):
+            forward_diffs.append((i, forward_rounds, [set(xs) for xs in xss])
 
-            with open(sys.argv[2]) as g:
-                for j, backward_rounds, yss in map(parse, g):
-                    if backward_rounds < 2:
-                        continue
+    backward_diffs = []
+    with open(sys.argv[2]) as g:
+        for i, backward_rounds, yss in map(parse, g):
+            backward_diffs.append((i, backward_rounds, [set(ys) for ys in yss])
 
-                    # truncate first round of backward differential
-                    # by comparing last round of forward differential and second last
-                    # round of backward differential
-                    if xss[-1].isdisjoint(yss[-2]):
-                        backward_rounds -= 1
-                        print((i, forward_rounds, backward_rounds, j))
+    # truncate first round of backward differential
+    # by comparing last round of forward differential and second last
+    # round of backward differential
+    ids = []
+    for i, forward_rounds, xss in forward_diffs:
+        for j, backward_rounds, yss in backward_diffs:
+            if xss[-1].isdisjoint(yss[-2]):
+                backward_rounds -= 1
+                print((i, forward_rounds, backward_rounds, j))
 
 if __name__ == "__main__":
     main()
