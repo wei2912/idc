@@ -2,13 +2,14 @@
 Derive a list of impossible differentials.
 """
 
-import ast
+from ast import literal_eval
 import sys
 
 def parse(line):
-    i, rounds, xss = ast.literal_eval(line)
-    yss = [set(xs) for xs in xss]
-    return (i, rounds, yss)
+    return literal_eval(line)
+
+def in_set(s, xs):
+    return any(i in s for i in xs)
 
 def main():
     if len(sys.argv) != 3:
@@ -16,20 +17,12 @@ def main():
         sys.exit(1)
 
     ids = []
-    with open(sys.argv[1]) as f:
-        for i, forward_rounds, xss in map(parse, f): 
-            if forward_rounds < 2:
-                continue
-
-            with open(sys.argv[2]) as g:
-                for j, backward_rounds, yss in map(parse, g):
-                    if backward_rounds < 2:
-                        continue
-
-                    # truncate first round of backward differential
-                    # by comparing last round of forward differential and second last
-                    # round of backward differential
-                    if xss[-1].isdisjoint(yss[-2]):
+    with open(sys.argv[1], "rt") as f:
+        for i, forward_rounds, xs in map(parse, f):
+            sx = set(xss[-1])
+            with open(sys.argv[2], "rt") as g:
+                for j, backward_rounds, ys in map(parse, g):
+                    if in_set(sx, ys):
                         backward_rounds -= 1
                         print((i, forward_rounds, backward_rounds, j))
 
