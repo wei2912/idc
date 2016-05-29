@@ -19,10 +19,9 @@ def main():
     ids = []
     with open(sys.argv[1], "rt") as f:
         for i, forward_rounds, xs in map(parse, f):
-            sx = set(xss[-1])
             with open(sys.argv[2], "rt") as g:
                 for j, backward_rounds, ys in map(parse, g):
-                    if in_set(sx, ys):
+                    if xs.isdisjoint(ys):
                         backward_rounds -= 1
                         print((i, forward_rounds, backward_rounds, j))
 
