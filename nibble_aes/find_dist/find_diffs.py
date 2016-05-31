@@ -40,13 +40,13 @@ def main(direction):
     # we do not consider 0 and 65535
     for i in range(1, 65535):
         rounds, states = find_diff(GRAPH, i)
-        if rounds >= 2:
+        if rounds == 2:
             # retain up till last state of forward differential
             if direction == "forward":
-                print((i, rounds, states[-1]))
+                print((i, states[-1]))
             # but only retain till 2nd last state of backward differential
             elif direction == "backward":
-                print((i, rounds, states[-2]))
+                print((i, states[-2]))
 
 if len(sys.argv) != 2:
     print("usage: ./find_diffs.py [forward/backward]", file=sys.stderr)
