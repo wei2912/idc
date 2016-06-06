@@ -4,6 +4,7 @@ and try to find a distinguisher that works well for launching attacks.
 """
 
 from ast import literal_eval
+import math
 import sys
 
 import networkx as nx
