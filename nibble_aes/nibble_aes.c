@@ -44,20 +44,19 @@ static const uint8_t M12[16] = {
 /* Private variables and functions. */
 
 typedef uint8_t state_t[16];
-static state_t* state;
-static const uint8_t* master_key;
+typedef uint8_t key_t[16];
 
-static void nibble_sub() {
+static void nibble_sub(state_t* state) {
     uint8_t i;
     for (i = 0; i < 16; ++i) (*state)[i] = SBOX[(*state)[i]];
 }
 
-static void inv_nibble_sub() {
+static void inv_nibble_sub(state_t* state) {
     uint8_t i;
     for (i = 0; i < 16; ++i) (*state)[i] = INV_SBOX[(*state)[i]];
 }
 
-static void shift_row() {
+static void shift_row(state_t* state) {
     uint8_t tmp;
 
     // second row
@@ -82,7 +81,7 @@ static void shift_row() {
     (*state)[3] = tmp;
 }
 
-static void inv_shift_row() {
+static void inv_shift_row(state_t* state) {
     uint8_t tmp;
 
     // second row
@@ -107,7 +106,7 @@ static void inv_shift_row() {
     (*state)[15] = tmp;
 }
 
-static void mix_column() {
+static void mix_column(state_t* state) {
     uint8_t i;
     uint8_t n0, n1, n2, n3;
     uint8_t tmp0, tmp1, tmp2, tmp3;
@@ -127,7 +126,7 @@ static void mix_column() {
     }
 }
 
-static void inv_mix_column() {
+static void inv_mix_column(state_t* state) {
     uint8_t i;
     uint8_t n0, n1, n2, n3;
     uint8_t tmp0, tmp1, tmp2, tmp3;
@@ -147,60 +146,52 @@ static void inv_mix_column() {
     }
 }
 
-static void key_addition() {
+static void key_addition(state_t* state, const key_t key) {
     uint8_t i;
-    for (i = 0; i < 16; ++i) (*state)[i] = (*state)[i] ^ master_key[i];
+    for (i = 0; i < 16; ++i) (*state)[i] = (*state)[i] ^ key[i];
 }
 
-static void run_round(uint8_t num) {
-    nibble_sub();
-    shift_row();
-    if (num != ROUNDS - 1) mix_column();
-    key_addition();
+static void run_round(state_t* state, const key_t key, const uint8_t num) {
+    nibble_sub(state);
+    shift_row(state);
+    if (num != ROUNDS - 1) mix_column(state);
+    key_addition(state, key);
 }
 
-static void run_inv_round(uint8_t num) {
-    key_addition();
-    if (num != 0) inv_mix_column();
-    inv_shift_row();
-    inv_nibble_sub();
+static void run_inv_round(state_t* state, const key_t key, const uint8_t num) {
+    key_addition(state, key);
+    if (num != 0) inv_mix_column(state);
+    inv_shift_row(state);
+    inv_nibble_sub(state);
 }
 
-static void run_encrypt() {
+static void run_encrypt(state_t* state, const key_t key) {
     uint8_t num;
-    key_addition();
-    for (num = 0; num < ROUNDS; ++num) run_round(num);
+    key_addition(state, key);
+    for (num = 0; num < ROUNDS; ++num) run_round(state, key, num);
 }
 
-static void run_decrypt() {
+static void run_decrypt(state_t* state, const key_t key) {
     uint8_t num;
-    for (num = 0; num < ROUNDS; ++num) run_inv_round(num);
-    key_addition();
+    for (num = 0; num < ROUNDS; ++num) run_inv_round(state, key, num);
+    key_addition(state, key);
 }
 
 /* Public functions. */
 
-void encrypt_round(uint8_t* input, const uint8_t* key, uint8_t num) {
-    state = (state_t*) input;
-    master_key = key;
-    run_round(num);
+void encrypt_round(uint8_t* input, const uint8_t* key, const uint8_t num) {
+    run_round((state_t*) input, key, num);
 }
 
-void decrypt_round(uint8_t* input, const uint8_t* key, uint8_t num) {
-    state = (state_t*) input;
-    master_key = key;
-    run_inv_round(num);
+void decrypt_round(uint8_t* input, const uint8_t* key, const uint8_t num) {
+    run_inv_round((state_t*) input, key, num);
 }
 
 void encrypt(uint8_t* input, const uint8_t* key) {
-    state = (state_t*) input;
-    master_key = key;
-    run_encrypt();
+    run_encrypt((state_t*) input, key);
 }
 
 void decrypt(uint8_t* input, const uint8_t* key) {
-    state = (state_t*) input;
-    master_key = key;
-    run_decrypt();
+    run_decrypt((state_t*) input, key);
 }
 

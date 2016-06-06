@@ -1,7 +1,7 @@
 CC=gcc
-CFLAGS=-Wall -O3 -pg
+CFLAGS=-Wall -O3
 CXX=g++
-CXXFLAGS=-std=c++14 -Wall -O3 -pg
+CXXFLAGS=-std=c++14 -Wall -O3
 
 all: test_nibble_aes
 clean:
