@@ -40,7 +40,7 @@ def propagate(g, v0, rounds):
         ps = n_ps
     return ps
 
-def main(direction, diffs):
+def main():
     if not (len(sys.argv) == 3 and sys.argv[1] in ["forward", "backward"]):
         print("usage: ./create_ext.py [forward/backward] [differentials file]", file=sys.stderr)
         sys.exit(1)
