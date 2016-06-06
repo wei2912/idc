@@ -50,7 +50,7 @@ def main():
         for start, _ in map(literal_eval, f):
             rounds = 1
             for p, w in propagate(g, start, rounds):
-                print((start, p, math.exp(-w)))
+                print((start, p, w))
 
 if __name__ == "__main__":
     main()
