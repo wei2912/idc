@@ -27,15 +27,9 @@ def propagate(g, v0, rounds):
     for i in range(rounds):
         n_ps = []
         for p0, w0 in ps:
-            if w0 > cutoff:
-                continue
-
             v0 = p0[-1]
             for v1 in g[v0]:
                 w1 = g[v0][v1]['weight']
-                if w0 + w1 > cutoff:
-                    continue
-
                 n_ps.append((p0 + [v1], w0 + w1))
         ps = n_ps
     return ps
