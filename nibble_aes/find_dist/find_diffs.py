@@ -36,10 +36,20 @@ def find_diff(g, start):
 
     return (rounds, states)
 
-def main(direction):
+def main():
+    if not (len(sys.argv) == 2 and sys.argv[1] in ["forward", "backward"]):
+        print("usage: ./find_diffs.py [forward/backward]", file=sys.stderr)
+        sys.exit(1)
+
+    direction = sys.argv[1]
+    if direction == "forward":
+        g = nx.read_gpickle("forward.gpickle")
+    else:
+        g = nx.read_gpickle("backward.gpickle")
+
     # we do not consider 0 and 65535
     for i in range(1, 65535):
-        rounds, states = find_diff(GRAPH, i)
+        rounds, states = find_diff(g, i)
         if rounds == 2:
             # retain up till last state of forward differential
             if direction == "forward":
@@ -48,17 +58,6 @@ def main(direction):
             elif direction == "backward":
                 print((i, states[-2]))
 
-if len(sys.argv) != 2:
-    print("usage: ./find_diffs.py [forward/backward]", file=sys.stderr)
-    sys.exit(1)
+if __name__ == "__main__":
+    main()
 
-direction = sys.argv[1]
-if direction == "forward":
-    GRAPH = nx.read_gpickle("forward.gpickle")
-elif direction == "backward":
-    GRAPH = nx.read_gpickle("backward.gpickle")
-else:
-    print("Error: Invalid direction specified (forward/backward).")
-    sys.exit(1)
-
-main(direction)

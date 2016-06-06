@@ -200,7 +200,7 @@ def inv_last_roundf(ns):
     return inv_shift_row(ns)
 
 def main():
-    if len(sys.argv) != 2:
+    if not (len(sys.argv) == 2 and direction in ["forward, backward"]):
         print("usage: ./gen_graph.py [forward/backward]", file=sys.stderr)
         sys.exit(1)
 
