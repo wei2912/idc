@@ -37,7 +37,7 @@ def propagate(g, v0, rounds):
 
 def main():
     if not (len(sys.argv) == 3 and sys.argv[1] in ["forward", "backward"]):
-        print("usage: ./create_ext.py [forward/backward] [differentials file]", file=sys.stderr)
+        print("usage: ./find_ext.py [forward/backward] [differentials file]", file=sys.stderr)
         sys.exit(1)
 
     direction = sys.argv[1]
