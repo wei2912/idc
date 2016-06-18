@@ -15,4 +15,5 @@ test_nibble_aes: nibble_aes.o
 brute_force.o: nibble_aes.o brute_force.c
 test_brute_force: brute_force.o nibble_aes.o
 
-gen_pairs: nibble_aes.o idc.h gen_pairs.c
+gen_pairs: gen_pairs_16920_27795
+gen_pairs_16920_27795: nibble_aes.o idc.h gen_pairs_16920_27795.c
