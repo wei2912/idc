@@ -1,9 +1,13 @@
+/* Generates PT-CT pairs of distinguishers with (16920, 27795):
+ * START: 0100 0010 0001 1000
+ * END: 0110 1100 1001 0011
+ */
+
 #include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "idc.h"
 #include "nibble_aes.h"
 
 #define END_INACTIVE_MASK 0xF00F00FF0FF0FF00
@@ -58,8 +62,6 @@ int main(int argc, char **argv) {
     pt_ct_t ptcts[65536] = {0};
     uint16_t pt[4], ct[4];
 
-    // START: 0100 0010 0001 1000
-    // END: 0110 1100 1001 0011
     for (i = 0; i < 0xFFFFFFFFFFFFUL; ++i) {
         // fix passive nibbles
         pt[0] = (i >> 44 << 12) | (i >> 36 & 0xFF);
