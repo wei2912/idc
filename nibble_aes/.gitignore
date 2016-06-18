@@ -1,4 +1,7 @@
 *.o
+gen_pairs_388_14025
+gen_pairs_388_51510
 gen_pairs_16920_27795
+gen_pairs_16920_37740
 test_brute_force
 test_nibble_aes

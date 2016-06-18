@@ -15,5 +15,8 @@ test_nibble_aes: nibble_aes.o
 brute_force.o: nibble_aes.o
 test_brute_force: brute_force.o nibble_aes.o
 
-gen_pairs: gen_pairs_16920_27795
+gen_pairs: gen_pairs_388_14025 gen_pairs_388_51510 gen_pairs_16920_27795 gen_pairs_16920_37740
+gen_pairs_388_14025: nibble_aes.o
+gen_pairs_388_51510: nibble_aes.o
 gen_pairs_16920_27795: nibble_aes.o
+gen_pairs_16920_37740: nibble_aes.o
