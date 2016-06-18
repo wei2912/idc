@@ -100,10 +100,8 @@ int main(int argc, char **argv) {
         for (k = 0; k < 65536; ++k) {
             uint64_t inactive_nibs = ptcts[k].ct & END_INACTIVE_MASK;
             for (l = k + 1; l < 65536; ++l) {
-                if ((ptcts[l].ct & END_INACTIVE_MASK) != inactive_nibs) {
-                    // reached end of group of CTs with same inactive nibbles
-                    break;
-                }
+                // reached end of group of CTs with same inactive nibbles
+                if ((ptcts[l].ct & END_INACTIVE_MASK) != inactive_nibs) break;
 
                 if (is_match_diffs(ptcts[k], ptcts[l])) {
                     printf(
@@ -118,10 +116,7 @@ int main(int argc, char **argv) {
             }
         }
 
-        if (count >= num) {
-            printf("Went through %lu * 65536 plaintexts.\n", i);
-            return 0;
-        }
+        if (count >= num) return 0;
     }
 }
 
