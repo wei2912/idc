@@ -1,2 +1,4 @@
 *.o
+gen_pairs
+test_brute_force
 test_nibble_aes
