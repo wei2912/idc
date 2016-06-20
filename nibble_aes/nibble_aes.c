@@ -72,7 +72,7 @@ static const uint16_t TD4[16] = {
     0x7, 0xD, 0x9, 0x6, 0xB, 0x2, 0x0, 0x5
 };
 
-void encrypt(const uint16_t* input, uint16_t *output, const uint16_t* key) {
+void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *key) {
     output[0] = input[0] ^ key[0];
     output[1] = input[1] ^ key[1];
     output[2] = input[2] ^ key[2];
@@ -213,7 +213,7 @@ void decrypt(const uint16_t* input, uint16_t *output, const uint16_t* key) {
         ^ key[3];
 }
 
-uint64_t convert_int(const uint16_t* input) {
+uint64_t convert_int(const uint16_t *input) {
     return (
         ((uint64_t) input[0]) << 48 |
         ((uint64_t) input[1]) << 32 |
