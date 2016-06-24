@@ -224,5 +224,7 @@ int main(int argc, char **argv) {
         qsort(ptcts, 4096, sizeof(pt_ct_t), cmp_passive_51510);
         print_pairs(ptcts, 51510, MASK_51510, is_match_diff_51510);
     }
+
+    return 0;
 }
 

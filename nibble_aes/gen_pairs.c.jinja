@@ -87,5 +87,7 @@ int main(int argc, char **argv) {
         qsort(ptcts, {{16 ** num_active}}, sizeof(pt_ct_t), cmp_passive_{{end}});
         print_pairs(ptcts, {{end}}, MASK_{{end}}, is_match_diff_{{end}});{% endfor %}
     }
+
+    return 0;
 }
 

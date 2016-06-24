@@ -19365,5 +19365,7 @@ int main(int argc, char **argv) {
         qsort(ptcts, 65536, sizeof(pt_ct_t), cmp_passive_60848);
         print_pairs(ptcts, 60848, MASK_60848, is_match_diff_60848);
     }
+
+    return 0;
 }
 
