@@ -161,7 +161,7 @@ static void gen_pt_cts(pt_ct_t *ptcts, const uint16_t *key, const uint64_t i) {
     pt[3] |= i2 << 8;
     encrypt(pt, ct, key);
 
-    pt_ct_t pt_ct = {0};
+    pt_ct_t pt_ct = {};
     pt_ct.pt = convert_int(pt);
     pt_ct.ct = convert_int(ct);
     ptcts[i0 << 8 | i1 << 4 | i2 << 0] = pt_ct;
@@ -201,13 +201,13 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    uint16_t key[4] = {0};
+    uint16_t key[4] = {};
     convert_array(strtoull(argv[1], NULL, 10), key);
     uint64_t start = strtoull(argv[2], NULL, 10);
     uint64_t end = strtoull(argv[3], NULL, 10);
 
     uint64_t i;
-    pt_ct_t ptcts[4096] = {0};
+    pt_ct_t ptcts[4096] = {};
     for (i = start; i < end; ++i) {
         gen_pt_cts(ptcts, key, i);
         

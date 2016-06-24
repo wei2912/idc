@@ -21,7 +21,7 @@ int main() {
         uint64_t start = ((uint64_t) key[0]) << 48 | ((uint64_t) key[1]) << 32 | ((uint64_t) key[2]) << 16;
         uint64_t end = start | 0xFFFF;
 
-        uint16_t found_key[4] = {0};
+        uint16_t found_key[4] = {};
         int code = brute_force(pt, ct, found_key, start, end);
         if (code == 1) {
             std::cout << "ERROR: Brute force could not find key." << std::endl;
