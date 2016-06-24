@@ -39,43 +39,43 @@ def gen_passive_logic(start):
             line += "i >> {} & 0xFFFF".format(num_bits - 16)
             num_bits -= 16
         elif c == '1':
-            line += "i >> {} & 0xFFF << 4".format(num_bits - 12)
+            line += "(i >> {} & 0xFFF) << 4".format(num_bits - 12)
             num_bits -= 12
         elif c == '2':
-            line += "(i >> {} & 0xFF << 8) | (i >> {} & 0xF)".format(num_bits - 8, num_bits - 12)
+            line += "((i >> {} & 0xFF) << 8) | (i >> {} & 0xF)".format(num_bits - 8, num_bits - 12)
             num_bits -= 12
         elif c == '3':
             line += "i >> {} & 0xFF << 8".format(num_bits - 8)
             num_bits -= 8
         elif c == '4':
-            line += "(i >> {} & 0xF << 12) | (i >> {} & 0xFF)".format(num_bits - 4, num_bits - 12)
+            line += "((i >> {} & 0xF) << 12) | (i >> {} & 0xFF)".format(num_bits - 4, num_bits - 12)
             num_bits -= 12
         elif c == '5':
-            line += "(i >> {} & 0xF << 12) | (i >> {} & 0xF << 4)".format(num_bits - 4, num_bits - 8)
+            line += "((i >> {} & 0xF) << 12) | ((i >> {} & 0xF) << 4)".format(num_bits - 4, num_bits - 8)
             num_bits -= 8
         elif c == '6':
-            line += "(i >> {} & 0xF << 12) | (i >> {} & 0xF)".format(num_bits - 4, num_bits - 8)
+            line += "((i >> {} & 0xF) << 12) | (i >> {} & 0xF)".format(num_bits - 4, num_bits - 8)
             num_bits -= 8
         elif c == '7':
-            line += "i >> {} & 0xF << 12".format(num_bits - 4)
+            line += "(i >> {} & 0xF) << 12".format(num_bits - 4)
             num_bits -= 4
         elif c == '8':
             line += "i >> {} & 0xFFF".format(num_bits - 12)
             num_bits -= 12
         elif c == '9':
-            line += "i >> {} & 0xFF << 4".format(num_bits - 8)
+            line += "(i >> {} & 0xFF) << 4".format(num_bits - 8)
             num_bits -= 8
         elif c == '10':
-            line += "(i >> {} & 0xF << 8) | (i >> {} & 0xF)".format(num_bits - 4, num_bits - 8)
+            line += "((i >> {} & 0xF) << 8) | (i >> {} & 0xF)".format(num_bits - 4, num_bits - 8)
             num_bits -= 8
         elif c == '11':
-            line += "i >> {} & 0xF << 8".format(num_bits - 4)
+            line += "(i >> {} & 0xF) << 8".format(num_bits - 4)
             num_bits -= 4
         elif c == '12':
             line += "i >> {} & 0xFF".format(num_bits - 8)
             num_bits -= 8
         elif c == '13':
-            line += "i >> {} & 0xF << 4".format(num_bits - 4)
+            line += "(i >> {} & 0xF) << 4".format(num_bits - 4)
             num_bits -= 4
         elif c == '14':
             line += "i >> {} & 0xF".format(num_bits - 4)

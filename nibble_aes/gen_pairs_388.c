@@ -145,9 +145,9 @@ static short is_match_diff_51510(const uint64_t a, const uint64_t b) {
 static void gen_pt_cts(pt_ct_t *ptcts, const uint16_t *key, const uint64_t i) {
     uint16_t pt[4], ct[4];
     pt[0] = i >> 36 & 0xFFFF;
-    pt[1] = i >> 24 & 0xFFF << 4;
+    pt[1] = (i >> 24 & 0xFFF) << 4;
     pt[2] = i >> 12 & 0xFFF;
-    pt[3] = (i >> 8 & 0xF << 12) | (i >> 0 & 0xFF);
+    pt[3] = ((i >> 8 & 0xF) << 12) | (i >> 0 & 0xFF);
 
     uint16_t i0, i1, i2;
     for (i0 = 0; i0 < 16; ++i0) {
