@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <string.h>
-#include "nibble_aes.h"
+#include "some_cipher_2.h"
 
 // TE0 = S[x] . [1, 1, 4, 9]
 static const uint16_t TE0[16] = {
@@ -76,70 +76,56 @@ void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *key) {
     output[0] = input[0] ^ key[0];
     output[1] = input[1] ^ key[1];
     output[2] = input[2] ^ key[2];
-    output[3] = input[3] ^ key[3];
 
-    uint16_t s0, s1, s2, s3;
-    uint8_t num;
-    for (num = 0; num < ROUNDS - 1; ++num) {
+    uint16_t s0, s1, s2;
+    uint8_t i;
+    for (i = 0; i < ROUNDS - 1; ++i) {
         s0 = output[0];
         s1 = output[1];
         s2 = output[2];
-        s3 = output[3];
         output[0] = TE0[s0 >> 12]
-            ^ TE1[s1 >> 8 & 0xF]
+            ^ TE1[s0 >> 8 & 0xF]
             ^ TE2[s2 >> 4 & 0xF]
-            ^ TE3[s3 & 0xF]
+            ^ TE3[s1 & 0xF]
             ^ key[0];
         output[1] = TE0[s1 >> 12]
-            ^ TE1[s2 >> 8 & 0xF]
-            ^ TE2[s3 >> 4 & 0xF]
-            ^ TE3[s0 & 0xF]
+            ^ TE1[s1 >> 8 & 0xF]
+            ^ TE2[s0 >> 4 & 0xF]
+            ^ TE3[s2 & 0xF]
             ^ key[1];
         output[2] = TE0[s2 >> 12]
-            ^ TE1[s3 >> 8 & 0xF]
-            ^ TE2[s0 >> 4 & 0xF]
-            ^ TE3[s1 & 0xF]
-            ^ key[2];
-        output[3] = TE0[s3 >> 12]
-            ^ TE1[s0 >> 8 & 0xF]
+            ^ TE1[s2 >> 8 & 0xF]
             ^ TE2[s1 >> 4 & 0xF]
-            ^ TE3[s2 & 0xF]
-            ^ key[3];
+            ^ TE3[s0 & 0xF]
+            ^ key[2];
     }
 
     s0 = output[0];
     s1 = output[1];
     s2 = output[2];
-    s3 = output[3];
     output[0] = (TE0[s0 >> 12] & 0xF000)
-        ^ (TE3[s1 >> 8 & 0xF] & 0x0F00)
+        ^ (TE3[s0 >> 8 & 0xF] & 0x0F00)
         ^ (TE2[s2 >> 4 & 0xF] & 0x00F0)
-        ^ (TE1[s3 & 0xF] & 0x000F)
+        ^ (TE1[s1 & 0xF] & 0x000F)
         ^ key[0];
     output[1] = (TE0[s1 >> 12] & 0xF000)
-        ^ (TE3[s2 >> 8 & 0xF] & 0x0F00)
-        ^ (TE2[s3 >> 4 & 0xF] & 0x00F0)
-        ^ (TE1[s0 & 0xF] & 0x000F)
+        ^ (TE3[s1 >> 8 & 0xF] & 0x0F00)
+        ^ (TE2[s0 >> 4 & 0xF] & 0x00F0)
+        ^ (TE1[s2 & 0xF] & 0x000F)
         ^ key[1];
     output[2] = (TE0[s2 >> 12] & 0xF000)
-        ^ (TE3[s3 >> 8 & 0xF] & 0x0F00)
-        ^ (TE2[s0 >> 4 & 0xF] & 0x00F0)
-        ^ (TE1[s1 & 0xF] & 0x000F)
-        ^ key[2];
-    output[3] = (TE0[s3 >> 12] & 0xF000)
-        ^ (TE3[s0 >> 8 & 0xF] & 0x0F00)
+        ^ (TE3[s2 >> 8 & 0xF] & 0x0F00)
         ^ (TE2[s1 >> 4 & 0xF] & 0x00F0)
-        ^ (TE1[s2 & 0xF] & 0x000F)
-        ^ key[3];
+        ^ (TE1[s0 & 0xF] & 0x000F)
+        ^ key[2];
 }
 
 void decrypt(const uint16_t* input, uint16_t *output, const uint16_t* key) {
     output[0] = input[0] ^ key[0];
     output[1] = input[1] ^ key[1];
     output[2] = input[2] ^ key[2];
-    output[3] = input[3] ^ key[3];
 
-    uint16_t k0, k1, k2, k3;
+    uint16_t k0, k1, k2;
     k0 = TD0[TE1[key[0] >> 12] & 0xF]
         ^ TD1[TE1[key[0] >> 8 & 0xF] & 0xF]
         ^ TD2[TE1[key[0] >> 4 & 0xF] & 0xF]
@@ -152,80 +138,47 @@ void decrypt(const uint16_t* input, uint16_t *output, const uint16_t* key) {
         ^ TD1[TE1[key[2] >> 8 & 0xF] & 0xF]
         ^ TD2[TE1[key[2] >> 4 & 0xF] & 0xF]
         ^ TD3[TE1[key[2] & 0xF] & 0xF];
-    k3 = TD0[TE1[key[3] >> 12] & 0xF]
-        ^ TD1[TE1[key[3] >> 8 & 0xF] & 0xF]
-        ^ TD2[TE1[key[3] >> 4 & 0xF] & 0xF]
-        ^ TD3[TE1[key[3] & 0xF] & 0xF];
 
-    uint16_t s0, s1, s2, s3;
-    uint8_t num;
-    for (num = 0; num < ROUNDS - 1; ++num) {
+    uint16_t s0, s1, s2;
+    uint8_t i;
+    for (i = 0; i < ROUNDS - 1; ++i) {
         s0 = output[0];
         s1 = output[1];
         s2 = output[2];
-        s3 = output[3];
         output[0] = TD0[s0 >> 12]
-            ^ TD1[(s3 >> 8) & 0xF]
-            ^ TD2[(s2 >> 4) & 0xF]
-            ^ TD3[s1 & 0xF]
+            ^ TD1[s0 >> 8 & 0xF]
+            ^ TD2[s1 >> 4 & 0xF]
+            ^ TD3[s2 & 0xF]
             ^ k0;
         output[1] = TD0[s1 >> 12]
-            ^ TD1[(s0 >> 8) & 0xF]
-            ^ TD2[(s3 >> 4) & 0xF]
-            ^ TD3[s2 & 0xF]
+            ^ TD1[s1 >> 8 & 0xF]
+            ^ TD2[s2 >> 4 & 0xF]
+            ^ TD3[s0 & 0xF]
             ^ k1;
         output[2] = TD0[s2 >> 12]
-            ^ TD1[(s1 >> 8) & 0xF]
-            ^ TD2[(s0 >> 4) & 0xF]
-            ^ TD3[s3 & 0xF]
+            ^ TD1[s2 >> 8 & 0xF]
+            ^ TD2[s0 >> 4 & 0xF]
+            ^ TD3[s1 & 0xF]
             ^ k2;
-        output[3] = TD0[s3 >> 12]
-            ^ TD1[(s2 >> 8) & 0xF]
-            ^ TD2[(s1 >> 4) & 0xF]
-            ^ TD3[s0 & 0xF]
-            ^ k3;
     }
 
     // last round
     s0 = output[0];
     s1 = output[1];
     s2 = output[2];
-    s3 = output[3];
     output[0] = TD4[s0 >> 12] << 12
-        ^ TD4[s3 >> 8 & 0xF] << 8
-        ^ TD4[s2 >> 4 & 0xF] << 4
-        ^ TD4[s1 & 0xF]
+        ^ TD4[s0 >> 8 & 0xF] << 8
+        ^ TD4[s1 >> 4 & 0xF] << 4
+        ^ TD4[s2 & 0xF]
         ^ key[0];
     output[1] = TD4[s1 >> 12] << 12
-        ^ TD4[s0 >> 8 & 0xF] << 8
-        ^ TD4[s3 >> 4 & 0xF] << 4
-        ^ TD4[s2 & 0xF]
+        ^ TD4[s1 >> 8 & 0xF] << 8
+        ^ TD4[s2 >> 4 & 0xF] << 4
+        ^ TD4[s0 & 0xF]
         ^ key[1];
     output[2] = TD4[s2 >> 12] << 12
-        ^ TD4[s1 >> 8 & 0xF] << 8
-        ^ TD4[s0 >> 4 & 0xF] << 4
-        ^ TD4[s3 & 0xF]
-        ^ key[2];
-    output[3] = TD4[s3 >> 12] << 12
         ^ TD4[s2 >> 8 & 0xF] << 8
-        ^ TD4[s1 >> 4 & 0xF] << 4
-        ^ TD4[s0 & 0xF]
-        ^ key[3];
+        ^ TD4[s0 >> 4 & 0xF] << 4
+        ^ TD4[s1 & 0xF]
+        ^ key[2];
 }
-
-uint64_t convert_int(const uint16_t *input) {
-    return (
-        ((uint64_t) input[0]) << 48 |
-        ((uint64_t) input[1]) << 32 |
-        ((uint64_t) input[2]) << 16 |
-        ((uint64_t) input[3])
-    );
-}
-
-void convert_array(const uint64_t input, uint16_t* output) {
-    output[0] = input >> 48;
-    output[1] = input >> 32 & 0xFFFF;
-    output[2] = input >> 16 & 0xFFFF;
-    output[3] = input & 0xFFFF;
-}
-
