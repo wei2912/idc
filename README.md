@@ -1,9 +1,7 @@
 idc
 ===
 
-This project studies impossible differential cryptanalysis on substitution-permutation networks.
-
-The code is written in Python 3 and C++.
+This project studies impossible differential cryptanalysis on substitution-permutation networks. The code is written in Python 3 and C++.
 
 ## Installation
 
