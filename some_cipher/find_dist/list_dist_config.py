@@ -10,12 +10,12 @@ def main():
     forward_exts = {}
     with open(sys.argv[2]) as f:
         for start, p, w in map(literal_eval, f):
-            forward_exts.setdefault(start, []).append((p[1], w))
+            forward_exts.setdefault(start, []).append((p[-1], w))
 
     backward_exts = {}
     with open(sys.argv[3]) as f:
         for end, p, w in map(literal_eval, f):
-            backward_exts.setdefault(end, []).append((p[1], w))
+            backward_exts.setdefault(end, []).append((p[-1], w))
 
     ws = {}
     with open(sys.argv[1]) as f:

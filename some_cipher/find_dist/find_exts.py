@@ -43,12 +43,13 @@ def main():
     direction = sys.argv[1]
     if direction == "forward":
         g = nx.read_gpickle("rev_forward.gpickle")
-    else:
+        rounds = 0
+    elif direction == "backward":
         g = nx.read_gpickle("rev_backward.gpickle")
+        rounds = 2
 
     with open(sys.argv[2]) as f:
         for start, _ in map(literal_eval, f):
-            rounds = 1
             for p, w in propagate(g, start, rounds):
                 print((start, p, w))
 

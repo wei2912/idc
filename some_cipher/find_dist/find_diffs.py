@@ -44,7 +44,7 @@ def main():
     direction = sys.argv[1]
     if direction == "forward":
         g = nx.read_gpickle("forward.gpickle")
-    else:
+    elif direction == "backward":
         g = nx.read_gpickle("backward.gpickle")
 
     # we do not consider 0 and 4095
