@@ -1,15 +1,12 @@
+CC=gcc
+CFLAGS=-Wall -O3
 CXX=g++
 CXXFLAGS=-std=c++14 -Wall -O3
 
-all: test_some_cipher bf idc idc2 gen_bf gen_pairs gen_pairs2
+all: test_some_cipher_2
 clean:
-	rm some_cipher.o test_some_cipher gen_bf gen_pairs gen_pairs2 idc idc2 bf
+	rm some_cipher_2.o test_some_cipher_2
+	rm brute_force.o test_brute_force
 
-test_some_cipher: some_cipher.o
-bf: some_cipher.o
-idc: some_cipher.o
-idc2: some_cipher.o
-
-gen_bf: some_cipher.o
-gen_pairs: some_cipher.o
-gen_pairs2: some_cipher.o
+some_cipher_2.o: some_cipher_2.h
+test_some_cipher_2: some_cipher_2.o

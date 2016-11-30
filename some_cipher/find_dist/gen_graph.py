@@ -6,11 +6,12 @@ form, using this formula:
 
     -log(p)
 
-This ensures that the weights are positive and additive. Hence, the higher the
+This ensures that the weights are positive and additive. Hence,the higher the
 weight, the lower the probability.
 """
 
 import math
+import sys
 
 import networkx as nx
 
@@ -21,7 +22,7 @@ def chunks(xs, n):
     xs -> List of elements.
     n -> Length of chunk.
 
-    Divide a list of elements into chunks of length `n`. chunks([1, 2, 3, 4, 5, 6], 2) == [[1, 2], [3, 4]]
+    Divide a list of elements into chunks of length `n`.
     """
     for i in range(0, len(xs), n):
         yield xs[i:i+n]
@@ -43,7 +44,7 @@ def convert_int(x):
 
     Convert the integer into states of nibbles.
     """
-    assert 0 <= x <= 4095
+    assert 0 <= x < 4096
     ns = []
     while x != 0:
         if x % 2 == 0:
@@ -147,10 +148,10 @@ def mix_column(ns):
     def join(states):
         s0, s1, s2 = states
         return [
-            (x + y + z, wx + wy + wz)
-            for x, wx in s0
-            for y, wy in s1
-            for z, wz in s2
+            (a + b + c, wa + wb + wc)
+            for a, wa in s0
+            for b, wb in s1
+            for c, wc in s2
         ]
 
     assert len(ns) == 12
@@ -198,30 +199,29 @@ def inv_last_roundf(ns):
     return inv_shift_row(ns)
 
 def main():
-    forward_g = nx.DiGraph()
-    rev_forward_g = nx.DiGraph()
-    backward_g = nx.DiGraph()
-    rev_backward_g = nx.DiGraph()
-    forward_g.add_nodes_from(range(4096))
-    rev_forward_g.add_nodes_from(range(4096))
-    backward_g.add_nodes_from(range(4096))
-    rev_backward_g.add_nodes_from(range(4096))
-
+    g = nx.DiGraph()
     for x in range(4096):
         for ns, w in roundf(convert_int(x)):
             y = convert_states(ns)
-            forward_g.add_edge(x, y, weight=w)
-            rev_forward_g.add_edge(y, x, weight=w)
+            g.add_edge(x, y, weight=w)
+    nx.write_gpickle(g, "forward.gpickle")
+    print("Generated forward.gpickle.")
 
+    nx.reverse(g, copy=False)
+    nx.write_gpickle(g, "rev_forward.gpickle")
+    print("Generated rev_forward.gpickle.")
+
+    g = nx.DiGraph()
+    for x in range(4096):
         for ns, w in inv_roundf(convert_int(x)):
             y = convert_states(ns)
-            backward_g.add_edge(x, y, weight=w)
-            rev_backward_g.add_edge(y, x, weight=w)
+            g.add_edge(x, y, weight=w)
+    nx.write_gpickle(g, "backward.gpickle")
+    print("Generated backward.gpickle.")
 
-    nx.write_gpickle(forward_g, "forward.gpickle")
-    nx.write_gpickle(rev_forward_g, "rev_forward.gpickle")
-    nx.write_gpickle(backward_g, "backward.gpickle")
-    nx.write_gpickle(rev_backward_g, "rev_backward.gpickle")
+    nx.reverse(g, copy=False)
+    nx.write_gpickle(g, "rev_backward.gpickle")
+    print("Generated rev_backward.gpickle.")
 
 if __name__ == "__main__":
     main()
