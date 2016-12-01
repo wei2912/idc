@@ -1,2 +1,4 @@
 *.pyc
-
+*.o
+test_brute_force
+test_some_cipher
