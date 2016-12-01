@@ -18,12 +18,16 @@ def main():
     forward_exts = {}
     with open(sys.argv[3]) as f:
         for start, p, w in map(literal_eval, f):
-            forward_exts.setdefault(start, []).append((p[1], w))
+            s = bin(p[-1]).count("1")
+            if s == target_s:
+                forward_exts.setdefault(start, []).append((p[-1], w))
 
     backward_exts = {}
     with open(sys.argv[4]) as f:
         for end, p, w in map(literal_eval, f):
-            backward_exts.setdefault(end, []).append((p[1], w))
+            t = bin(p[-1]).count("1")
+            if t == target_t:
+                backward_exts.setdefault(end, []).append((p[-1], w))
 
     dists = {}
     with open(sys.argv[2]) as f:
@@ -32,14 +36,7 @@ def main():
                 continue
 
             for n_start, wf in forward_exts[start]:
-                s = bin(n_start).count("1")
-                if s != target_s:
-                    continue
-
                 for n_end, wb in backward_exts[end]:
-                    t = bin(n_end).count("1")
-                    if t != target_t:
-                        continue
                     if wf + wb > target_w:
                         continue
 
