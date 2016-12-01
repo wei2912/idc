@@ -9,7 +9,6 @@ Run the following commands from the root directory of this project to install th
 
 ```bash
 $ pip install -r requirements.txt
-$ py.test
 ```
 
 ## SomeCipher
