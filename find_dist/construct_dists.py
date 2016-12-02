@@ -20,14 +20,14 @@ def main():
         for start, p, w in map(literal_eval, f):
             s = bin(p[-1]).count("1")
             if s == target_s:
-                forward_exts.setdefault(start, []).append((p[-1], w))
+                forward_exts.setdefault(start, []).append((p, w))
 
     backward_exts = {}
     with open(sys.argv[4]) as f:
         for end, p, w in map(literal_eval, f):
             t = bin(p[-1]).count("1")
             if t == target_t:
-                backward_exts.setdefault(end, []).append((p[-1], w))
+                backward_exts.setdefault(end, []).append((p, w))
 
     dists = {}
     with open(sys.argv[2]) as f:
@@ -35,13 +35,13 @@ def main():
             if not (start in forward_exts and end in backward_exts):
                 continue
 
-            for n_start, wf in forward_exts[start]:
-                for n_end, wb in backward_exts[end]:
+            for pf, wf in forward_exts[start]:
+                for pb, wb in backward_exts[end]:
                     if wf + wb > target_w:
                         continue
 
-                    key = (n_start, last_round(n_end))
-                    val = (n_start, start, end, n_end, last_round(n_end), wf + wb)
+                    key = (pf[-1], last_round(pb[-1]))
+                    val = (list(reversed(pf)), pb, last_round(pb[-1]))
                     dists.setdefault(key, []).append(val)
 
     for key in sorted(dists):
