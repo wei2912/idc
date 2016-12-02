@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <string.h>
 #include "some_cipher.h"
+#include <math.h>
 
 // TE0 = S[x] . [1, 1, 4, 9]
 static const uint16_t TE0[16] = {
@@ -32,6 +33,14 @@ static const uint16_t TE3[16] = {
     0x1228, 0xEFF9, 0xCBBA, 0x4886,
     0x833C, 0x5AAE, 0x366B, 0x6CC5,
     0xB557, 0xD992, 0x0000, 0xA77F
+};
+
+// TE4 = S[x]
+static const uint16_t TE4[16] = {
+    0xE, 0x4, 0xD, 0x1,
+    0x2, 0xF, 0xB, 0x8,
+    0x3, 0xA, 0x6, 0xC,
+    0x5, 0x9, 0x0, 0x7
 };
 
 // TD0 = Si[x] . [8, 12, 7, 7]
@@ -71,6 +80,12 @@ static const uint16_t TD4[16] = {
     0xE, 0x3, 0x4, 0x8, 0x1, 0xC, 0xA, 0xF,
     0x7, 0xD, 0x9, 0x6, 0xB, 0x2, 0x0, 0x5
 };
+
+void gen_keys(const uint16_t *key) {
+    uint16_t *subkeys[ROUNDS] = {};
+    *subkeys[] = {0,0,0};
+    //subkeys[0][0] = key[0] ^ RCONS[0]; 
+}
 
 void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *key) {
     output[0] = input[0] ^ key[0];
