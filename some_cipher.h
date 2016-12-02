@@ -1,5 +1,5 @@
-#ifndef SOME_CIPHER_2_H
-#define SOME_CIPHER_2_H
+#ifndef SOME_CIPHER_H
+#define SOME_CIPHER_H
 
 #include <stdint.h>
 

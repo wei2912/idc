@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <string.h>
-#include "some_cipher_2.h"
+#include "some_cipher.h"
 
 // TE0 = S[x] . [1, 1, 4, 9]
 static const uint16_t TE0[16] = {

@@ -3,7 +3,7 @@
 #include <random>
 
 extern "C" {
-#include "some_cipher_2.h"
+#include "some_cipher.h"
 }
 
 int main() {
@@ -11,7 +11,7 @@ int main() {
     std::default_random_engine g(rd());
     std::uniform_int_distribution<> d(0, 65535);
 
-    for (int i = 0; i < 100000000; ++i) {
+    for (int i = 0; i < 16777216; ++i) {
         uint16_t key[3];
         uint16_t pt[3];
         for (int i = 0; i < 3; ++i) key[i] = d(g);
