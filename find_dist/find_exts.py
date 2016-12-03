@@ -18,20 +18,17 @@ def propagate(g, v0, rounds):
     rounds -> Number of rounds to propagate by
     cutoff -> Cutoff weight for a branch
 
-    Propagate from the current state by a few rounds. Returns a list of tuples
-    containing:
-    1. the path
-    2. negated logarithmic probability of taking that route
+    Propagate from the current state by a few rounds. Returns a list of list of tuples, each list indicating a path.
     """
 
-    ps = [([v0], 0)]
+    ps = [[(v0, 0)]]
     for i in range(rounds):
         n_ps = []
-        for p0, w0 in ps:
-            v0 = p0[-1]
+        for p0 in ps:
+            v0, _ = p0[-1]
             for v1 in g[v0]:
                 w1 = g[v0][v1]['weight']
-                n_ps.append((p0 + [v1], w0 + w1))
+                n_ps.append(p0 + [(v1, w1)])
         ps = n_ps
     return ps
 
@@ -50,8 +47,8 @@ def main():
 
     with open(sys.argv[2]) as f:
         for start, _ in map(literal_eval, f):
-            for p, w in propagate(g, start, rounds):
-                print((start, p, w))
+            for p in propagate(g, start, rounds):
+                print((start, p))
 
 if __name__ == "__main__":
     main()

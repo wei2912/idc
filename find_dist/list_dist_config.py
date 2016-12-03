@@ -14,17 +14,21 @@ def main():
     
     forward_exts = {}
     with open(sys.argv[2]) as f:
-        for start, p, w in map(literal_eval, f):
+        for start, ps in map(literal_eval, f):
             forward_exts.setdefault(start, {})
-            if (p[-1] not in forward_exts[start]) or (w < forward_exts[start][p[-1]]):
-                forward_exts[start][p[-1]] = w
+            w = sum(w for _, w in ps)
+            n_start = ps[-1][0]
+            if (n_start not in forward_exts[start]) or (w < forward_exts[start][n_start]):
+                forward_exts[start][n_start] = w
 
     backward_exts = {}
     with open(sys.argv[3]) as f:
-        for end, p, w in map(literal_eval, f):
+        for end, ps in map(literal_eval, f):
             backward_exts.setdefault(end, {})
-            if (p[-1] not in backward_exts[end]) or (w < backward_exts[end][p[-1]]):
-                backward_exts[end][p[-1]] = w
+            w = sum(w for _, w in ps)
+            n_end = ps[-1][0]
+            if (n_end not in backward_exts[end]) or (w < backward_exts[end][n_end]):
+                backward_exts[end][n_end] = w
 
     ws = {}
     with open(sys.argv[1]) as f:
