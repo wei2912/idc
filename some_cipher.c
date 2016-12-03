@@ -86,6 +86,7 @@ static uint16_t subkeys[ROUNDS+1][3] = {};
 static void gen_keys(const uint16_t *key) {
     uint16_t last_col;
 
+    last_col = (key[2] << 4) ^ (key[2] & 0xFF);
     subkeys[0][0] = (
         (TE4[last_col >> 12] ^ RCONS[0]) << 12
         ^ TE4[last_col >> 8 & 0xF] << 8
@@ -97,7 +98,7 @@ static void gen_keys(const uint16_t *key) {
     
 
     for (int i = 1; i <= ROUNDS; ++i) {
-        uint16_t last_col = (subkeys[i-1][2] << 4) ^ (subkeys[i-1][2] & 0xFF);
+        last_col = (subkeys[i-1][2] << 4) ^ (subkeys[i-1][2] & 0xFF);
         subkeys[i][0] = (
             (TE4[last_col >> 12] ^ RCONS[i]) << 12
             ^ TE4[last_col >> 8 & 0xF] << 8
