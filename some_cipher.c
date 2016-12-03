@@ -96,7 +96,6 @@ static void gen_keys(const uint16_t *key) {
     subkeys[0][1] = subkeys[0][0] ^ key[1];
     subkeys[0][2] = subkeys[0][1] ^ key[2];
     
-
     for (int i = 1; i <= ROUNDS; ++i) {
         last_col = (subkeys[i-1][2] << 4) ^ (subkeys[i-1][2] & 0xFF);
         subkeys[i][0] = (
@@ -107,6 +106,11 @@ static void gen_keys(const uint16_t *key) {
         ) ^ subkeys[i-1][0];
         subkeys[i][1] = subkeys[i][0] ^ subkeys[i-1][1];
         subkeys[i][2] = subkeys[i][1] ^ subkeys[i-1][2];
+    }
+
+    printf("%x %x %x\n", key[0], key[1], key[2]);
+    for (int i = 0; i <= ROUNDS; ++i) {
+        printf("%x %x %x\n", subkeys[i][0], subkeys[i][1], subkeys[i][2]);
     }
 }
 

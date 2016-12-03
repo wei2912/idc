@@ -7,27 +7,25 @@ extern "C" {
 #include "some_cipher.h"
 }
 
-#define N 16777216
+//#define N 16777216
+#define N 1
 
 int main(int argc, char *argv[]) {
-	enum State{TST, ENC, DEC};
-	State s = TST;
+    enum State{TST, ENC, DEC};
+    State s = TST;
     if (argc == 1) {
-		std::cout << "Testing " << N << " trials for correctness of cipher." << std::endl;
+        std::cout << "Testing " << N << " trials for reversibility of cipher." << std::endl;
     } else if (argc == 2) {
-		if (std::strcmp(argv[1], "encrypt") == 0) {
-			std::cout << "Encrypting " << N << " plaintexts." << std::endl;
-			s = ENC;
-		} else if (std::strcmp(argv[1], "decrypt") == 0) {
-			std::cout << "Decrypting " << N << " ciphertexts." << std::endl;
-			s = DEC;
-		}
+        if (std::strcmp(argv[1], "encrypt") == 0) { std::cout << "Encrypting " << N << " plaintexts." << std::endl; s = ENC;
+        } else if (std::strcmp(argv[1], "decrypt") == 0) {
+            std::cout << "Decrypting " << N << " ciphertexts." << std::endl;
+            s = DEC;
+        }
     }
 
     std::random_device rd;
     std::default_random_engine g(rd());
     std::uniform_int_distribution<> d(0, 65535);
-
     for (int i = 0; i < N; ++i) {
         uint16_t key[3];
         uint16_t pt[3];
