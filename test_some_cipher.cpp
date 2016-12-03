@@ -13,10 +13,11 @@ extern "C" {
 int main(int argc, char *argv[]) {
     enum State{TST, ENC, DEC};
     State s = TST;
-    if (argc == 1) {
-        std::cout << "Testing " << N << " trials for reversibility of cipher." << std::endl;
-    } else if (argc == 2) {
-        if (std::strcmp(argv[1], "encrypt") == 0) { std::cout << "Encrypting " << N << " plaintexts." << std::endl; s = ENC;
+    if (argc == 1) std::cout << "Testing " << N << " trials for reversibility of cipher." << std::endl;
+    else if (argc == 2) {
+        if (std::strcmp(argv[1], "encrypt") == 0) {
+            std::cout << "Encrypting " << N << " plaintexts." << std::endl;
+            s = ENC;
         } else if (std::strcmp(argv[1], "decrypt") == 0) {
             std::cout << "Decrypting " << N << " ciphertexts." << std::endl;
             s = DEC;
