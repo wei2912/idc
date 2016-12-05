@@ -21,11 +21,13 @@ def propagate(g, v0, rounds):
     Propagate from the current state by a few rounds. Returns a list of list of tuples, each list indicating a path.
     """
 
-    ps = [[(v0, 0)]]
+    ps = [[]]
     for i in range(rounds):
         n_ps = []
         for p0 in ps:
-            v0, _ = p0[-1]
+            if not i == 0:
+                v0, _ = p0[-1]
+
             for v1 in g[v0]:
                 w1 = g[v0][v1]['weight']
                 n_ps.append(p0 + [(v1, w1)])
@@ -47,8 +49,7 @@ def main():
 
     with open(sys.argv[2]) as f:
         for v0, _ in map(literal_eval, f):
-            for p in propagate(g, v0, rounds):
-                print((start, p))
+            print((v0, propagate(g, v0, rounds)))
 
 if __name__ == "__main__":
     main()
