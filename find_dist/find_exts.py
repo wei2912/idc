@@ -34,7 +34,7 @@ def propagate(g, v0, rounds):
 
 def main():
     if not (len(sys.argv) == 3 and sys.argv[1] in ["forward", "backward"]):
-        print("usage: {} [forward/backward] [differentials file]".format(sys.argv[0]), file=sys.stderr)
+        print("usage: {} [forward/backward] [forward/backward differentials file]".format(sys.argv[0]), file=sys.stderr)
         sys.exit(1)
 
     direction = sys.argv[1]
@@ -46,8 +46,8 @@ def main():
         rounds = 2
 
     with open(sys.argv[2]) as f:
-        for start, _ in map(literal_eval, f):
-            for p in propagate(g, start, rounds):
+        for v0, _ in map(literal_eval, f):
+            for p in propagate(g, v0, rounds):
                 print((start, p))
 
 if __name__ == "__main__":
