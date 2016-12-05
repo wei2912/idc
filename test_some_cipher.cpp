@@ -7,8 +7,7 @@ extern "C" {
 #include "some_cipher.h"
 }
 
-//#define N 16777216
-#define N 1
+#define N 16777216
 
 int main(int argc, char *argv[]) {
     enum State{TST, ENC, DEC};

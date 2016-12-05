@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 #include "some_cipher.h"
@@ -86,7 +85,7 @@ static uint16_t subkeys[ROUNDS+1][3] = {};
 static void gen_keys(const uint16_t *key) {
     uint16_t last_col;
 
-    last_col = (key[2] << 4) ^ (key[2] & 0xFF);
+    last_col = (key[2] << 4) ^ (key[2] >> 12);
     subkeys[0][0] = (
         (TE4[last_col >> 12] ^ RCONS[0]) << 12
         ^ TE4[last_col >> 8 & 0xF] << 8
@@ -95,9 +94,9 @@ static void gen_keys(const uint16_t *key) {
     ) ^ key[0];
     subkeys[0][1] = subkeys[0][0] ^ key[1];
     subkeys[0][2] = subkeys[0][1] ^ key[2];
-    
+
     for (int i = 1; i <= ROUNDS; ++i) {
-        last_col = (subkeys[i-1][2] << 4) ^ (subkeys[i-1][2] & 0xFF);
+        last_col = (subkeys[i-1][2] << 4) ^ (subkeys[i-1][2] >> 12);
         subkeys[i][0] = (
             (TE4[last_col >> 12] ^ RCONS[i]) << 12
             ^ TE4[last_col >> 8 & 0xF] << 8
@@ -106,11 +105,6 @@ static void gen_keys(const uint16_t *key) {
         ) ^ subkeys[i-1][0];
         subkeys[i][1] = subkeys[i][0] ^ subkeys[i-1][1];
         subkeys[i][2] = subkeys[i][1] ^ subkeys[i-1][2];
-    }
-
-    printf("%x %x %x\n", key[0], key[1], key[2]);
-    for (int i = 0; i <= ROUNDS; ++i) {
-        printf("%x %x %x\n", subkeys[i][0], subkeys[i][1], subkeys[i][2]);
     }
 }
 
