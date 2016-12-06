@@ -31,15 +31,13 @@ def main():
                 lambda_5 = bin(state_5).count("1")
                 lambda_4_prime = lambda_4 - len(list(find_derived_nibbles(state_4, state_5)))
 
-                # x is a heruistic used to represent time complexity of key guessing rounds
-                # approximating N to be extremely large
-                x = 2**(4*lambda_5) * (1 + 2**(4*lambda_4_prime) * math.exp(-w_5)) / math.exp(-w_4 - w_5)
+                # the smaller x is, the better the time complexity
+                x = (w_4 + w_5, w_4)
                 t = (x, lambda_4_prime, lambda_5, w_4, w_5)
                 if (state_5 not in backward_exts[state_3]) or (x < backward_exts[state_3][state_5][0]):
                     backward_exts[state_3][state_5] = t
 
-    xs = {} # indicates cost
-    ys = {} # contains distinguisher info
+    dists = {}
     with open(sys.argv[1]) as f:
         for state_0, state_3 in map(literal_eval, f):
             if not state_3 in backward_exts:
@@ -50,12 +48,12 @@ def main():
                 x, lambda_4_prime, lambda_5, w_4, w_5 = t
 
                 key = (lambda_0, lambda_4_prime, lambda_5)
-                if (key not in xs) or (x < xs[key]):
-                    xs[key] = x
-                    ys[key] = (w_4, w_5)
+                if (key not in dists[key]) or (x < dists[key][0]):
+                    dists[key] = (x, w_4, w_5)
 
-    for lambda_0, lambda_4_prime, lambda_5 in xs:
-        w_4, w_5 = ys[key]
+    for key, val in xs.items():
+        lambda_0, lambda_4_prime, lambda_5 = key
+        _, w_4, w_5 = val
         print((lambda_0, lambda_4_prime, lambda_5, w_4, w_5))
 
 if __name__ == "__main__":
