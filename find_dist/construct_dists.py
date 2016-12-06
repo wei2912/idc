@@ -49,7 +49,7 @@ def main():
             for ps in backward_exts[state_3]:
                 state_6 = last_round(ps[-1][0]) 
                 key = (state_0, state_6)
-                val = (state_0, ps, state_6)
+                val = (state_0, state_3, ps, state_6)
                 dists.setdefault(key, []).append(val)
 
     for key in sorted(dists):
