@@ -2,7 +2,7 @@ __pycache__
 backward.gpickle
 backward_diffs.txt
 backward_exts.txt
-dists.txt
+dists_*.txt
 dist_configs.txt
 forward.gpickle
 forward_diffs.txt
