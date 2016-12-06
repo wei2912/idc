@@ -38,7 +38,7 @@ def filter_ps(ps):
     """
     ps -> List of paths
 
-    Out of all the paths, select only the lowest weight path that leads to the same end.
+    Out of all the paths, select only the lowest weight paths that lead to the same end.
     """
     best_ps = {}
     for p in ps:
@@ -47,9 +47,11 @@ def filter_ps(ps):
         x = (w_4 + w_5, w_4)
 
         state_5 = p[1][0]
-        if (state_5 not in best_ps) or (x < best_ps[state_5][1]):
-            best_ps[state_5] = (p, x)
-    return [best_ps[state_5][0] for state_5 in best_ps]
+        if (state_5 not in best_ps) or (x < best_ps[state_5][0]):
+            best_ps[state_5] = (x, [p])
+        elif x == best_ps[state_5][0]:
+            best_ps[state_5][1].append(p)
+    return [p for state_5 in best_ps for p in best_ps[state_5][1]]
 
 def main():
     if not (len(sys.argv) == 3 and sys.argv[1] in ["forward", "backward"]):
