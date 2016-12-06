@@ -2,6 +2,8 @@ from ast import literal_eval
 import math
 import sys
 
+from list_dist_config import find_derived_nibbles
+
 def last_round(end):
     bs = [end >> (11 - i) & 0x1 for i in range(12)]
     b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11 = bs
@@ -10,39 +12,46 @@ def last_round(end):
 
 def main():
     if not len(sys.argv) == 5:
-        print("usage: {} \"(s, t, w)\" [impossible differentials file] [forward extensions file] [backward extensions file]".format(sys.argv[0]), file=sys.stderr)
+        print("usage: {} \"(lambda_0, lambda_4_prime, lambda_6, w_4, w_5)\" [impossible differentials file] [forward extensions file] [backward extensions file]".format(sys.argv[0]), file=sys.stderr)
         sys.exit(1)
 
-    target_s, target_t, target_w = literal_eval(sys.argv[1])
-
-    forward_exts = {}
-    with open(sys.argv[3]) as f:
-        for start, p, w in map(literal_eval, f):
-            s = bin(p[-1]).count("1")
-            if s == target_s:
-                forward_exts.setdefault(start, []).append((p, w))
+    tgt_lambda_0, tgt_lambda_4_prime, tgt_lambda_5, tgt_w_4, tgt_w_5 = literal_eval(sys.argv[1])
 
     backward_exts = {}
     with open(sys.argv[4]) as f:
-        for end, p, w in map(literal_eval, f):
-            t = bin(p[-1]).count("1")
-            if t == target_t:
-                backward_exts.setdefault(end, []).append((p, w))
+        for state_3, pss in map(literal_eval, f):
+            backward_exts[state_3] = []
+            for ps in pss:
+                state_4, w_4 = ps[0]
+                state_5, w_5 = ps[1]
+                if not (w_4 < tgt_w_4 and w_5 < tgt_w_5):
+                    continue
+
+                lambda_4 = bin(state_4).count("1")
+                lambda_5 = bin(state_5).count("1")
+                lambda_4_prime = lambda_4 - len(list(find_derived_nibbles(state_4, state_5)))
+
+                if not (lambda_4_prime == tgt_lambda_4_prime and lambda_5 == tgt_lambda_5):
+                    continue
+
+                print(lambda_4_prime, lambda_5)
+                backward_exts[state_3].append(ps)
 
     dists = {}
     with open(sys.argv[2]) as f:
-        for start, end in map(literal_eval, f):
-            if not (start in forward_exts and end in backward_exts):
+        for state_0, state_3 in map(literal_eval, f):
+            if not state_3 in backward_exts:
                 continue
 
-            for pf, wf in forward_exts[start]:
-                for pb, wb in backward_exts[end]:
-                    if wf + wb > target_w:
-                        continue
+            lambda_0 = bin(state_0).count("1")
+            if not lambda_0 == tgt_lambda_0:
+                continue
 
-                    key = (pf[-1], last_round(pb[-1]))
-                    val = (list(reversed(pf)), pb, last_round(pb[-1]))
-                    dists.setdefault(key, []).append(val)
+            for ps in backward_exts[state_3]:
+                state_6 = last_round(ps[-1][0]) 
+                key = (state_0, state_6)
+                val = (state_0, ps, state_6)
+                dists.setdefault(key, []).append(val)
 
     for key in sorted(dists):
         print("{}: {}".format(key, len(dists[key])))
