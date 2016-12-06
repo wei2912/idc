@@ -34,6 +34,23 @@ def propagate(g, v0, rounds):
         ps = n_ps
     return ps
 
+def filter_ps(ps):
+    """
+    ps -> List of paths
+
+    Out of all the paths, select only the lowest weight path that leads to the same end.
+    """
+    best_ps = {}
+    for p in ps:
+        w_4 = p[0][1]
+        w_5 = p[1][1]
+        x = (w_4 + w_5, w_4)
+
+        state_5 = p[1][0]
+        if (state_5 not in best_ps) or (x < best_ps[state_5][1]):
+            best_ps[state_5] = (p, x)
+    return [best_ps[state_5][0] for state_5 in best_ps]
+
 def main():
     if not (len(sys.argv) == 3 and sys.argv[1] in ["forward", "backward"]):
         print("usage: {} [forward/backward] [forward/backward differentials file]".format(sys.argv[0]), file=sys.stderr)
@@ -49,7 +66,11 @@ def main():
 
     with open(sys.argv[2]) as f:
         for v0, _ in map(literal_eval, f):
-            print((v0, propagate(g, v0, rounds)))
+            if direction == "forward":
+                ps = propagate(g, v0, rounds)
+            elif direction == "backward":
+                ps = filter_ps(propagate(g, v0, rounds))
+            print((v0, ps))
 
 if __name__ == "__main__":
     main()

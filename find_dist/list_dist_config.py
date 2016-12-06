@@ -32,10 +32,7 @@ def main():
                 lambda_4_prime = lambda_4 - len(list(find_derived_nibbles(state_4, state_5)))
 
                 # the smaller x is, the better the time complexity
-                x = (w_4 + w_5, w_4)
-                t = (x, lambda_4_prime, lambda_5, w_4, w_5)
-                if (state_5 not in backward_exts[state_3]) or (x < backward_exts[state_3][state_5][0]):
-                    backward_exts[state_3][state_5] = t
+                backward_exts[state_3][state_5] = (lambda_4_prime, lambda_5, w_4, w_5)
 
     dists = {}
     with open(sys.argv[1]) as f:
@@ -45,13 +42,14 @@ def main():
 
             lambda_0 = bin(state_0).count("1")
             for state_5, t in backward_exts[state_3].items():
-                x, lambda_4_prime, lambda_5, w_4, w_5 = t
+                lambda_4_prime, lambda_5, w_4, w_5 = t
 
+                x = (w_4 + w_5, w_4)
                 key = (lambda_0, lambda_4_prime, lambda_5)
-                if (key not in dists[key]) or (x < dists[key][0]):
+                if (key not in dists) or (x < dists[key][0]):
                     dists[key] = (x, w_4, w_5)
 
-    for key, val in xs.items():
+    for key, val in dists.items():
         lambda_0, lambda_4_prime, lambda_5 = key
         _, w_4, w_5 = val
         print((lambda_0, lambda_4_prime, lambda_5, w_4, w_5))

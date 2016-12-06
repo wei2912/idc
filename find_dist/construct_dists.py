@@ -34,7 +34,6 @@ def main():
                 if not (lambda_4_prime == tgt_lambda_4_prime and lambda_5 == tgt_lambda_5):
                     continue
 
-                print(lambda_4_prime, lambda_5)
                 backward_exts[state_3].append(ps)
 
     dists = {}
