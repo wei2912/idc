@@ -1,4 +1,5 @@
 *.pyc
 *.o
-test_brute_force
+brute_force
+gen_pairs_1005
 test_some_cipher
