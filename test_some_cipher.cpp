@@ -10,11 +10,10 @@ extern "C" {
 
 int main(int argc, char *argv[]) {
     enum State{TST, ENC, DEC};
-    State s;
+    State s = TST;
     if (argc == 2) {
         if (std::strcmp(argv[1], "test") == 0) {
             std::cout << "Testing " << N << " trials for reversibility of cipher." << std::endl;
-            s = TST;
         } else if (std::strcmp(argv[1], "encrypt") == 0) {
             std::cout << "Encrypting " << N << " plaintexts." << std::endl;
             s = ENC;
