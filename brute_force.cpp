@@ -5,28 +5,10 @@ extern "C" {
 #include "some_cipher.h"
 }
 
-bool brute_force(const uint16_t *pt, const uint16_t *ct, const uint64_t start, const uint64_t end, uint16_t *guess_key) {
-    uint64_t i;
-    uint16_t output[3] = {};
-
-    for (i = start; i < end; ++i) {
-        guess_key[0] = i >> 32;
-        guess_key[1] = i >> 16 & 0xFFFF;
-        guess_key[2] = i & 0xFFFF;
-        decrypt(ct, output, guess_key);
-        if (output[0] == pt[0] &&
-            output[1] == pt[1] &&
-            output[2] == pt[2]) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         std::cerr << "usage: " << argv[0] << " [start] [end]" << std::endl;
+        std::cerr << "start and end are 64-bit values that represent the range of keys to be brute forced, inclusive of start and end" << std::endl;
         return 2;
     }
 
@@ -49,8 +31,21 @@ int main(int argc, char *argv[]) {
 
     // 2. Begin brute forcing on the key.
     uint16_t guess_key[3];
-    if (brute_force(pt, ct, start, end, guess_key)) {
-        std::printf("%04x%04x%04x\n", guess_key[0], guess_key[1], guess_key[2]);
+    uint16_t output[3] = {};
+
+    for (uint64_t i = start; i <= end; ++i) {
+        guess_key[0] = i >> 32;
+        guess_key[1] = i >> 16 & 0xFFFF;
+        guess_key[2] = i & 0xFFFF;
+        decrypt(ct, output, guess_key);
+        if (output[0] == pt[0] &&
+            output[1] == pt[1] &&
+            output[2] == pt[2]) {
+            std::printf("%04x%04x%04x\n", guess_key[0], guess_key[1], guess_key[2]);
+            return 0;
+        }
     }
+
+    return 1;
 }
 
