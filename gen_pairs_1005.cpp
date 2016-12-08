@@ -97,8 +97,6 @@ int main(int argc, char *argv[]) {
     key[1] = key_hex >> 16 & 0xFFFF;
     key[2] = key_hex & 0xFFFF;
 
-    std::printf("%04x%04x%04x\n", key[0], key[1], key[2]);
-
     // 2. Generate random plaintexts in the domain and encrypt.
     // Place into a hash table, ordered by passive nibbles of ciphertext.
     std::map<uint64_t, std::vector<pt_ct_t>> map;
