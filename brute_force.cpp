@@ -1,5 +1,5 @@
+#include <cstdio>
 #include <iostream>
-#include <string>
 
 extern "C" {
 #include "some_cipher.h"
@@ -33,22 +33,21 @@ int main(int argc, char *argv[]) {
     uint64_t start = std::stoull(argv[1]);
     uint64_t end = std::stoull(argv[2]);
 
-    // 1. Take in a plaintext as a hexadecimal string.
-    uint16_t pt[3];
-    uint64_t pt_hex;
-    std::cin >> std::hex >> pt_hex;
+    // 1. Take in a plaintext and ciphertext as a hexadecimal string.
+    uint64_t pt_hex, ct_hex;
+    std::cin >> std::hex >> pt_hex >> ct_hex;
+
+    uint16_t pt[3], ct[3];
+
     pt[0] = pt_hex >> 32;
     pt[1] = pt_hex >> 16 & 0xFFFF;
     pt[2] = pt_hex & 0xFFFF;
 
-    // 2. Take in a ciphertext as a hexadecimal string.
-    uint16_t ct[3];
-    uint64_t ct_hex;
-    std::cin >> std::hex >> ct_hex;
     ct[0] = ct_hex >> 32;
     ct[1] = ct_hex >> 16 & 0xFFFF;
     ct[2] = ct_hex & 0xFFFF;
 
+    // 2. Begin brute forcing on the key.
     uint16_t guess_key[3];
     if (brute_force(pt, ct, start, end, guess_key)) {
         std::printf("%04x%04x%04x\n", guess_key[0], guess_key[1], guess_key[2]);
