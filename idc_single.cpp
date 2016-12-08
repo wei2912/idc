@@ -5,7 +5,6 @@ extern "C" {
 #include "some_cipher.h"
 }
 
-/*
 static void decrypt_r(const uint16_t *input, uint16_t *output, const uint16_t *ki) {
     output[0] = input[0] ^ ki[0];
     output[1] = input[1] ^ ki[1];
@@ -18,20 +17,16 @@ static void decrypt_r(const uint16_t *input, uint16_t *output, const uint16_t *k
     output[0] = TD0[s0 >> 12]
         ^ TD1[s0 >> 8 & 0xF]
         ^ TD2[s1 >> 4 & 0xF]
-        ^ TD3[s2 & 0xF]
-        ^ ki[0];
+        ^ TD3[s2 & 0xF];
     output[1] = TD0[s1 >> 12]
         ^ TD1[s1 >> 8 & 0xF]
         ^ TD2[s2 >> 4 & 0xF]
-        ^ TD3[s0 & 0xF]
-        ^ ki[1];
+        ^ TD3[s0 & 0xF];
     output[2] = TD0[s2 >> 12]
         ^ TD1[s2 >> 8 & 0xF]
         ^ TD2[s0 >> 4 & 0xF]
-        ^ TD3[s1 & 0xF]
-        ^ ki[2];
+        ^ TD3[s1 & 0xF];
 }
-*/
 
 static bool has_192(const uint16_t *xs, const uint16_t *ys) {
     // only need to check for middle column
@@ -100,7 +95,7 @@ int main(int argc, char *argv[]) {
     int i = 0;
     uint16_t pt0[3], ct0[3], ct1[3];
     uint64_t pt0_hex, ct0_hex, pt1_hex, ct1_hex;
-    while (std::cin >> std::hex >> pt0_hex >> ct0_hex >> pt1_hex >> ct1_hex) {
+    while (std::cin >> std::hex >> pt0_hex >> ct0_hex >> pt1_hex >> ct1_hex && p_k6s.size() > 1) {
         pt0[0] = pt0_hex >> 32;
         pt0[1] = pt0_hex >> 16 & 0xFFFF;
         pt0[2] = pt0_hex & 0xFFFF;
@@ -143,7 +138,6 @@ int main(int argc, char *argv[]) {
                 // 000
                 // 010
 
-                bool throw_away = true;
                 for (uint16_t p_k5 = 0; p_k5 < 256; ++p_k5) {
                     uint16_t k5[3];
                     k5[1] = p_k5 << 8;
@@ -152,18 +146,15 @@ int main(int argc, char *argv[]) {
                     decrypt_r(state0, state2, k5);
                     decrypt_r(state1, state3, k5);
 
-                    if (!has_208(state2, state3)) {
-                        throw_away = false;
+                    if (has_208(state2, state3)) {
+                        // 5. The partial subkey has met the impossible differential.
+                        // Throw it away, by swapping with last element and popping from the back.
+
+                        std::swap(*it, p_k6s.back());
+                        p_k6s.pop_back();
+                        --it; // prevent skipping of elements
                         break;
                     }
-                }
-
-                // 5. The partial subkey has met the impossible differential.
-                // Throw it away, by swapping with last element and popping from the back.
-                if (throw_away) {
-                    std::swap(*it, p_k6s.back());
-                    p_k6s.pop_back();
-                    --it; // prevent skipping of elements
                 }
             }
         }
