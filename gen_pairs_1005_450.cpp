@@ -25,6 +25,7 @@ static void print_pair(const pt_ct_t x, const pt_ct_t y) {
 }
 
 static bool pt_has_1005(const pt_ct_t x, const pt_ct_t y) {
+    // no need to check for passive nibbles
     return (
         (x.pt[0] & 0x00F0) != (y.pt[0] & 0x00F0) &&
         (x.pt[0] & 0x000F) != (y.pt[0] & 0x000F) &&
@@ -40,6 +41,7 @@ static bool pt_has_1005(const pt_ct_t x, const pt_ct_t y) {
 }
 
 static bool ct_has_450(const pt_ct_t x, const pt_ct_t y) {
+    // no need to check for passive nibbles
     return (
         (x.ct[0] & 0x000F) != (y.ct[0] & 0x000F) &&
 
@@ -85,12 +87,10 @@ int main(int argc, char *argv[]) {
     key[1] = key_hex >> 16 & 0xFFFF;
     key[2] = key_hex & 0xFFFF;
 
-    std::printf("%04x%04x%04x\n", key[0], key[1], key[2]);
-
     // 2. Generate random plaintexts in the domain and encrypt.
     // Place into a hash table, ordered by passive nibbles of ciphertext.
     std::map<uint64_t, std::vector<pt_ct_t>> map;
-    for (uint32_t i = 0; i < num; ++i) {
+    for (uint64_t i = 0; i < num; ++i) {
         uint32_t x = xorshf96();
         pt_ct_t pt_ct = {};
         pt_ct.pt[0] = (domain & 0xFF00) | (x >> 24);
