@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 #include "some_cipher.h"
 
@@ -113,6 +114,12 @@ static void gen_keys(const uint16_t *k0) {
         ks[i][1] = ks[i][0] ^ ks[i-1][1];
         ks[i][2] = ks[i][1] ^ ks[i-1][2];
     }
+
+    printf("%04x%04x%04x\n", k0[0], k0[1], k0[2]);
+    for (int i = 0; i <= ROUNDS; ++i) {
+        printf("%04x%04x%04x\n", ks[i][0], ks[i][1], ks[i][2]);
+    }
+    printf("=======\n");
 }
 
 void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *key) {
