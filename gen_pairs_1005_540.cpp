@@ -14,10 +14,9 @@ typedef struct {
 } pt_ct_t;
 
 /* wrapper to print */
-static void print_pair(int id, const pt_ct_t x, const pt_ct_t y) {
+static void print_pair(const pt_ct_t x, const pt_ct_t y) {
     std::printf(
-        "%d %04x%04x%04x %04x%04x%04x %04x%04x%04x %04x%04x%04x\n",
-        id,
+        "%04x%04x%04x %04x%04x%04x %04x%04x%04x %04x%04x%04x\n",
         x.pt[0], x.pt[1], x.pt[2],
         x.ct[0], x.ct[1], x.ct[2],
         y.pt[0], y.pt[1], y.pt[2],
@@ -37,17 +36,6 @@ static bool pt_has_1005(const pt_ct_t x, const pt_ct_t y) {
         (x.pt[2] & 0xF000) != (y.pt[2] & 0xF000) &&
         (x.pt[2] & 0x0F00) != (y.pt[2] & 0x0F00) &&
         (x.pt[2] & 0x000F) != (y.pt[2] & 0x000F)
-    );
-}
-
-static bool ct_has_450(const pt_ct_t x, const pt_ct_t y) {
-    return (
-        (x.ct[0] & 0x000F) != (y.ct[0] & 0x000F) &&
-
-        (x.ct[1] & 0xF000) != (y.ct[1] & 0xF000) &&
-        (x.ct[1] & 0x0F00) != (y.ct[1] & 0x0F00) &&
-
-        (x.ct[2] & 0x00F0) != (y.ct[2] & 0x00F0)
     );
 }
 
@@ -110,10 +98,10 @@ int main(int argc, char *argv[]) {
         pt_ct.pt[2] = (domain << 4 & 0xF0) | (x << 4 & 0xFF00) | (x & 0xF);
 
         encrypt(pt_ct.pt, pt_ct.ct, key);
-        uint64_t key = (((uint64_t) pt_ct.ct[0] & 0xFFF0) << 32) |
-            (((uint64_t) pt_ct.ct[1] & 0x00FF) << 16) |
-            ((uint64_t) pt_ct.ct[2] & 0xFF0F);
-        map[key].push_back(pt_ct);
+        uint64_t fixed_nibs = (((uint64_t) pt_ct.ct[0] & 0xFF0F) << 32) |
+            (((uint64_t) pt_ct.ct[1] & 0xFFF0) << 16) |
+            ((uint64_t) pt_ct.ct[2] & 0x00FF);
+        map[fixed_nibs].push_back(pt_ct);
     }
 
     // 3. Go through each row of the hash table, and pair up all plaintext-ciphertexts in that row with each other.
@@ -122,9 +110,8 @@ int main(int argc, char *argv[]) {
         auto const vec = p.second;
         for (unsigned int i = 0; i < vec.size(); ++i) {
             for (unsigned int j = i + 1; j < vec.size(); ++j) {
-                if (pt_has_1005(vec[i], vec[j])) {
-                    if (ct_has_450(vec[i], vec[j])) print_pair(450, vec[i], vec[j]);
-                    else if (ct_has_540(vec[i], vec[j])) print_pair(540, vec[i], vec[j]);
+                if (pt_has_1005(vec[i], vec[j]) && ct_has_540(vec[i], vec[j])) {
+                    print_pair(vec[i], vec[j]);
                 }
             }
         }

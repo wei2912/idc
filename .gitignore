@@ -1,5 +1,6 @@
 *.pyc
 *.o
 brute_force
-gen_pairs_1005
+gen_pairs_1005_450
+gen_pairs_1005_540
 test_some_cipher
