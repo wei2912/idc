@@ -30,8 +30,7 @@ int main(int argc, char *argv[]) {
     std::default_random_engine g(rd());
     std::uniform_int_distribution<> d(0, 65535);
     for (int i = 0; i < N; ++i) {
-        uint16_t key[3];
-        uint16_t pt[3];
+        uint16_t key[3], pt[3];
         for (int j = 0; j < 3; ++j) key[j] = d(g);
         for (int j = 0; j < 3; ++j) pt[j] = d(g);
 

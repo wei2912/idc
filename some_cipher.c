@@ -1,5 +1,4 @@
 #include <stdint.h>
-#include <stdio.h>
 #include <string.h>
 #include "some_cipher.h"
 
@@ -91,22 +90,14 @@ const uint16_t TD4[16] = {
 
 static uint16_t ks[ROUNDS+1][3] = {};
 static void gen_keys(const uint16_t *k0) {
-    uint16_t last_col;
-
-    last_col = (k0[2] << 4) ^ (k0[2] >> 12);
-    ks[0][0] = (
-        (TE4[last_col >> 12] ^ RCONS[0]) << 12
-        ^ TE4[last_col >> 8 & 0xF] << 8
-        ^ TE4[last_col >> 4 & 0xF] << 4
-        ^ TE4[last_col & 0xF]
-    ) ^ k0[0];
-    ks[0][1] = ks[0][0] ^ k0[1];
-    ks[0][2] = ks[0][1] ^ k0[2];
+    ks[0][0] = k0[0];
+    ks[0][1] = k0[1];
+    ks[0][2] = k0[2];
 
     for (int i = 1; i <= ROUNDS; ++i) {
-        last_col = (ks[i-1][2] << 4) ^ (ks[i-1][2] >> 12);
+        uint16_t last_col = (ks[i-1][2] << 4) ^ (ks[i-1][2] >> 12);
         ks[i][0] = (
-            (TE4[last_col >> 12] ^ RCONS[i]) << 12
+            (TE4[last_col >> 12] ^ RCONS[i-1]) << 12
             ^ TE4[last_col >> 8 & 0xF] << 8
             ^ TE4[last_col >> 4 & 0xF] << 4
             ^ TE4[last_col & 0xF]
@@ -114,12 +105,6 @@ static void gen_keys(const uint16_t *k0) {
         ks[i][1] = ks[i][0] ^ ks[i-1][1];
         ks[i][2] = ks[i][1] ^ ks[i-1][2];
     }
-
-    printf("%04x%04x%04x\n", k0[0], k0[1], k0[2]);
-    for (int i = 0; i <= ROUNDS; ++i) {
-        printf("%04x%04x%04x\n", ks[i][0], ks[i][1], ks[i][2]);
-    }
-    printf("=======\n");
 }
 
 void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *key) {

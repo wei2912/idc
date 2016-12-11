@@ -9,34 +9,34 @@ extern "C" {
 
 // MC_INV_0 = x . [8, 12, 7, 7]
 const uint16_t MC_INV_0[16] = {
-    0x0000, 0x8B77, 0x35EE, 0xBE99,
-    0x6AFF, 0xE188, 0xF155, 0xD466,
-    0xC7DD, 0x4CAA, 0xF233, 0x7944,
-    0xAD22, 0x2655, 0x96CC, 0x1388
+    0x0000, 0x8C77, 0x3BEE, 0xB799,
+    0x65FF, 0xE988, 0xFE11, 0xD266,
+    0xCADD, 0x46AA, 0xF133, 0x7D44,
+    0xAF22, 0x2355, 0x94CC, 0x1888
 };
 
 // MC_INV_1 = x . [12, 7, 7, 8]
 const uint16_t MC_INV_1[16] = {
-    0x0000, 0xB77B, 0x5EE3, 0xE99B,
-    0xAFF6, 0x188E, 0x155F, 0x466D,
-    0x7DDC, 0xCAA4, 0x233F, 0x9447,
-    0xD22A, 0x6552, 0x6CC9, 0x3881
+    0x0000, 0xC778, 0xBEE3, 0x799B,
+    0x5FF6, 0x988E, 0xE115, 0x266D,
+    0xADDC, 0x6AA4, 0x133F, 0xD447,
+    0xF22A, 0x3552, 0x4CC9, 0x8881
 };
 
 // MC_INV_2 = x . [7, 7, 8, 12]
 const uint16_t MC_INV_2[16] = {
-    0x0000, 0x778B, 0xEE35, 0x99BE,
-    0xFF6A, 0x88E1, 0x55F1, 0x66D4,
-    0xDDC7, 0xAA4C, 0x33F2, 0x4479,
-    0x22AD, 0x5526, 0xCC96, 0x8813
+    0x0000, 0x778C, 0xEE3B, 0x99B7,
+    0xFF65, 0x88E9, 0x115E, 0x66D2,
+    0xDDCA, 0xAA46, 0x33F1, 0x447D,
+    0x22AF, 0x5523, 0xCC94, 0x8818
 };
 
 // MC_INV_3 = x . [7, 8, 12, 7]
 const uint16_t MC_INV_3[16] = {
-    0x0000, 0x78B7, 0xE35E, 0x9BE9,
-    0xF6AF, 0x8E18, 0x5F15, 0x6D46,
-    0xDC7D, 0xA4CA, 0x3F23, 0x4794,
-    0x2AD2, 0x5265, 0xC96C, 0x8138
+    0x0000, 0x78C7, 0xE3BE, 0x9B79,
+    0xF65F, 0x8E98, 0x15E1, 0x6D26,
+    0xDCAD, 0xA46A, 0x3F13, 0x47D4,
+    0x2AF2, 0x5235, 0xC94C, 0x8188
 };
 
 static void decrypt_r(const uint16_t *input, uint16_t *output, const uint16_t *ki) {
@@ -87,9 +87,6 @@ static bool has_208(const uint16_t *xs, const uint16_t *ys) {
     );
 }
 
-static void derive_master(const uint16_t *k6, uint16_t *output, std::bitset<256> bs) {
-}
-
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         std::cerr << "usage: " << argv[0] << " [start] [end]" << std::endl;
@@ -129,7 +126,6 @@ int main(int argc, char *argv[]) {
         ct1[1] = ct1_hex >> 16 & 0xFFFF;
         ct1[2] = ct1_hex & 0xFFFF;
 
-        /*
         // 3. For each plaintext-ciphertext pair, iterate through the vector of partial subkeys for round 6.
         // Decrypt the ciphertexts and check if they have the following differences:
         // 010
@@ -176,25 +172,26 @@ int main(int argc, char *argv[]) {
             // If so, it means k6 has been eliminated, so delete it from the map.
             if (it->second.count() == 0) it = pks.erase(it);
         }
-        */
+
+        // 7. Break when all (k6, o5) pairs except for one have been eliminated.
+        if (pks.size() == 1 && pks.begin()->second.count() == 1) break;
     }
 
-    // 7. After filtering for partial subkeys of round 6,
+    // 8. After filtering for partial subkeys of round 6,
     // construct subkeys for round 6 and derive the master key.
     // Brute force on a plaintext-ciphertext pair.
-    for (uint64_t i = 0; i < 4294967296; ++i) {
-        for (auto it = pks.begin(); it != pks.end(); ++it) {
-            uint16_t pk6 = it->first;
+    for (auto it = pks.begin(); it != pks.end(); ++it) {
+        uint16_t pk6 = it->first;
+        for (uint64_t i = 0; i < 4294967296; ++i) {
             uint16_t k6[3];
-            k6[0] = (i >> 36 & 0xFFF0) | (pk6 >> 12);
+            k6[0] = (i >> 16 & 0xFFF0) | (pk6 >> 12);
             k6[1] = (pk6 << 4 & 0xFF00) | (i >> 12 & 0x00FF);
             k6[2] = (i << 4 & 0xFF00) | (pk6 << 4 & 0x00F0) | (i & 0x000F);
 
             // 8. Derive k5 from k6 and check that the key nibbles of omega5 do not match up with an eliminated pair.
             uint16_t k5[3];
             k5[1] = k6[0] ^ k6[1]; // obtain just the middle column to check if it's eliminated
-            uint16_t po5;
-            po5 = (MC_INV_0[k5[1] >> 12]
+            uint16_t po5 = (MC_INV_0[k5[1] >> 12]
                 ^ MC_INV_1[k5[1] >> 8 & 0xF]
                 ^ MC_INV_2[k5[1] >> 4 & 0xF]
                 ^ MC_INV_3[k5[1] & 0xF]) >> 8;
@@ -215,7 +212,7 @@ int main(int argc, char *argv[]) {
             key[1] = k5[1];
             key[2] = k5[2];
 
-            for (int i = ROUNDS - 1; i >= 0; --i) {
+            for (int i = 4; i >= 0; --i) {
                 k0[2] = key[1] ^ key[2];
                 k0[1] = key[0] ^ key[1];
 
@@ -231,11 +228,6 @@ int main(int argc, char *argv[]) {
                 key[1] = k0[1];
                 key[2] = k0[2];
             }
-
-            std::printf("%04x%04x%04x\n", k0[0], k0[1], k0[2]);
-            std::printf("%04x%04x%04x\n", k5[0], k5[1], k5[2]);
-            std::printf("%04x%04x%04x\n", k6[0], k6[1], k6[2]);
-            std::cout << "---" << std::endl;
 
             // 9. Try to encrypt a plaintext with the master key and see if it matches.
             uint16_t output[3];
