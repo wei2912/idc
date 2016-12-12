@@ -2,7 +2,7 @@
 #include <iostream>
 
 extern "C" {
-#include "some_cipher.h"
+#include "../some_cipher.h"
 }
 
 int main(int argc, char *argv[]) {

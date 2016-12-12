@@ -5,7 +5,7 @@
 #include <vector>
 
 extern "C" {
-#include "some_cipher.h"
+#include "../some_cipher.h"
 }
 
 typedef struct {

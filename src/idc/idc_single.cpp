@@ -4,7 +4,7 @@
 #include <vector>
 
 extern "C" {
-#include "some_cipher.h"
+#include "../some_cipher.h"
 }
 
 // MC_INV_0 = x . [8, 12, 7, 7]

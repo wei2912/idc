@@ -1,12 +1,2 @@
 __pycache__
-backward.gpickle
-backward_diffs.txt
-backward_exts.txt
-dists_*.txt
-dist_configs.txt
-forward.gpickle
-forward_diffs.txt
-forward_exts.txt
-ids.txt
-rev_backward.gpickle
-rev_forward.gpickle
+*.gpickle
