@@ -3,7 +3,7 @@ To generate a list of distinguishers used in our project:
 1. Generate forward.gpickle, rev_forward.gpickle, backward.gpickle and rev_backward.gpickle. These are graphs which are precomputations of possible transitions when applying a single round function.
 
     ```bash
-      $ python3 gen_graph.py
+    $ python3 gen_graph.py
     ```
 
 2. Generate 2-round forward and 1-round backward differentials. These are combined together to form 3 round impossible differential properties.
@@ -32,7 +32,7 @@ Time complexity needs to be factored in to select the best distinguisher configu
 You need to specify the distinguisher config chosen so that the program does not need to search the whole space.
 
     ```bash
-    $ python3 construct_dists.py "($l0, $l4p, $l6)" ids.txt forward_exts.txt backward_exts.txt > dists_$l0_$l4p_$l6.txt
+    $ python3 construct_dists.py "($l0, $l4p, $l6, $w4, $w5)" ids.txt forward_exts.txt backward_exts.txt > "dists_$l0_$l4p_$l6.txt"
     ```
 
 6. View the list of distinguishers.
