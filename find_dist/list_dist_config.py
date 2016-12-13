@@ -30,8 +30,6 @@ def main():
                 lambda_4 = bin(state_4).count("1")
                 lambda_5 = bin(state_5).count("1")
                 lambda_4_prime = lambda_4 - len(list(find_derived_nibbles(state_4, state_5)))
-
-                # the smaller x is, the better the time complexity
                 backward_exts[state_3][state_5] = (lambda_4_prime, lambda_5, w_4, w_5)
 
     dists = {}
