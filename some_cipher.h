@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define ROUNDS 7
+#define ROUNDS 6
 
 extern const uint16_t RCONS[];
 extern const uint16_t TE0[16], TE1[16], TE2[16], TE3[16], TE4[16];
