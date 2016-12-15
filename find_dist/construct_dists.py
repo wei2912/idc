@@ -2,8 +2,6 @@ from ast import literal_eval
 import math
 import sys
 
-from list_dist_config import find_derived_nibbles
-
 def last_round(end):
     bs = [end >> (11 - i) & 0x1 for i in range(12)]
     b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11 = bs
@@ -12,10 +10,10 @@ def last_round(end):
 
 def main():
     if not len(sys.argv) == 5:
-        print("usage: {} \"(lambda_0, lambda_4_prime, lambda_6, w_4, w_5)\" [impossible differentials file] [forward extensions file] [backward extensions file]".format(sys.argv[0]), file=sys.stderr)
+        print("usage: {} \"(lambda_0, lambda_4, lambda_6, w_4, w_5)\" [impossible differentials file] [forward extensions file] [backward extensions file]".format(sys.argv[0]), file=sys.stderr)
         sys.exit(1)
 
-    tgt_lambda_0, tgt_lambda_4_prime, tgt_lambda_5, tgt_w_4, tgt_w_5 = literal_eval(sys.argv[1])
+    tgt_lambda_0, tgt_lambda_4, tgt_lambda_5, tgt_w_4, tgt_w_5 = literal_eval(sys.argv[1])
 
     backward_exts = {}
     with open(sys.argv[4]) as f:
@@ -29,9 +27,7 @@ def main():
 
                 lambda_4 = bin(state_4).count("1")
                 lambda_5 = bin(state_5).count("1")
-                lambda_4_prime = lambda_4 - len(list(find_derived_nibbles(state_4, state_5)))
-
-                if not (lambda_4_prime == tgt_lambda_4_prime and lambda_5 == tgt_lambda_5):
+                if not (lambda_4 == tgt_lambda_4 and lambda_5 == tgt_lambda_5):
                     continue
 
                 backward_exts[state_3].append(ps)

@@ -21,7 +21,7 @@ To generate a list of distinguishers used in our project:
     $ python3 find_exts.py backward backward_diffs.txt > backward_exts.txt
     ```
 
-4. Construct a list of all distinguisher configurations. Distinguisher configurations look like this: (lambda_0, lambda_4_prime, lambda_6).
+4. Construct a list of all distinguisher configurations. Distinguisher configurations look like this: (lambda_0, lambda_4, lambda_6, weight_4, weight_5).
 Time complexity needs to be factored in to select the best distinguisher configurations.
 
     ```bash
@@ -32,7 +32,7 @@ Time complexity needs to be factored in to select the best distinguisher configu
 You need to specify the distinguisher config chosen so that the program does not need to search the whole space.
 
     ```bash
-    $ python3 construct_dists.py "($l0, $l4p, $l6, $w4, $w5)" ids.txt forward_exts.txt backward_exts.txt > "dists_$l0_$l4p_$l6.txt"
+    $ python3 construct_dists.py "($l0, $l4, $l6, $w4, $w5)" ids.txt forward_exts.txt backward_exts.txt > "dists_$l0_$l4_$l6.txt"
     ```
 
 6. View the list of distinguishers.
@@ -40,5 +40,5 @@ The file is formatted to group together distinguishers with the same start and e
 Distinguishers with the same list of start and end configuration can use the same list of plaintext-ciphertext pairs for the attack.
 
     ```bash
-    $ less dists_$l0_$l4p_$l6.txt
+    $ less dists_$l0_$l4_$l6.txt
     ```
