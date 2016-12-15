@@ -30,9 +30,11 @@ def propagate(g, v0, rounds):
 
             for v1 in g[v0]:
                 w1 = g[v0][v1]['weight']
-                n_ps.append(p0 + [(v1, w1)])
+                if i == rounds - 1:
+                    yield p0 + [(v1, w1)]
+                else:
+                    n_ps.append(p0 + [(v1, w1)])
         ps = n_ps
-    return ps
 
 def filter_ps(ps):
     """
