@@ -55,6 +55,19 @@ static bool has_208(const uint16_t *xs, const uint16_t *ys) {
     );
 }
 
+static bool has_224(const uint16_t *xs, const uint16_t *ys) {
+    // only need to check for middle column
+    return (
+        // check for passive nibbles
+        (xs[1] & 0x00F0) == (ys[1] & 0x00F0) &&
+
+        // check for active nibbles
+        (xs[1] & 0xF000) != (ys[1] & 0xF000) &&
+        (xs[1] & 0x0F00) != (ys[1] & 0x0F00) &&
+        (xs[1] & 0x00F0) != (ys[1] & 0x00F0)
+    );
+}
+
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         std::cerr << "usage: " << argv[0] << " [start] [end]" << std::endl;
@@ -111,6 +124,11 @@ int main(int argc, char *argv[]) {
                 // 010
                 // 000
                 // 010
+                // or
+                // 010
+                // 010
+                // 010
+                // 000
 
                 for (uint16_t po5 = 0; po5 < 256; ++po5) {
                     // check if key has already been eliminated
@@ -124,7 +142,7 @@ int main(int argc, char *argv[]) {
                     decrypt_r(state1, state3, o5);
 
                     // 5. If omega5 has met the impossible differential, eliminate it.
-                    if (has_208(state2, state3)) it->second[po5] = 0;
+                    if (has_208(state2, state3) || has_224(state2, state3)) it->second[po5] = 0;
                 }
             }
 
