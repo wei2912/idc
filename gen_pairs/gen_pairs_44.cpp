@@ -93,6 +93,7 @@ int main(int argc, char *argv[]) {
                 (((uint64_t) pt_ct.ct[1] & 0x00FF) << 16) |
                 ((uint64_t) pt_ct.ct[2] & 0xFF0F);
             map_450[fixed_nibs].push_back(pt_ct);
+
             fixed_nibs = (((uint64_t) pt_ct.ct[0] & 0xFF0F) << 32) |
                 (((uint64_t) pt_ct.ct[1] & 0xFFF0) << 16) |
                 ((uint64_t) pt_ct.ct[2] & 0x00FF);
@@ -104,18 +105,18 @@ int main(int argc, char *argv[]) {
 
         for (auto const &p : map_450) {
             auto const vec = p.second;
-            for (unsigned int i = 0; i < vec.size(); ++i) {
-                for (unsigned int j = i + 1; j < vec.size(); ++j) {
-                    if (pt_has_44(vec[i], vec[j]) && ct_has_450(vec[i], vec[j])) print_pair(450, vec[i], vec[j]);
+            for (unsigned int j = 0; j < vec.size(); ++j) {
+                for (unsigned int k = j + 1; k < vec.size(); ++k) {
+                    if (pt_has_44(vec[j], vec[k]) && ct_has_450(vec[j], vec[k])) print_pair(450, vec[j], vec[k]);
                 }
             }
         }
 
         for (auto const &p : map_540) {
             auto const vec = p.second;
-            for (unsigned int i = 0; i < vec.size(); ++i) {
-                for (unsigned int j = i + 1; j < vec.size(); ++j) {
-                    if (pt_has_44(vec[i], vec[j]) && ct_has_540(vec[i], vec[j])) print_pair(540, vec[i], vec[j]);
+            for (unsigned int j = 0; j < vec.size(); ++j) {
+                for (unsigned int k = j + 1; k < vec.size(); ++k) {
+                    if (pt_has_44(vec[j], vec[k]) && ct_has_540(vec[j], vec[k])) print_pair(540, vec[j], vec[k]);
                 }
             }
         }
