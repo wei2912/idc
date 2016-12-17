@@ -59,7 +59,7 @@ static bool has_224(const uint16_t *xs, const uint16_t *ys) {
     // only need to check for middle column
     return (
         // check for passive nibbles
-        (xs[1] & 0x00F0) == (ys[1] & 0x00F0) &&
+        (xs[1] & 0x000F) == (ys[1] & 0x000F) &&
 
         // check for active nibbles
         (xs[1] & 0xF000) != (ys[1] & 0xF000) &&
@@ -103,6 +103,7 @@ int main(int argc, char *argv[]) {
         // Decrypt the ciphertexts and check if they have the following differences:
         // 010
         // 010
+        // 000
         // 000
         for (auto it = pks.begin(); it != pks.end(); ++it) {
             // construct full k6 from pk6.
@@ -150,7 +151,6 @@ int main(int argc, char *argv[]) {
             // If so, it means k6 has been eliminated, so delete it from the map.
             if (it->second.count() == 0) it = pks.erase(it);
         }
-
         // 7. Break when all (k6, o5) pairs except for one have been eliminated.
         if (pks.size() == 1 && pks.begin()->second.count() == 1) break;
     }
