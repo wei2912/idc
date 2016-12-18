@@ -81,28 +81,27 @@ int main(int argc, char *argv[]) {
         // 3. Encrypt each plaintext in the structure.
         // Place each PT-CT pair into a hash table indexed by passive nibbles of ciphertext.
         std::map<uint64_t, std::vector<pt_ct_t>> map_450, map_540;
-        uint64_t fixed_nibs;
         for (uint16_t j = 0; j < 4096; ++j) {
             pt_ct_t pt_ct = {};
             pt_ct.pt[0] = i >> 20; 
-            pt_ct.pt[1] = (i >> 12 & 0xFF00) | (j >> 4 & 0x00F0) | (i >> 8 & 0x000F);
+            pt_ct.pt[1] = (i >> 4 & 0xFF00) | (j >> 4 & 0x00F0) | (i >> 8 & 0x000F);
             pt_ct.pt[2] = (j << 8 & 0xFF00) | (i & 0x00FF);
 
             encrypt(pt_ct.pt, pt_ct.ct, key);
-            fixed_nibs = (((uint64_t) pt_ct.ct[0] & 0xFFF0) << 32) |
+
+            uint64_t fixed_nibs_450 = (((uint64_t) pt_ct.ct[0] & 0xFFF0) << 32) |
                 (((uint64_t) pt_ct.ct[1] & 0x00FF) << 16) |
                 ((uint64_t) pt_ct.ct[2] & 0xFF0F);
-            map_450[fixed_nibs].push_back(pt_ct);
+            map_450[fixed_nibs_450].push_back(pt_ct);
 
-            fixed_nibs = (((uint64_t) pt_ct.ct[0] & 0xFF0F) << 32) |
+            uint64_t fixed_nibs_540 = (((uint64_t) pt_ct.ct[0] & 0xFF0F) << 32) |
                 (((uint64_t) pt_ct.ct[1] & 0xFFF0) << 16) |
                 ((uint64_t) pt_ct.ct[2] & 0x00FF);
-            map_540[fixed_nibs].push_back(pt_ct);
+            map_540[fixed_nibs_540].push_back(pt_ct);
         }
 
         // 4. Go through each row of the hash table, and pair up all plaintext-ciphertexts in that row with each other.
         // Check if the plaintext-ciphertext pairs satisfy the differences.
-
         for (auto const &p : map_450) {
             auto const vec = p.second;
             for (unsigned int j = 0; j < vec.size(); ++j) {
