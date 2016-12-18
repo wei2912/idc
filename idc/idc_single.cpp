@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     ct[2] = ct_hex & 0xFFFF;
 
     // 2. Create a map of partial K6s to a bitset of omega5s.
-    // Read in all remaining pairs of (k6, o5) for distinguisher (1005, 450).
+    // Read in all remaining pairs of (k6, o5) for distinguisher (44, 450).
     pks_t pks0;
     uint16_t pk6, po5;
     while (std::cin >> std::hex >> pk6 >> po5) {
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
         pks0[pk6].set(po5);
     }
 
-    // 8. After filtering for partial subkeys of round 6,
+    // 3. After filtering for partial subkeys of round 6,
     // construct subkeys for round 6 and derive the master key.
     // Brute force on a plaintext-ciphertext pair.
     for (auto it = pks0.begin(); it != pks0.end(); ++it) {
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
             k6[1] = (pk6 << 4 & 0xFF00) | (i >> 12 & 0x00FF);
             k6[2] = (i << 4 & 0xFF00) | (pk6 << 4 & 0x00F0) | (i & 0x000F);
 
-            // 8. Derive k5 from k6 and check that the key nibbles of omega5 do not match up with an eliminated pair.
+            // 4. Derive k5 from k6 and check that the key nibbles of omega5 do not match up with an eliminated pair.
             k5[1] = k6[0] ^ k6[1]; // obtain just the middle column to check if it's eliminated
             uint16_t po5 = (MC_INV_0[k5[1] >> 12]
                 ^ MC_INV_1[k5[1] >> 8 & 0xF]
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
                 ^ MC_INV_3[k5[1] & 0xF]) >> 8;
             if (it->second[po5] == 0) continue;
             
-            // 9. Derive the rest of k5 and up to the master key.
+            // 5. Derive the rest of k5 and up to the master key.
             k5[2] = k6[1] ^ k6[2];
             uint16_t last_col = (k5[2] << 4) ^ (k5[2] >> 12);
             k5[0] = (
@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
             ) ^ k6[0];
             derive_from_k5(k5, k0);
             
-            // 10. Try to encrypt a plaintext with the master key and see if it matches.
+            // 6. Try to encrypt a plaintext with the master key and see if it matches.
             uint16_t output[3];
             encrypt(pt, output, k0);
 

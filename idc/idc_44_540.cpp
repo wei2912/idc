@@ -7,41 +7,41 @@ extern "C" {
 #include "../some_cipher.h"
 }
 
-static bool has_192(const uint16_t *xs, const uint16_t *ys) {
-    // only need to check for middle column
+static bool has_12(const uint16_t *xs, const uint16_t *ys) {
+    // only need to check for last column
     return (
         // check for passive nibbles
-        (xs[1] & 0x00FF) == (ys[1] & 0x00FF) &&
+        (xs[2] & 0x00FF) == (ys[2] & 0x00FF) &&
 
         // check for active nibbles
-        (xs[1] & 0xF000) != (ys[1] & 0xF000) &&
-        (xs[1] & 0x0F00) != (ys[1] & 0x0F00)
+        (xs[2] & 0xF000) != (ys[2] & 0xF000) &&
+        (xs[2] & 0x0F00) != (ys[2] & 0x0F00)
     );
 }
 
-static bool has_208(const uint16_t *xs, const uint16_t *ys) {
-    // only need to check for middle column
+static bool has_13(const uint16_t *xs, const uint16_t *ys) {
+    // only need to check for last column
     return (
         // check for passive nibbles
-        (xs[1] & 0x00F0) == (ys[1] & 0x00F0) &&
+        (xs[2] & 0x00F0) == (ys[2] & 0x00F0) &&
 
         // check for active nibbles
-        (xs[1] & 0xF000) != (ys[1] & 0xF000) &&
-        (xs[1] & 0x0F00) != (ys[1] & 0x0F00) &&
-        (xs[1] & 0x000F) != (ys[1] & 0x000F)
+        (xs[2] & 0xF000) != (ys[2] & 0xF000) &&
+        (xs[2] & 0x0F00) != (ys[2] & 0x0F00) &&
+        (xs[2] & 0x000F) != (ys[2] & 0x000F)
     );
 }
 
-static bool has_224(const uint16_t *xs, const uint16_t *ys) {
-    // only need to check for middle column
+static bool has_14(const uint16_t *xs, const uint16_t *ys) {
+    // only need to check for last column
     return (
         // check for passive nibbles
-        (xs[1] & 0x000F) == (ys[1] & 0x000F) &&
+        (xs[2] & 0x000F) == (ys[2] & 0x000F) &&
 
         // check for active nibbles
-        (xs[1] & 0xF000) != (ys[1] & 0xF000) &&
-        (xs[1] & 0x0F00) != (ys[1] & 0x0F00) &&
-        (xs[1] & 0x00F0) != (ys[1] & 0x00F0)
+        (xs[2] & 0xF000) != (ys[2] & 0xF000) &&
+        (xs[2] & 0x0F00) != (ys[2] & 0x0F00) &&
+        (xs[2] & 0x00F0) != (ys[2] & 0x00F0)
     );
 }
 
@@ -69,8 +69,8 @@ int main(int argc, char *argv[]) {
 
         // 3. For each plaintext-ciphertext pair, iterate through the vector of partial subkeys for round 6.
         // Decrypt the ciphertexts and check if they have the following differences:
-        // 010
-        // 010
+        // 001
+        // 001
         // 000
         // 000
         for (auto it = pks.begin(); it != pks.end(); ++it) {
@@ -78,25 +78,25 @@ int main(int argc, char *argv[]) {
             // (value of fixed nibbles do not matter)
             uint16_t pk6 = it->first;
             uint16_t k6[3];
-            k6[0] = pk6 >> 12;
-            k6[1] = pk6 << 4 & 0xFF00;
-            k6[2] = pk6 << 4 & 0x00F0;
+            k6[0] = pk6 >> 8 & 0x00F0;
+            k6[1] = pk6 >> 8 & 0x000F;
+            k6[2] = pk6 << 8 & 0xFF00;
 
             uint16_t state0[3], state1[3];
             decrypt_r(ct0, state0, k6);
             decrypt_r(ct1, state1, k6);
 
-            if (has_192(state0, state1)) {
+            if (has_12(state0, state1)) {
                 // 4. Go through all the possible omega5s.
                 // Decrypt the ciphertexts with each omega5 and check if they have the following differences:
-                // 010
-                // 010
+                // 001
+                // 001
                 // 000
-                // 010
+                // 001
                 // or
-                // 010
-                // 010
-                // 010
+                // 001
+                // 001
+                // 001
                 // 000
 
                 for (uint16_t po5 = 0; po5 < 256; ++po5) {
@@ -104,14 +104,14 @@ int main(int argc, char *argv[]) {
                     if (it->second[po5] == 0) continue;
 
                     uint16_t o5[3];
-                    o5[1] = po5 << 8;
+                    o5[2] = po5 << 8;
 
                     uint16_t state2[3], state3[3];
                     decrypt_r(state0, state2, o5);
                     decrypt_r(state1, state3, o5);
 
                     // 5. If omega5 has met the impossible differential, eliminate it.
-                    if (has_208(state2, state3) || has_224(state2, state3)) it->second[po5] = 0;
+                    if (has_13(state2, state3) || has_14(state2, state3)) it->second[po5] = 0;
                 }
             }
 
