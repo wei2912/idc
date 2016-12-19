@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     int id;
     pks_t pks0, pks1;
     uint16_t pk6, po5;
-    while (std::cin >> id) {
+    while (std::cin >> std::dec >> id) {
         std::cin >> std::hex >> pk6 >> po5;
         if (id == 450) {
             if (pks0.find(pk6) == pks0.end()) {
