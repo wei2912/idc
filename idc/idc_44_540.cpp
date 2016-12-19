@@ -1,6 +1,6 @@
 #include <bitset>
 #include <iostream>
-#include <map>
+#include <vector>
 #include "idc.h"
 
 extern "C" {
@@ -46,14 +46,14 @@ static bool has_14(const uint16_t *xs, const uint16_t *ys) {
 }
 
 int main(int argc, char *argv[]) {
-    // 1. Create a map of partial K6s to a bitset of omega5s.
-    // If pks[k6][omega5] == 0, the pair (k6, omega5) is eliminated.
-    pks_t pks;
-    for (uint32_t pk6 = 0; pk6 < 65536; ++pk6) {
-        std::bitset<256> bs;
-        bs.set();
-        pks[pk6] = bs;
-    }
+    // 1. Create a bitset representing pairs of partial k6s and omega5s,
+    // and an index. The bitset keeps track of which pairs are eliminated,
+    // the index keeps track of which partial k6s to iterate through.
+    // If pks[(k6 << 8) | omega5] == 0, the pair (k6, omega5) is eliminated.
+    std::bitset<16777216> pks;
+    std::vector<uint16_t> index;
+    pks.set();
+    for (uint32_t pk6 = 0; pk6 < 65536; ++pk6) index.push_back(pk6);
 
     // 2. Read in plaintext-ciphertext pairs.
     uint16_t ct0[3], ct1[3];
@@ -73,10 +73,10 @@ int main(int argc, char *argv[]) {
         // 001
         // 000
         // 000
-        for (auto it = pks.begin(); it != pks.end(); ++it) {
+        for (auto it = index.begin(); it != index.end(); ++it) {
             // construct full k6 from pk6.
             // (value of fixed nibbles do not matter)
-            uint16_t pk6 = it->first;
+            uint16_t pk6 = *it;
             uint16_t k6[3];
             k6[0] = pk6 >> 8 & 0x00F0;
             k6[1] = pk6 >> 8 & 0x000F;
@@ -99,9 +99,10 @@ int main(int argc, char *argv[]) {
                 // 001
                 // 000
 
+                bool isEliminated = true;
                 for (uint16_t po5 = 0; po5 < 256; ++po5) {
-                    // check if key has already been eliminated
-                    if (it->second[po5] == 0) continue;
+                    uint32_t pos = (((uint32_t) pk6) << 8) | po5;
+                    if (pks[pos] == 0) continue;
 
                     uint16_t o5[3];
                     o5[2] = po5 << 8;
@@ -111,23 +112,24 @@ int main(int argc, char *argv[]) {
                     decrypt_r(state1, state3, o5);
 
                     // 5. If omega5 has met the impossible differential, eliminate it.
-                    if (has_13(state2, state3) || has_14(state2, state3)) it->second[po5] = 0;
+                    if (has_13(state2, state3) || has_14(state2, state3)) pks[pos] = 0;
+                    // ...else, we mark as eliminated
+                    else isEliminated = false;
+                }
+
+                // 6. If pk6 has been eliminated, delete it from the index.
+                if (isEliminated) {
+                    index.erase(it);
+                    --it;
                 }
             }
-
-            // 6. Check if the number of bits is 0.
-            // If so, it means k6 has been eliminated, so delete it from the map.
-            if (it->second.count() == 0) it = pks.erase(it);
         }
-        // 7. Break when all (k6, o5) pairs except for one have been eliminated.
-        if (pks.size() == 1 && pks.begin()->second.count() == 1) break;
     }
 
-    // 8. Print out all (k6, o5) pairs.
-    for (auto it = pks.begin(); it != pks.end(); ++it) {
-        uint16_t pk6 = it->first;
-        for (int po5 = 0; po5 < 256; ++po5) {
-            if (it->second[po5] == 1) std::printf("%04x %02x\n", pk6, po5);
+    // 7. Print out all (k6, o5) pairs.
+    for (auto &pk6 : index) {
+        for (uint16_t po5 = 0; po5 < 256; ++po5) {
+            if (pks[(pk6 << 8) | po5] == 1) std::printf("%04x %02x\n", pk6, po5);
         }
     }
 
