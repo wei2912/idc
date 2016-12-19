@@ -87,39 +87,6 @@ const uint16_t TD4[16] = {
     0x7, 0xD, 0x9, 0x6, 0xB, 0x2, 0x0, 0x5
 };
 
-// MC_INV_0 = x . [8, 12, 7, 7]
-const uint16_t MC_INV_0[16] = {
-    0x0000, 0x8C77, 0x3BEE, 0xB799,
-    0x65FF, 0xE988, 0xFE11, 0xD266,
-    0xCADD, 0x46AA, 0xF133, 0x7D44,
-    0xAF22, 0x2355, 0x94CC, 0x18BB
-};
-
-// MC_INV_1 = x . [12, 7, 7, 8]
-const uint16_t MC_INV_1[16] = {
-    0x0000, 0xC778, 0xBEE3, 0x799B,
-    0x5FF6, 0x988E, 0xE115, 0x266D,
-    0xADDC, 0x6AA4, 0x133F, 0xD447,
-    0xF22A, 0x3552, 0x4CC9, 0x8BB1
-};
-
-// MC_INV_2 = x . [7, 7, 8, 12]
-const uint16_t MC_INV_2[16] = {
-    0x0000, 0x778C, 0xEE3B, 0x99B7,
-    0xFF65, 0x88E9, 0x115E, 0x66D2,
-    0xDDCA, 0xAA46, 0x33F1, 0x447D,
-    0x22AF, 0x5523, 0xCC94, 0xBB18
-};
-
-// MC_INV_3 = x . [7, 8, 12, 7]
-const uint16_t MC_INV_3[16] = {
-    0x0000, 0x78C7, 0xE3BE, 0x9B79,
-    0xF65F, 0x8E98, 0x15E1, 0x6D26,
-    0xDCAD, 0xA46A, 0x3F13, 0x47D4,
-    0x2AF2, 0x5235, 0xC94C, 0xB18B
-};
-
-
 static uint16_t ks[ROUNDS+1][3] = {};
 static void gen_keys(const uint16_t *k0) {
     ks[0][0] = k0[0];
@@ -139,9 +106,16 @@ static void gen_keys(const uint16_t *k0) {
     }
 }
 
-void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *key) {
-    gen_keys(key);
+void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *k0) {
+    gen_keys(k0);
+    encrypt_after_gen_keys(input, output);
+}
 
+void encrypt_from_k6_k5(const uint16_t *input, uint16_t *output, const uint16_t *k6, const uint16_t *k5) {
+    
+}
+
+static void encrypt_after_gen_keys(const uint16_t *input, uint16_t *output) {
     output[0] = input[0] ^ ks[0][0];
     output[1] = input[1] ^ ks[0][1];
     output[2] = input[2] ^ ks[0][2];
@@ -189,9 +163,12 @@ void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *key) {
         ^ ks[ROUNDS][2];
 }
 
-void decrypt(const uint16_t* input, uint16_t *output, const uint16_t* key) {
-    gen_keys(key);
+void decrypt(const uint16_t* input, uint16_t *output, const uint16_t* k0) {
+    gen_keys(k0);
+    decrypt_after_gen_keys(input, output);
+}
 
+static void decrypt_after_gen_keys(const uint16_t* input, uint16_t *output) {
     output[0] = input[0] ^ ks[ROUNDS][0];
     output[1] = input[1] ^ ks[ROUNDS][1];
     output[2] = input[2] ^ ks[ROUNDS][2];
@@ -200,15 +177,15 @@ void decrypt(const uint16_t* input, uint16_t *output, const uint16_t* key) {
     uint16_t k0, k1, k2;
     uint8_t i;
     for (i = ROUNDS - 1; i > 0; --i) {
-        k0 = TD0[TE1[ks[i][0] >> 12] & 0xF]
+        o0 = TD0[TE1[ks[i][0] >> 12] & 0xF]
             ^ TD1[TE1[ks[i][0] >> 8 & 0xF] & 0xF]
             ^ TD2[TE1[ks[i][0] >> 4 & 0xF] & 0xF]
             ^ TD3[TE1[ks[i][0] & 0xF] & 0xF];
-        k1 = TD0[TE1[ks[i][1] >> 12] & 0xF]
+        o1 = TD0[TE1[ks[i][1] >> 12] & 0xF]
             ^ TD1[TE1[ks[i][1] >> 8 & 0xF] & 0xF]
             ^ TD2[TE1[ks[i][1] >> 4 & 0xF] & 0xF]
             ^ TD3[TE1[ks[i][1] & 0xF] & 0xF];
-        k2 = TD0[TE1[ks[i][2] >> 12] & 0xF]
+        o2 = TD0[TE1[ks[i][2] >> 12] & 0xF]
             ^ TD1[TE1[ks[i][2] >> 8 & 0xF] & 0xF]
             ^ TD2[TE1[ks[i][2] >> 4 & 0xF] & 0xF]
             ^ TD3[TE1[ks[i][2] & 0xF] & 0xF];
