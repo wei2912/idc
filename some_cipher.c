@@ -122,16 +122,11 @@ void prev_key(const uint16_t *cur_k, uint16_t *prev_k, const int i) {
 }
 
 void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *k0) {
-    printf("%04x%04x%04x\n", input[0], input[1], input[2]);
-
     uint16_t ks[ROUNDS+1][3] = {};
     ks[0][0] = k0[0];
     ks[0][1] = k0[1];
     ks[0][2] = k0[2];
-    for (int i = 1; i <= ROUNDS; ++i) {
-        next_key(ks[i-1], ks[i], i);
-        printf("%d %04x%04x%04x\n", i, ks[i][0], ks[i][1], ks[i][2]);
-    }
+    for (int i = 1; i <= ROUNDS; ++i) next_key(ks[i-1], ks[i], i);
 
     output[0] = input[0] ^ k0[0];
     output[1] = input[1] ^ k0[1];
@@ -148,51 +143,46 @@ void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *k0) {
     output[0] ^= ks[ROUNDS][0];
     output[1] ^= ks[ROUNDS][1];
     output[2] ^= ks[ROUNDS][2];
-
-    printf("%04x%04x%04x\n", output[0], output[1], output[2]);
 }
 
 void encrypt_r(const uint16_t *input, uint16_t *output) {
-    output[0] = TE0[input[0] >> 12]
-        ^ TE1[input[0] >> 8 & 0xF]
-        ^ TE2[input[2] >> 4 & 0xF]
-        ^ TE3[input[1] & 0xF];
-    output[1] = TE0[input[1] >> 12]
-        ^ TE1[input[1] >> 8 & 0xF]
-        ^ TE2[input[0] >> 4 & 0xF]
-        ^ TE3[input[2] & 0xF];
-    output[2] = TE0[input[2] >> 12]
-        ^ TE1[input[2] >> 8 & 0xF]
-        ^ TE2[input[1] >> 4 & 0xF]
-        ^ TE3[input[0] & 0xF];
+    uint16_t s0 = input[0], s1 = input[1], s2 = input[2];
+    output[0] = TE0[s0 >> 12]
+        ^ TE1[s0 >> 8 & 0xF]
+        ^ TE2[s2 >> 4 & 0xF]
+        ^ TE3[s1 & 0xF];
+    output[1] = TE0[s1 >> 12]
+        ^ TE1[s1 >> 8 & 0xF]
+        ^ TE2[s0 >> 4 & 0xF]
+        ^ TE3[s2 & 0xF];
+    output[2] = TE0[s2 >> 12]
+        ^ TE1[s2 >> 8 & 0xF]
+        ^ TE2[s1 >> 4 & 0xF]
+        ^ TE3[s0 & 0xF];
 }
 
 void encrypt_last_r(const uint16_t *input, uint16_t *output) {
-    output[0] = (TE0[input[0] >> 12] & 0xF000)
-        ^ (TE3[input[0] >> 8 & 0xF] & 0x0F00)
-        ^ (TE2[input[2] >> 4 & 0xF] & 0x00F0)
-        ^ (TE1[input[1] & 0xF] & 0x000F);
-    output[1] = (TE0[input[1] >> 12] & 0xF000)
-        ^ (TE3[input[1] >> 8 & 0xF] & 0x0F00)
-        ^ (TE2[input[0] >> 4 & 0xF] & 0x00F0)
-        ^ (TE1[input[2] & 0xF] & 0x000F);
-    output[2] = (TE0[input[2] >> 12] & 0xF000)
-        ^ (TE3[input[2] >> 8 & 0xF] & 0x0F00)
-        ^ (TE2[input[1] >> 4 & 0xF] & 0x00F0)
-        ^ (TE1[input[0] & 0xF] & 0x000F);
+    uint16_t s0 = input[0], s1 = input[1], s2 = input[2];
+    output[0] = (TE0[s0 >> 12] & 0xF000)
+        ^ (TE3[s0 >> 8 & 0xF] & 0x0F00)
+        ^ (TE2[s2 >> 4 & 0xF] & 0x00F0)
+        ^ (TE1[s1 & 0xF] & 0x000F);
+    output[1] = (TE0[s1 >> 12] & 0xF000)
+        ^ (TE3[s1 >> 8 & 0xF] & 0x0F00)
+        ^ (TE2[s0 >> 4 & 0xF] & 0x00F0)
+        ^ (TE1[s2 & 0xF] & 0x000F);
+    output[2] = (TE0[s2 >> 12] & 0xF000)
+        ^ (TE3[s2 >> 8 & 0xF] & 0x0F00)
+        ^ (TE2[s1 >> 4 & 0xF] & 0x00F0)
+        ^ (TE1[s0 & 0xF] & 0x000F);
 }
 
 void decrypt(const uint16_t* input, uint16_t *output, const uint16_t* k0) {
-    printf("%04x%04x%04x\n", input[0], input[1], input[2]);
-
     uint16_t ks[ROUNDS+1][3] = {};
     ks[0][0] = k0[0];
     ks[0][1] = k0[1];
     ks[0][2] = k0[2];
-    for (int i = 1; i <= ROUNDS; ++i) {
-        next_key(ks[i-1], ks[i], i);
-        printf("%d %04x%04x%04x\n", i, ks[i][0], ks[i][1], ks[i][2]);
-    }
+    for (int i = 1; i <= ROUNDS; ++i) next_key(ks[i-1], ks[i], i);
 
     output[0] = input[0] ^ ks[ROUNDS][0];
     output[1] = input[1] ^ ks[ROUNDS][1];
@@ -209,36 +199,36 @@ void decrypt(const uint16_t* input, uint16_t *output, const uint16_t* k0) {
     output[0] ^= k0[0];
     output[1] ^= k0[1];
     output[2] ^= k0[2];
-
-    printf("%04x%04x%04x\n", output[0], output[1], output[2]);
 }
 
 void decrypt_r(const uint16_t *input, uint16_t *output) {
-    output[0] = TD0[input[0] >> 12]
-        ^ TD1[input[0] >> 8 & 0xF]
-        ^ TD2[input[1] >> 4 & 0xF]
-        ^ TD3[input[2] & 0xF];
-    output[1] = TD0[input[1] >> 12]
-        ^ TD1[input[1] >> 8 & 0xF]
-        ^ TD2[input[2] >> 4 & 0xF]
-        ^ TD3[input[0] & 0xF];
-    output[2] = TD0[input[2] >> 12]
-        ^ TD1[input[2] >> 8 & 0xF]
-        ^ TD2[input[0] >> 4 & 0xF]
-        ^ TD3[input[1] & 0xF];
+    uint16_t s0 = input[0], s1 = input[1], s2 = input[2];
+    output[0] = TD0[s0 >> 12]
+        ^ TD1[s0 >> 8 & 0xF]
+        ^ TD2[s1 >> 4 & 0xF]
+        ^ TD3[s2 & 0xF];
+    output[1] = TD0[s1 >> 12]
+        ^ TD1[s1 >> 8 & 0xF]
+        ^ TD2[s2 >> 4 & 0xF]
+        ^ TD3[s0 & 0xF];
+    output[2] = TD0[s2 >> 12]
+        ^ TD1[s2 >> 8 & 0xF]
+        ^ TD2[s0 >> 4 & 0xF]
+        ^ TD3[s1 & 0xF];
 }
 
 void decrypt_last_r(const uint16_t *input, uint16_t *output) {
-    output[0] = TD4[input[0] >> 12] << 12
-        ^ TD4[input[0] >> 8 & 0xF] << 8
-        ^ TD4[input[1] >> 4 & 0xF] << 4
-        ^ TD4[input[2] & 0xF];
-    output[1] = TD4[input[1] >> 12] << 12
-        ^ TD4[input[1] >> 8 & 0xF] << 8
-        ^ TD4[input[2] >> 4 & 0xF] << 4
-        ^ TD4[input[0] & 0xF];
-    output[2] = TD4[input[2] >> 12] << 12
-        ^ TD4[input[2] >> 8 & 0xF] << 8
-        ^ TD4[input[0] >> 4 & 0xF] << 4
-        ^ TD4[input[1] & 0xF];
+    uint16_t s0 = input[0], s1 = input[1], s2 = input[2];
+    output[0] = TD4[s0 >> 12] << 12
+        ^ TD4[s0 >> 8 & 0xF] << 8
+        ^ TD4[s1 >> 4 & 0xF] << 4
+        ^ TD4[s2 & 0xF];
+    output[1] = TD4[s1 >> 12] << 12
+        ^ TD4[s1 >> 8 & 0xF] << 8
+        ^ TD4[s2 >> 4 & 0xF] << 4
+        ^ TD4[s0 & 0xF];
+    output[2] = TD4[s2 >> 12] << 12
+        ^ TD4[s2 >> 8 & 0xF] << 8
+        ^ TD4[s0 >> 4 & 0xF] << 4
+        ^ TD4[s1 & 0xF];
 }
