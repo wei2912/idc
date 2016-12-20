@@ -116,12 +116,12 @@ int main(int argc, char *argv[]) {
                     decrypt_r(state1, state3, o5);
 
                     // 5. If omega5 has met the impossible differential, eliminate it.
-                    if (has_208(state2, state3) || has_224(state2, state3)) {
-                        pks[pos] = 0;
+                    if (has_208(state2, state3) || has_224(state2, state3)) pks[pos] = 0;
+                    // ...else, we mark as eliminated
+                    else {
+                        isEliminated = false;
                         --n;
                     }
-                    // ...else, we mark as eliminated
-                    else isEliminated = false;
                 }
 
                 // 6. If pk6 has been eliminated, delete it from the index.
