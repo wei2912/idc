@@ -1,4 +1,5 @@
 #include <bitset>
+#include <cstdio>
 #include <iostream>
 #include <vector>
 #include "idc.h"
@@ -56,6 +57,8 @@ int main(int argc, char *argv[]) {
     for (uint32_t pk6 = 0; pk6 < 65536; ++pk6) index.push_back(pk6);
 
     // 2. Read in plaintext-ciphertext pairs.
+    int i = 0;
+    int n = 16777216;
     uint16_t ct0[3], ct1[3];
     uint64_t pt0_hex, ct0_hex, pt1_hex, ct1_hex;
     while (std::cin >> std::hex >> pt0_hex >> ct0_hex >> pt1_hex >> ct1_hex) {
@@ -73,7 +76,7 @@ int main(int argc, char *argv[]) {
         // 010
         // 000
         // 000
- 
+
         for (auto it = index.begin(); it != index.end(); ++it) {
             // construct full k6 from pk6.
             // (value of fixed nibbles do not matter)
@@ -115,7 +118,10 @@ int main(int argc, char *argv[]) {
                     // 5. If omega5 has met the impossible differential, eliminate it.
                     if (has_208(state2, state3) || has_224(state2, state3)) pks[pos] = 0;
                     // ...else, we mark as eliminated
-                    else isEliminated = false;
+                    else {
+                        isEliminated = false;
+                        --n;
+                    }
                 }
 
                 // 6. If pk6 has been eliminated, delete it from the index.
@@ -125,6 +131,8 @@ int main(int argc, char *argv[]) {
                 }
             }
         }
+
+        std::cout << "Round " << i << ": # of partial (k6, o5) = " << n << ", # of partial k6 = " << index.size() << std::endl;
     }
 
     // 7. Print out all (k6, o5) pairs.

@@ -1,4 +1,5 @@
 #include <bitset>
+#include <cstdio>
 #include <iostream>
 #include <map>
 #include "idc.h"
@@ -74,7 +75,7 @@ int main(int argc, char *argv[]) {
                     ^ MC_INV_2[k5[2] >> 4 & 0xF]
                     ^ MC_INV_3[k5[2] & 0xF]) >> 8;
                 if (it1->second[po51] == 0) continue;
-                
+
                 // 5. Derive the rest of k5 and up to the master key.
                 uint16_t last_col = (k5[2] << 4) ^ (k5[2] >> 12);
                 k5[0] = (
@@ -84,7 +85,7 @@ int main(int argc, char *argv[]) {
                     ^ TE4[last_col & 0xF]
                 ) ^ k6[0];
                 derive_from_k5(k5, k0);
-                
+
                 // 6. Try to encrypt a plaintext with the master key and see if it matches.
                 uint16_t output[3];
                 encrypt(pt, output, k0);

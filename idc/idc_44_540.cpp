@@ -1,4 +1,5 @@
 #include <bitset>
+#include <cstdio>
 #include <iostream>
 #include <vector>
 #include "idc.h"
