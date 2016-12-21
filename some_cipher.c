@@ -132,7 +132,7 @@ void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *k0) {
     output[1] = input[1] ^ k0[1];
     output[2] = input[2] ^ k0[2];
 
-    for (uint8_t i = 1; i < ROUNDS; ++i) {
+    for (int i = 1; i < ROUNDS; ++i) {
         encrypt_r(output, output);
         output[0] ^= ks[i][0];
         output[1] ^= ks[i][1];
@@ -188,7 +188,7 @@ void decrypt(const uint16_t* input, uint16_t *output, const uint16_t* k0) {
     output[1] = input[1] ^ ks[ROUNDS][1];
     output[2] = input[2] ^ ks[ROUNDS][2];
 
-    for (uint8_t i = ROUNDS - 1; i > 0; --i) {
+    for (int i = ROUNDS - 1; i > 0; --i) {
         decrypt_r(output, output);
         output[0] ^= mc_inv(ks[i][0]);
         output[1] ^= mc_inv(ks[i][1]);
