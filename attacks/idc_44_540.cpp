@@ -1,7 +1,6 @@
 #include <bitset>
 #include <iostream>
 #include <vector>
-#include "idc.h"
 
 extern "C" {
 #include "../some_cipher.h"
