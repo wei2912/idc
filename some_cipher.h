@@ -14,10 +14,12 @@ void next_key(const uint16_t *prev_k, uint16_t *cur_k, const int i);
 void prev_key(const uint16_t *cur_k, uint16_t *prev_k, const int i);
 
 void decrypt(const uint16_t *input, uint16_t *output, const uint16_t *k0);
+void decrypt_with_keys(const uint16_t *input, uint16_t *output, const uint16_t (*ks)[3]);
 void decrypt_r(const uint16_t *input, uint16_t *output);
 void decrypt_last_r(const uint16_t *input, uint16_t *output);
 
 void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *k0);
+void encrypt_with_keys(const uint16_t *input, uint16_t *output, const uint16_t (*ks)[3]);
 void encrypt_r(const uint16_t *input, uint16_t *output);
 void encrypt_last_r(const uint16_t *input, uint16_t *output);
 
