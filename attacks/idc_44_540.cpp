@@ -77,14 +77,22 @@ int main(int argc, char *argv[]) {
             // construct full k6 from pk6.
             // (value of fixed nibbles do not matter)
             uint16_t pk6 = *it;
-            uint16_t k6[3];
+            uint16_t k6[3] = {};
             k6[0] = pk6 >> 8 & 0x00F0;
             k6[1] = pk6 >> 8 & 0x000F;
             k6[2] = pk6 << 8 & 0xFF00;
 
             uint16_t state0[3], state1[3];
-            decrypt_r(ct0, state0, k6);
-            decrypt_r(ct1, state1, k6);
+
+            state0[0] = ct0[0] ^ k6[0];
+            state0[1] = ct0[1] ^ k6[1];
+            state0[2] = ct0[2] ^ k6[2];
+            decrypt_r(state0, state0);
+
+            state1[0] = ct1[0] ^ k6[0];
+            state1[1] = ct1[1] ^ k6[1];
+            state1[2] = ct1[2] ^ k6[2];
+            decrypt_r(state1, state1);
 
             if (has_12(state0, state1)) {
                 // 4. Go through all the possible omega5s.
@@ -104,12 +112,20 @@ int main(int argc, char *argv[]) {
                     uint32_t pos = (((uint32_t) pk6) << 8) | po5;
                     if (pks[pos] == 0) continue;
 
-                    uint16_t o5[3];
+                    uint16_t o5[3] = {};
                     o5[2] = po5 << 8;
 
                     uint16_t state2[3], state3[3];
-                    decrypt_r(state0, state2, o5);
-                    decrypt_r(state1, state3, o5);
+
+                    state2[0] = state0[0] ^ o5[0];
+                    state2[1] = state0[1] ^ o5[1];
+                    state2[2] = state0[2] ^ o5[2];
+                    decrypt_r(state0, state2);
+
+                    state3[0] = state1[0] ^ o5[0];
+                    state3[1] = state1[1] ^ o5[1];
+                    state3[2] = state1[2] ^ o5[2];
+                    decrypt_r(state1, state3);
 
                     // 5. If omega5 has met the impossible differential, eliminate it.
                     if (has_13(state2, state3) || has_14(state2, state3)) pks[pos] = 0;
