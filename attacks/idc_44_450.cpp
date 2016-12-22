@@ -1,6 +1,8 @@
+#include <algorithm>
 #include <bitset>
 #include <cstdio>
 #include <iostream>
+#include <iterator>
 #include <vector>
 
 extern "C" {
@@ -53,6 +55,7 @@ int main(int argc, char *argv[]) {
     std::bitset<16777216> pks;
     std::vector<uint16_t> index;
     pks.set();
+    index.reserve(65536);
     for (int pk6 = 0; pk6 < 65536; ++pk6) index.push_back(pk6);
 
     // 2. Read in plaintext-ciphertext pairs.
@@ -75,7 +78,8 @@ int main(int argc, char *argv[]) {
         // 000
         // 000
 
-        for (auto it = index.begin(); it != index.end(); ++it) {
+        auto it = index.begin();
+        while (it != index.end()) {
             // construct full k6 from pk6.
             // (value of fixed nibbles do not matter)
             uint16_t pk6 = *it;
@@ -92,6 +96,7 @@ int main(int argc, char *argv[]) {
             add_key(ct1, state1, k6);
             decrypt_r(state1, state1);
 
+            bool is_eliminated = false;
             if (has_192(state0, state1)) {
                 // 4. Go through all the possible omega5s.
                 // Decrypt the ciphertexts with each omega5 and check if they have the following differences:
@@ -105,7 +110,7 @@ int main(int argc, char *argv[]) {
                 // 010
                 // 000
 
-                bool isEliminated = true;
+                is_eliminated = true;
                 for (int po5 = 0; po5 < 256; ++po5) {
                     uint32_t pos = (((uint32_t) pk6) << 8) | po5;
                     if (pks[pos] == 0) continue;
@@ -116,29 +121,26 @@ int main(int argc, char *argv[]) {
                     uint16_t state2[3], state3[3];
 
                     add_key(state0, state2, o5);
-                    decrypt_r(state0, state2);
+                    decrypt_r(state2, state2);
 
                     add_key(state1, state3, o5);
-                    decrypt_r(state1, state3);
+                    decrypt_r(state3, state3);
 
                     // 5. If omega5 has met the impossible differential, eliminate it.
                     if (has_208(state2, state3) || has_224(state2, state3)) {
                         pks[pos] = 0;
                         --n;
-                    }
                     // ...else, we mark pk6 as not eliminated.
-                    else isEliminated = false;
-                }
-
-                // 6. If pk6 has been eliminated, delete it from the index.
-                if (isEliminated) {
-                    index.erase(it);
-                    --it;
+                    } else is_eliminated = false;
                 }
             }
+
+            // 6. If pk6 has been eliminated, delete it from the index.
+            if (is_eliminated) it = index.erase(it);
+            else ++it;
         }
 
-        if (n == 1) break;
+        if (n <= 1) break;
     }
 
     // 7. Print out all (k6, o5) pairs.
