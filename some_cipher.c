@@ -95,8 +95,14 @@ uint16_t mc_inv(const uint16_t input) {
         ^ TD3[TE1[input & 0xF] & 0xF];
 }
 
+void add_key(const uint16_t input[3], uint16_t output[3], const uint16_t ki[3]) {
+    output[0] = input[0] ^ ki[0];
+    output[1] = input[1] ^ ki[1];
+    output[2] = input[2] ^ ki[2];
+}
+
 /* i represents the round number (1-6). */
-void next_key(const uint16_t *prev_k, uint16_t *cur_k, const int i) {
+void next_key(const uint16_t prev_k[3], uint16_t cur_k[3], const int i) {
     uint16_t last_col = (prev_k[2] << 4) ^ (prev_k[2] >> 12);
     cur_k[0] = (
         (TE4[last_col >> 12] ^ RCONS[i-1]) << 12
@@ -109,7 +115,7 @@ void next_key(const uint16_t *prev_k, uint16_t *cur_k, const int i) {
 }
 
 /* i represents the round number (1-6). */
-void prev_key(const uint16_t *cur_k, uint16_t *prev_k, const int i) {
+void prev_key(const uint16_t cur_k[3], uint16_t prev_k[3], const int i) {
     prev_k[1] = cur_k[0] ^ cur_k[1];
     prev_k[2] = cur_k[1] ^ cur_k[2];
     uint16_t last_col = (prev_k[2] << 4) ^ (prev_k[2] >> 12);
@@ -121,7 +127,7 @@ void prev_key(const uint16_t *cur_k, uint16_t *prev_k, const int i) {
     ) ^ prev_k[0];
 }
 
-void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *k0) {
+void encrypt(const uint16_t input[3], uint16_t output[3], const uint16_t k0[3]) {
     uint16_t ks[ROUNDS+1][3] = {};
     ks[0][0] = k0[0];
     ks[0][1] = k0[1];
@@ -131,25 +137,19 @@ void encrypt(const uint16_t *input, uint16_t *output, const uint16_t *k0) {
     encrypt_with_keys(input, output, ks);
 }
 
-void encrypt_with_keys(const uint16_t *input, uint16_t *output, const uint16_t (*ks)[3]) {
-    output[0] = input[0] ^ ks[0][0];
-    output[1] = input[1] ^ ks[0][1];
-    output[2] = input[2] ^ ks[0][2];
+void encrypt_with_keys(const uint16_t input[3], uint16_t output[3], const uint16_t ks[3][3]) {
+    add_key(input, output, ks[0]);
 
     for (int i = 1; i < ROUNDS; ++i) {
         encrypt_r(output, output);
-        output[0] ^= ks[i][0];
-        output[1] ^= ks[i][1];
-        output[2] ^= ks[i][2];
+        add_key(output, output, ks[i]);
     }
 
     encrypt_last_r(output, output);
-    output[0] ^= ks[ROUNDS][0];
-    output[1] ^= ks[ROUNDS][1];
-    output[2] ^= ks[ROUNDS][2];
+    add_key(output, output, ks[ROUNDS]);
 }
 
-void encrypt_r(const uint16_t *input, uint16_t *output) {
+void encrypt_r(const uint16_t input[3], uint16_t output[3]) {
     uint16_t s0 = input[0], s1 = input[1], s2 = input[2];
     output[0] = TE0[s0 >> 12]
         ^ TE1[s0 >> 8 & 0xF]
@@ -165,7 +165,7 @@ void encrypt_r(const uint16_t *input, uint16_t *output) {
         ^ TE3[s0 & 0xF];
 }
 
-void encrypt_last_r(const uint16_t *input, uint16_t *output) {
+void encrypt_last_r(const uint16_t input[3], uint16_t output[3]) {
     uint16_t s0 = input[0], s1 = input[1], s2 = input[2];
     output[0] = (TE0[s0 >> 12] & 0xF000)
         ^ (TE3[s0 >> 8 & 0xF] & 0x0F00)
@@ -181,7 +181,7 @@ void encrypt_last_r(const uint16_t *input, uint16_t *output) {
         ^ (TE1[s0 & 0xF] & 0x000F);
 }
 
-void decrypt(const uint16_t *input, uint16_t *output, const uint16_t *k0) {
+void decrypt(const uint16_t input[3], uint16_t output[3], const uint16_t k0[3]) {
     uint16_t ks[ROUNDS+1][3] = {};
     ks[0][0] = k0[0];
     ks[0][1] = k0[1];
@@ -191,10 +191,8 @@ void decrypt(const uint16_t *input, uint16_t *output, const uint16_t *k0) {
     decrypt_with_keys(input, output, ks);
 }
  
-void decrypt_with_keys(const uint16_t *input, uint16_t *output, const uint16_t (*ks)[3]) {
-    output[0] = input[0] ^ ks[ROUNDS][0];
-    output[1] = input[1] ^ ks[ROUNDS][1];
-    output[2] = input[2] ^ ks[ROUNDS][2];
+void decrypt_with_keys(const uint16_t input[3], uint16_t output[3], const uint16_t ks[3][3]) {
+    add_key(input, output, ks[ROUNDS]);
 
     for (int i = ROUNDS - 1; i > 0; --i) {
         decrypt_r(output, output);
@@ -204,12 +202,10 @@ void decrypt_with_keys(const uint16_t *input, uint16_t *output, const uint16_t (
     }
 
     decrypt_last_r(output, output);
-    output[0] ^= ks[0][0];
-    output[1] ^= ks[0][1];
-    output[2] ^= ks[0][2];
+    add_key(output, output, ks[0]);
 }
 
-void decrypt_r(const uint16_t *input, uint16_t *output) {
+void decrypt_r(const uint16_t input[3], uint16_t output[3]) {
     uint16_t s0 = input[0], s1 = input[1], s2 = input[2];
     output[0] = TD0[s0 >> 12]
         ^ TD1[s0 >> 8 & 0xF]
@@ -225,7 +221,7 @@ void decrypt_r(const uint16_t *input, uint16_t *output) {
         ^ TD3[s1 & 0xF];
 }
 
-void decrypt_last_r(const uint16_t *input, uint16_t *output) {
+void decrypt_last_r(const uint16_t input[3], uint16_t output[3]) {
     uint16_t s0 = input[0], s1 = input[1], s2 = input[2];
     output[0] = TD4[s0 >> 12] << 12
         ^ TD4[s0 >> 8 & 0xF] << 8

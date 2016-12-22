@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
     std::bitset<16777216> pks;
     std::vector<uint16_t> index;
     pks.set();
-    for (uint32_t pk6 = 0; pk6 < 65536; ++pk6) index.push_back(pk6);
+    for (int pk6 = 0; pk6 < 65536; ++pk6) index.push_back(pk6);
 
     // 2. Read in plaintext-ciphertext pairs.
     int n = 16777216;
@@ -85,14 +85,10 @@ int main(int argc, char *argv[]) {
 
             uint16_t state0[3], state1[3];
 
-            state0[0] = ct0[0] ^ k6[0];
-            state0[1] = ct0[1] ^ k6[1];
-            state0[2] = ct0[2] ^ k6[2];
+            add_key(ct0, state0, k6);
             decrypt_r(state0, state0);
 
-            state1[0] = ct1[0] ^ k6[0];
-            state1[1] = ct1[1] ^ k6[1];
-            state1[2] = ct1[2] ^ k6[2];
+            add_key(ct1, state1, k6);
             decrypt_r(state1, state1);
 
             if (has_12(state0, state1)) {
@@ -109,7 +105,7 @@ int main(int argc, char *argv[]) {
                 // 000
 
                 bool isEliminated = true;
-                for (uint16_t po5 = 0; po5 < 256; ++po5) {
+                for (int po5 = 0; po5 < 256; ++po5) {
                     uint32_t pos = (((uint32_t) pk6) << 8) | po5;
                     if (pks[pos] == 0) continue;
 
@@ -118,14 +114,10 @@ int main(int argc, char *argv[]) {
 
                     uint16_t state2[3], state3[3];
 
-                    state2[0] = state0[0] ^ o5[0];
-                    state2[1] = state0[1] ^ o5[1];
-                    state2[2] = state0[2] ^ o5[2];
+                    add_key(state0, state2, o5);
                     decrypt_r(state0, state2);
 
-                    state3[0] = state1[0] ^ o5[0];
-                    state3[1] = state1[1] ^ o5[1];
-                    state3[2] = state1[2] ^ o5[2];
+                    add_key(state1, state3, o5);
                     decrypt_r(state1, state3);
 
                     // 5. If omega5 has met the impossible differential, eliminate it.
