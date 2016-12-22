@@ -124,7 +124,7 @@ void prev_key(const uint16_t cur_k[3], uint16_t prev_k[3], const int i) {
         ^ TE4[last_col >> 8 & 0xF] << 8
         ^ TE4[last_col >> 4 & 0xF] << 4
         ^ TE4[last_col & 0xF]
-    ) ^ prev_k[0];
+    ) ^ cur_k[0];
 }
 
 void encrypt(const uint16_t input[3], uint16_t output[3], const uint16_t k0[3]) {
@@ -133,6 +133,8 @@ void encrypt(const uint16_t input[3], uint16_t output[3], const uint16_t k0[3]) 
     ks[0][1] = k0[1];
     ks[0][2] = k0[2];
     for (int i = 1; i <= ROUNDS; ++i) next_key(ks[i-1], ks[i], i);
+
+    for (int i = 0; i <= ROUNDS; ++i) printf("%d %04x%04x%04x\n", i, ks[i][0], ks[i][1], ks[i][2]);
 
     encrypt_with_keys(input, output, ks);
 }
